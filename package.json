@@ -1,8 +1,8 @@
 {
 	"name": "regur-also-read-post",
 	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
+	"description": "A simple plugin to display also read posts.",
+	"author": "Regur Technology Solutions",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
