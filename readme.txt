@@ -1,6 +1,6 @@
 === Regur Also Read Post ===
-Contributors:      The WordPress Contributors
-Tags:              block
+Contributors:      Regur Technology Solutions
+Tags:              Also Read
 Tested up to:      6.7
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
