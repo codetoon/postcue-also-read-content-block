@@ -5,5 +5,14 @@
  */
 
 .wp-block-create-block-regur-also-read-post {
-	border: 1px dotted #f00;
+	// border: 1px dotted #f00;
+}
+
+// input 
+.wp-block-create-block-regur-also-read-post input {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box;
 }

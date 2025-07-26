@@ -31,11 +31,18 @@ import './editor.scss';
  */
 export default function Edit() {
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Regur Also Read Post – hello from the editor!',
-				'regur-also-read-post'
-			) }
-		</p>
+		// returns input for search posts
+		<div {...useBlockProps()}>
+			<p>
+				{__('Regur Also Read Post', 'regur-also-read-post')}
+			</p>
+			<input
+				type="text"
+				placeholder={__('Search posts...', 'regur-also-read-post')}
+				className="regur-also-read-post-search-input"
+			/>
+		</div>
+		
+
 	);
 }
