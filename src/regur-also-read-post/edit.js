@@ -29,7 +29,6 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-import Post from './post';
 export default function Edit() {
 	return (
 		// returns input for search posts
