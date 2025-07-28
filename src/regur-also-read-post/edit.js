@@ -67,9 +67,9 @@ export default function Edit() {
 				<ul className="regur-also-read-post-list">
 					{filteredPosts.map((post) => (
 						<li key={post.id} className="regur-also-read-post-item">
-							<a href={post.link} className="regur-also-read-post-title">
+							<span href={post.link} className="regur-also-read-post-title">
 								{post.title}
-							</a>
+							</span>
 						</li>
 					))}
 				</ul>

@@ -34,15 +34,9 @@
 }
 // item
 .regur-also-read-post-item {
-	display: flex;
-	justify-content: space-between;
-	gap: 10px;
-	align-items: center;
 	border-bottom: 1px solid #ddd;
 	padding:10px;
-	border-radius: 4px;
 	cursor: pointer;
-	transition: background-color 0.3s ease;
 }
 // Title
 .regur-also-read-post-title {
