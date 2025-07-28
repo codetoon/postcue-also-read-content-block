@@ -6,7 +6,7 @@
 	"title": "Regur Also Read Post",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "A block to display also read posts based on the search term",
 	"example": {},
 	"supports": {
 		"html": false
