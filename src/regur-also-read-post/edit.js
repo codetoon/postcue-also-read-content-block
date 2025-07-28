@@ -4,6 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
+import { useState } from 'react'; // Import useState for managing state
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -52,41 +53,44 @@ const handleInputChange = (value) => {
 }
 
 export default function Edit() {
+	// Using useState to manage filtered posts
+	const [filteredPosts, setFilteredPosts] = useState([]);
+
+	// Function to handle the search input change
+	const handleInputChange = (value) => {
+		const filtered = postsData.filter(post =>
+			post.title.toLowerCase().includes(value.toLowerCase())
+		);
+
+		setFilteredPosts(value === '' ? [] : filtered); // Reset if input is empty
+	};
 
 	return (
-		// returns input for search posts
-
-		<div>
-			<div {...useBlockProps()}>
-				<div className='regur-also-read-post-search'>
-					<input
-						type="text"
-						onChange={(event) => {
-							handleInputChange(event.target.value);
-						}}
-						id="regur-also-read-post-search"
-						name="regur_also_read_post_search"
-						placeholder={__('Search posts', 'regur-also-read-post')}
-						className="regur-also-read-post-search-input"
-					/>
-				</div>
-
-				{
-					filteredPosts.length > 0 && (
-						<ul className="regur-also-read-post-list">
-							{filteredPosts.map(post => (
-								<li key={post.id} className="regur-also-read-post-item">
-									<span className="regur-also-read-post-title">
-										{post.title}
-									</span>
-								</li>
-							))}
-						</ul>
-					)}
-
+		<div {...useBlockProps()}>
+			<div className="regur-also-read-post-search">
+				<input
+					type="text"
+					onChange={(event) => handleInputChange(event.target.value)}
+					id="regur-also-read-post-search"
+					name="regur_also_read_post_search"
+					placeholder={__('Search posts', 'regur-also-read-post')}
+					className="regur-also-read-post-search-input"
+				/>
 			</div>
-		</div>
 
+			{/* Show dropdown only if there are filtered posts */}
+			{filteredPosts.length > 0 && (
+				<ul className="regur-also-read-post-list">
+					{filteredPosts.map((post) => (
+						<li key={post.id} className="regur-also-read-post-item">
+							<a href={post.link} className="regur-also-read-post-title">
+								{post.title}
+							</a>
+						</li>
+					))}
+				</ul>
+			)}
+		</div>
 	);
 }
 
