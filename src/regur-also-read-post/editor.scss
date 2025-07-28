@@ -19,7 +19,9 @@
 	width: 100%;
 	box-sizing: border-box;
 }
-
+.wp-block-create-block-regur-also-read-post input:focus {
+	outline: none;
+}
 // list
 .regur-also-read-post-list {
 	list-style: none;
