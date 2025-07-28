@@ -56,33 +56,35 @@ export default function Edit() {
 	return (
 		// returns input for search posts
 
-		<div {...useBlockProps()}>
-			<div className='regur-also-read-post-search'>
-				<input
-					type="text"
-					onChange={(event) => {
-						handleInputChange(event.target.value);
-					}}
-					id="regur-also-read-post-search"
-					name="regur_also_read_post_search"
-					placeholder={__('Search posts', 'regur-also-read-post')}
-					className="regur-also-read-post-search-input"
-				/>
+		<div>
+			<div {...useBlockProps()}>
+				<div className='regur-also-read-post-search'>
+					<input
+						type="text"
+						onChange={(event) => {
+							handleInputChange(event.target.value);
+						}}
+						id="regur-also-read-post-search"
+						name="regur_also_read_post_search"
+						placeholder={__('Search posts', 'regur-also-read-post')}
+						className="regur-also-read-post-search-input"
+					/>
+				</div>
+
+				{
+					filteredPosts.length > 0 && (
+						<ul className="regur-also-read-post-list">
+							{filteredPosts.map(post => (
+								<li key={post.id} className="regur-also-read-post-item">
+									<span className="regur-also-read-post-title">
+										{post.title}
+									</span>
+								</li>
+							))}
+						</ul>
+					)}
+
 			</div>
-
-			{
-				filteredPosts.length > 0 && (
-					<ul className="regur-also-read-post-list">
-						{filteredPosts.map(post => (
-							<li key={post.id} className="regur-also-read-post-item">
-								<a href={post.link} className="regur-also-read-post-link">
-									{post.title}
-								</a>
-							</li>
-						))}
-					</ul>
-				)}
-
 		</div>
 
 	);
