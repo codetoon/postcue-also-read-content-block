@@ -36,22 +36,6 @@ const postsData = [
 	{ id: 2, title: 'How to Build a Scalable Software Business Starting with an MVP?', link: '#' },
 ]
 
-var filteredPosts = []; // Initialize with an empty array
-
-const returnFilteredPosts = () => {
-	return filteredPosts;
-}
-
-const handleInputChange = (value) => {
-	filteredPosts = postsData.filter(post => post.title.toLowerCase().includes(value.toLowerCase()));
-
-	if (value === '') {
-		filteredPosts = []; // Reset to all posts if input is empty
-	}
-
-	returnFilteredPosts()
-}
-
 export default function Edit() {
 	// Using useState to manage filtered posts
 	const [filteredPosts, setFilteredPosts] = useState([]);
