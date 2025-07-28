@@ -29,20 +29,34 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
+import Post from './post';
 export default function Edit() {
 	return (
 		// returns input for search posts
 		<div {...useBlockProps()}>
 			<p>
-				{__('Regur Also Read Post', 'regur-also-read-post')}
+				{__('Search Also Read Post', 'regur-also-read-post')}
 			</p>
-			<input
+			<div className='regur-also-read-post-search'>
+				<input
 				type="text"
-				placeholder={__('Search posts...', 'regur-also-read-post')}
+				onInput={(event) => {
+					handleInputChange(event.target.value);
+				}}
+				id="regur-also-read-post-search"
+				name="regur_also_read_post_search"
+				placeholder={__('Search posts', 'regur-also-read-post')}
 				className="regur-also-read-post-search-input"
 			/>
+			<button type='search' className="regur-also-read-post-search-button" onClick={(event) => {console.log('Button clicked!'); event.preventDefault();}}>
+				{__('Search', 'regur-also-read-post')}
+			</button>
+			</div>
 		</div>
-		
-
 	);
 }
+
+// const handleInputChange = (value) => {
+// 	Post(value); // Call the Post function with the input value
+// }
+
