@@ -5,6 +5,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from 'react'; // Import useState for managing state
+import Autosuggest from 'react-autosuggest';
 
 /**
  * React hook that is used to mark the block wrapper element.
