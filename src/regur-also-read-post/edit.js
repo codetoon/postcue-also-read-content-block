@@ -31,10 +31,6 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 
-const postsData = [
-	{ id: 1, title: 'Top WordPress Development Companies in India: How to Choose the Right Partner?', link: '#' },
-	{ id: 2, title: 'How to Build a Scalable Software Business Starting with an MVP?', link: '#' },
-]
 
 export default function Edit() {
 	// Using useState to manage filtered posts
@@ -42,11 +38,20 @@ export default function Edit() {
 
 	// Function to handle the search input change
 	const handleInputChange = (value) => {
-		const filtered = postsData.filter(post =>
-			post.title.toLowerCase().includes(value.toLowerCase())
-		);
+		// Update input state (optional)
+		setFilteredPosts([]); // clear while loading
 
-		setFilteredPosts(value === '' ? [] : filtered); // Reset if input is empty
+
+		// Make AJAX call
+		fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`)
+			.then((response) => response.json())
+			.then((data) => {
+				setFilteredPosts(value === '' ? [] : data); // Reset if input is empty
+			})
+			.catch((error) => {
+				console.error('Search error:', error);
+			});
+			
 	};
 
 	return (
@@ -67,7 +72,7 @@ export default function Edit() {
 				<ul className="regur-also-read-post-list">
 					{filteredPosts.map((post) => (
 						<li key={post.id} className="regur-also-read-post-item">
-							<span href={post.link} className="regur-also-read-post-title">
+							<span className="regur-also-read-post-title">
 								{post.title}
 							</span>
 						</li>
