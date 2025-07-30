@@ -37,21 +37,19 @@ export default function Edit() {
 	const [filteredPosts, setFilteredPosts] = useState([]);
 
 	// Function to handle the search input change
-	const handleInputChange = (value) => {
+	const handleInputChange = async (value) => {
 		// Update input state (optional)
 		setFilteredPosts([]); // clear while loading
-
-
+		
 		// Make AJAX call
-		fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`)
-			.then((response) => response.json())
-			.then((data) => {
-				setFilteredPosts(value === '' ? [] : data); // Reset if input is empty
-			})
-			.catch((error) => {
-				console.error('Search error:', error);
-			});
-			
+		try{
+			const res  = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`);
+			const data = await res.json();
+			setFilteredPosts(value === '' ? [] : data); // Reset if input is empty
+		}
+		catch (error) {
+			console.error('Search error:', error);
+		}	
 	};
 
 	return (
