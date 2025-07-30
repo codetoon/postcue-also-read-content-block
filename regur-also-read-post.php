@@ -93,3 +93,26 @@ function rps_ajax_post_search()
 
 	wp_send_json($results);
 }
+
+function rps_enqueue_scripts()
+{
+	wp_enqueue_script(
+		'rps-search',
+		plugin_dir_url(__FILE__) . 'view.js', // for frontend view
+		['jquery'],
+		null,
+		true
+	);
+
+	wp_localize_script('rps-search', 'rps_ajax', [
+		'ajax_url' => admin_url('admin-ajax.php')
+	]);
+}
+add_action('wp_enqueue_scripts', 'rps_enqueue_scripts');
+
+// Enqueue in block editor too
+function rps_enqueue_editor_scripts()
+{
+	wp_add_inline_script('wp-block-editor', 'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";', 'before');
+}
+add_action('enqueue_block_editor_assets', 'rps_enqueue_editor_scripts');
