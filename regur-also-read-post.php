@@ -57,3 +57,39 @@ function create_block_regur_also_read_post_block_init() {
 	}
 }
 add_action( 'init', 'create_block_regur_also_read_post_block_init' );
+
+// Register AJAX handlers for both logged-in and guest users
+add_action('wp_ajax_post_search', 'rps_ajax_post_search');
+add_action('wp_ajax_nopriv_post_search', 'rps_ajax_post_search');
+
+function rps_ajax_post_search()
+{
+	error_log('AJAX called');
+
+	$term = isset($_GET['term']) ? sanitize_text_field($_GET['term']) : '';
+
+	error_log('Search term: ' . $term);
+
+	$query = new WP_Query([
+		's' => $term,
+		'post_type' => 'post',
+		'posts_per_page' => 10,
+	]);
+
+	$results = [];
+
+	if ($query->have_posts()) {
+		while ($query->have_posts()) {
+			$query->the_post();
+			$results[] = [
+				'id' => get_the_ID(),
+				'title' => get_the_title(),
+				'link' => get_permalink(),
+			];
+		}
+	}
+
+	error_log('Results found: ' . count($results));
+
+	wp_send_json($results);
+}
