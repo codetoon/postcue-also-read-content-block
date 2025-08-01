@@ -14,7 +14,7 @@ import Autosuggest from 'react-autosuggest';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps } from '@wordpress/block-editor';
-
+import Post from './post.js';
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -39,7 +39,8 @@ export default function Edit() {
 
 	const [suggestions, setSuggestions] = useState([]);
 	const [value, setValue] = useState('');
-
+	const [selectedPost, setSelectedPost] = useState(null);
+	const [showInput, setShowInput] = useState(true);
 	// Called when input changes
 	const onChange = (event, {newValue}) =>{
 		setValue(newValue);
@@ -75,24 +76,35 @@ export default function Edit() {
 		<span>{suggestion.title}</span>
 	)
 
+	function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+		setSelectedPost(suggestion);
+		setShowInput(false);
+
+	}
+
 	return (
 		<div>
 			<div {...blockProps}>
-				<Autosuggest
-					suggestions={suggestions}
-					onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-					onSuggestionsClearRequested={onSuggestionsClearRequested}
-					getSuggestionValue={getSuggestionValue}
-					renderSuggestion={renderSuggestion}
-					inputProps={{
-						value,
-						onChange,
-						id: 'regur-also-read-post-input',
-						name: 'regur-also-read-post-input',
-						placeholder: __('Type to search posts...', 'regur-also-read-post'),
-					}}
-				/>
-				
+				{showInput && (
+					<Autosuggest
+						suggestions={suggestions}
+						onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+						onSuggestionsClearRequested={onSuggestionsClearRequested}
+						getSuggestionValue={getSuggestionValue}
+						renderSuggestion={renderSuggestion}
+						onSuggestionSelected={onSuggestionSelected}
+						inputProps={{
+							value,
+							onChange,
+							id: 'regur-also-read-post-input',
+							name: 'regur-also-read-post-input',
+							placeholder: __('Type to search posts...', 'regur-also-read-post'),
+						}}
+					/>
+				)}
+				{selectedPost && (
+					<Post selectedPost={selectedPost} />
+				)}
 			</div>
 		</div>
 	);
