@@ -34,50 +34,62 @@ import './editor.scss';
 
 
 export default function Edit() {
-	// Using useState to manage filtered posts
-	const [filteredPosts, setFilteredPosts] = useState([]);
 
-	// Function to handle the search input change
-	const handleInputChange = async (value) => {
-		// Update input state (optional)
-		setFilteredPosts([]); // clear while loading
-		
-		// Make AJAX call
-		try{
-			const res  = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`);
-			const data = await res.json();
-			setFilteredPosts(value === '' ? [] : data); // Reset if input is empty
+	const blockProps = useBlockProps();
+
+	const [suggestions, setSuggestions] = useState([]);
+	const [value, setValue] = useState('');
+
+	// Called when input changes
+	const onChange = (event, {newValue}) =>{
+		setValue(newValue);
+	}
+
+	// Autosuggest will call this function every time you need to update suggestions.
+    // You already implemented this logic above, so just use it.
+	const onSuggestionsFetchRequested = async ({ value }) => {
+		if (!value) {
+			setSuggestions([]);
+			return;
 		}
-		catch (error) {
-			console.error('Search error:', error);
-		}	
-	};
+		try {
+			const res = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`);
+			const data = await res.json();
+			setSuggestions(data || []);
 
+		} catch (error) {
+			console.error('Suggestion fetch error:', error);
+			setSuggestions([]);
+		}
+	}
+
+	// Autosuggest will call this function every time you need to clear suggestions.
+	const onSuggestionsClearRequested = () => {
+		setSuggestions([]);
+	}
+	// Implement it to teach Autosuggest what should be the input value when suggestion is clicked.
+	const getSuggestionValue = suggestion => suggestion.title;
+
+	// Suggestion is rendered in the dropdown
+	const renderSuggestion = suggestion => (
+		<span>{suggestion.title}</span>
+	)
 	return (
-		<div {...useBlockProps()}>
-			<div className="regur-also-read-post-search">
-				<input
-					type="text"
-					onChange={(event) => handleInputChange(event.target.value)}
-					id="regur-also-read-post-search"
-					name="regur_also_read_post_search"
-					placeholder={__('Search posts', 'regur-also-read-post')}
-					className="regur-also-read-post-search-input"
-				/>
-			</div>
-
-			{/* Show dropdown only if there are filtered posts */}
-			{filteredPosts.length > 0 && (
-				<ul className="regur-also-read-post-list">
-					{filteredPosts.map((post) => (
-						<li key={post.id} className="regur-also-read-post-item">
-							<span className="regur-also-read-post-title">
-								{post.title}
-							</span>
-						</li>
-					))}
-				</ul>
-			)}
+		<div {...blockProps}>
+			<Autosuggest
+				suggestions={suggestions}
+				onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+				onSuggestionsClearRequested={onSuggestionsClearRequested}
+				getSuggestionValue={getSuggestionValue}
+				renderSuggestion={renderSuggestion}
+				inputProps={{
+					value,
+					onChange,
+					id: 'regur-also-read-post-input',
+					name: 'regur-also-read-post-input',
+					placeholder: __('Type to search posts...', 'regur-also-read-post'),
+				}}
+			/>
 		</div>
 	);
 }
