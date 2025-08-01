@@ -4,42 +4,67 @@
  * Replace them with your own styles or remove the file completely.
  */
 
- .regur-also-read-post-search{
-	display: flex;
-	gap: 10px;
- }
+.wp-block-create-block-regur-also-read-post .react-autosuggest__input {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #fff;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-// input 
-.wp-block-create-block-regur-also-read-post input {
-	border: none;
-	border-radius: 0 !important;
-	border-radius: 4px;
-	padding: 10px;
-	font-size: 16px;
-	width: 100%;
-	box-sizing: border-box;
+.wp-block-create-block-regur-also-read-post .react-autosuggest__input::placeholder {
+  color: #999;
 }
-.wp-block-create-block-regur-also-read-post input:focus {
-	outline: none;
+
+.wp-block-create-block-regur-also-read-post .react-autosuggest__input:focus {
+  border-color: #0077cc;
+  box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.2);
+  outline: none;
+  background-color: #fff;
 }
-// list
-.regur-also-read-post-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	background: white;
-	border: none;
+
+
+.react-autosuggest__suggestions-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: #fff;
+  border-top: none;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  border-radius: 0 0 6px 6px;
+  
 }
-// item
-.regur-also-read-post-item {
-	border-bottom: 1px solid #ddd;
-	padding:10px;
-	cursor: pointer;
+
+.react-autosuggest__suggestions-list {
+  list-style: none;
+  margin: 0;
+  border-radius: 6px;
+  padding: 0;
 }
-// Title
-.regur-also-read-post-title {
-	font-size: 16px;
-	color: #333;
+.react-autosuggest__suggestion {
+  padding: 15px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #f0f0f0;
+}
+
+.react-autosuggest__suggestions-container {
+  max-height: 40vh;
 }

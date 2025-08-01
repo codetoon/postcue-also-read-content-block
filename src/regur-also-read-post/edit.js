@@ -74,22 +74,26 @@ export default function Edit() {
 	const renderSuggestion = suggestion => (
 		<span>{suggestion.title}</span>
 	)
+
 	return (
-		<div {...blockProps}>
-			<Autosuggest
-				suggestions={suggestions}
-				onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-				onSuggestionsClearRequested={onSuggestionsClearRequested}
-				getSuggestionValue={getSuggestionValue}
-				renderSuggestion={renderSuggestion}
-				inputProps={{
-					value,
-					onChange,
-					id: 'regur-also-read-post-input',
-					name: 'regur-also-read-post-input',
-					placeholder: __('Type to search posts...', 'regur-also-read-post'),
-				}}
-			/>
+		<div>
+			<div {...blockProps}>
+				<Autosuggest
+					suggestions={suggestions}
+					onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+					onSuggestionsClearRequested={onSuggestionsClearRequested}
+					getSuggestionValue={getSuggestionValue}
+					renderSuggestion={renderSuggestion}
+					inputProps={{
+						value,
+						onChange,
+						id: 'regur-also-read-post-input',
+						name: 'regur-also-read-post-input',
+						placeholder: __('Type to search posts...', 'regur-also-read-post'),
+					}}
+				/>
+				
+			</div>
 		</div>
 	);
 }
