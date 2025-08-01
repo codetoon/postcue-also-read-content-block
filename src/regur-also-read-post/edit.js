@@ -41,6 +41,7 @@ export default function Edit() {
 	const [value, setValue] = useState('');
 	const [selectedPost, setSelectedPost] = useState(null);
 	const [showInput, setShowInput] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	// Called when input changes
 	const onChange = (event, {newValue}) =>{
 		setValue(newValue);
@@ -54,6 +55,7 @@ export default function Edit() {
 			return;
 		}
 		try {
+			setIsLoading(true);
 			const res = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`);
 			const data = await res.json();
 			setSuggestions(data || []);
@@ -61,6 +63,8 @@ export default function Edit() {
 		} catch (error) {
 			console.error('Suggestion fetch error:', error);
 			setSuggestions([]);
+		}finally{
+			setIsLoading(false);
 		}
 	}
 
@@ -102,6 +106,7 @@ export default function Edit() {
 						}}
 					/>
 				)}
+				{isLoading && suggestions.length == 0 && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
 				{selectedPost && (
 					<Post selectedPost={selectedPost} />
 				)}
