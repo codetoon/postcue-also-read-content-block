@@ -85,6 +85,7 @@ function rps_ajax_post_search()
 				'id' => get_the_ID(),
 				'title' => get_the_title(),
 				'link' => get_permalink(),
+				'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: '',
 			];
 		}
 	}
