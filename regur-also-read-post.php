@@ -66,21 +66,22 @@ function rps_ajax_post_search()
 {
 	error_log('AJAX called');
 
-	$term = isset($_GET['term']) ? sanitize_text_field($_GET['term']) : '';
+	$term = isset($_GET['term']) ? sanitize_text_field($_GET['term']) : ''; // Sanitize the search term
 
-	error_log('Search term: ' . $term);
+	error_log('Search term: ' . $term); 
 
-	$query = new WP_Query([
+	$query = new WP_Query([ // Create a new WP_Query instance
 		's' => $term,
 		'post_type' => 'post',
 		'posts_per_page' => 10,
 	]);
 
 	$results = [];
-
+	// Check if the query has posts
 	if ($query->have_posts()) {
 		while ($query->have_posts()) {
 			$query->the_post();
+			// Collect the post data
 			$results[] = [
 				'id' => get_the_ID(),
 				'title' => get_the_title(),
@@ -94,7 +95,7 @@ function rps_ajax_post_search()
 
 	wp_send_json($results);
 }
-
+// Enqueue scripts for the frontend
 function rps_enqueue_scripts()
 {
 	wp_enqueue_script(
@@ -106,7 +107,7 @@ function rps_enqueue_scripts()
 	);
 
 	wp_localize_script('rps-search', 'rps_ajax', [
-		'ajax_url' => admin_url('admin-ajax.php')
+		'ajax_url' => admin_url('admin-ajax.php') // URL for AJAX requests
 	]);
 }
 add_action('wp_enqueue_scripts', 'rps_enqueue_scripts');
@@ -114,6 +115,6 @@ add_action('wp_enqueue_scripts', 'rps_enqueue_scripts');
 // Enqueue in block editor too
 function rps_enqueue_editor_scripts()
 {
-	wp_add_inline_script('wp-block-editor', 'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";', 'before');
+	wp_add_inline_script('wp-block-editor', 'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";', 'before'); // Ensure ajaxurl is available in the block editor
 }
 add_action('enqueue_block_editor_assets', 'rps_enqueue_editor_scripts');
