@@ -117,6 +117,9 @@ export default function Edit() {
 				{/* Display loading message when suggestions are being fetched */}
 				{isLoading && suggestions.length == 0 && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
 
+				{/* Display no suggestions message when there are no suggestions */}
+				{suggestions.length === 0 && value && showInput && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
+
 				{/* Render the selected post if available */}	
 				{selectedPost && (
 					<Post selectedPost={selectedPost} />
@@ -133,6 +136,7 @@ export default function Edit() {
 								onClick={() => {
 									setShowInput(true);
 									setSelectedPost(null);
+									setValue('');
 								}}
 							>
 								{__('Edit', 'regur-also-read-post')}
