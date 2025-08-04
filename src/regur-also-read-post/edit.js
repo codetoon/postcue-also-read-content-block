@@ -39,18 +39,17 @@ export default function Edit() {
 
 	const blockProps = useBlockProps();
 
-	const [suggestions, setSuggestions] = useState([]);
-	const [value, setValue] = useState('');
-	const [selectedPost, setSelectedPost] = useState(null);
-	const [showInput, setShowInput] = useState(true);
-	const [isLoading, setIsLoading] = useState(false);
+	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
+	const [value, setValue] = useState(''); // State to hold the input value
+	const [selectedPost, setSelectedPost] = useState(null); // State to hold the selected post
+	const [showInput, setShowInput] = useState(true); // State to control the visibility of the input field
+	const [isLoading, setIsLoading] = useState(false); // State to control the loading state
 	// Called when input changes
 	const onChange = (event, {newValue}) =>{
 		setValue(newValue);
 	}
 
-	// Autosuggest will call this function every time you need to update suggestions.
-    // You already implemented this logic above, so just use it.
+	// Called when suggestions need to be fetched
 	const onSuggestionsFetchRequested = async ({ value }) => {
 		if (!value) {
 			setSuggestions([]);
@@ -70,18 +69,18 @@ export default function Edit() {
 		}
 	}
 
-	// Autosuggest will call this function every time you need to clear suggestions.
+	// Called when suggestions need to be cleared
 	const onSuggestionsClearRequested = () => {
 		setSuggestions([]);
 	}
-	// Implement it to teach Autosuggest what should be the input value when suggestion is clicked.
+	// Function to get the value of the suggestion
 	const getSuggestionValue = suggestion => suggestion.title;
 
-	// Suggestion is rendered in the dropdown
+	// Function to render each suggestion
 	const renderSuggestion = suggestion => (
 		<span>{suggestion.title}</span>
 	)
-
+	// Function to handle when a suggestion is selected
 	function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
 		setSelectedPost(suggestion);
 		setShowInput(false);
@@ -91,15 +90,17 @@ export default function Edit() {
 	return (
 		<div>
 			<div {...blockProps}>
+				{/* Show the input field only when showInput is true */}
 				{showInput && (
 					<Autosuggest
-						suggestions={suggestions}
-						onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-						onSuggestionsClearRequested={onSuggestionsClearRequested}
-						getSuggestionValue={getSuggestionValue}
-						renderSuggestion={renderSuggestion}
-						onSuggestionSelected={onSuggestionSelected}
-						inputProps={{
+						suggestions={suggestions} // Array of suggestions to display
+						onSuggestionsFetchRequested={onSuggestionsFetchRequested} // Function to call when suggestions need to be fetched
+						onSuggestionsClearRequested={onSuggestionsClearRequested} // Function to call when suggestions need to be cleared
+						getSuggestionValue={getSuggestionValue}	 // Function to get the value of the suggestion
+						renderSuggestion={renderSuggestion} // Function to render each suggestion
+						onSuggestionSelected={onSuggestionSelected} // Function to call when a suggestion is selected
+						// Render the input field
+						inputProps={{ 
 							value,
 							onChange,
 							id: 'regur-also-read-post-input',
@@ -108,15 +109,21 @@ export default function Edit() {
 						}}
 					/>
 				)}
+
+				{/* Display loading message when suggestions are being fetched */}
 				{isLoading && suggestions.length == 0 && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
+
+				{/* Render the selected post if available */}	
 				{selectedPost && (
 					<Post selectedPost={selectedPost} />
 				)}
 			</div>
+			{/* Show the InspectorControls only when not showing the input */}
 			{
 				!showInput && (
 					<InspectorControls>
 						<PanelBody title={__('Settings', 'regur-also-read-post')}>
+							{/* Button for Edit Post */}
 							<Button
 								className="components-button is-secondary"
 								style={{ marginBottom: '10px' , width: '100%' , textAlign: 'center' , display: 'block', fontSize: '16px' }}
