@@ -92,22 +92,26 @@ export default function Edit() {
 			<div {...blockProps}>
 				{/* Show the input field only when showInput is true */}
 				{showInput && (
-					<Autosuggest
-						suggestions={suggestions} // Array of suggestions to display
-						onSuggestionsFetchRequested={onSuggestionsFetchRequested} // Function to call when suggestions need to be fetched
-						onSuggestionsClearRequested={onSuggestionsClearRequested} // Function to call when suggestions need to be cleared
-						getSuggestionValue={getSuggestionValue}	 // Function to get the value of the suggestion
-						renderSuggestion={renderSuggestion} // Function to render each suggestion
-						onSuggestionSelected={onSuggestionSelected} // Function to call when a suggestion is selected
-						// Render the input field
-						inputProps={{ 
-							value,
-							onChange,
-							id: 'regur-also-read-post-input',
-							name: 'regur-also-read-post-input',
-							placeholder: __('Type to search posts...', 'regur-also-read-post'),
-						}}
-					/>
+					<>
+						<label className="regur-also-read-post-label">
+							{__('Search for a post:', 'regur-also-read-post')}
+						</label>
+						<Autosuggest
+							suggestions={suggestions}
+							onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+							onSuggestionsClearRequested={onSuggestionsClearRequested}
+							getSuggestionValue={getSuggestionValue}
+							renderSuggestion={renderSuggestion}
+							onSuggestionSelected={onSuggestionSelected}
+							inputProps={{
+								value,
+								onChange,
+								id: 'regur-also-read-post-input',
+								name: 'regur-also-read-post-input',
+								placeholder: __('Type to search posts...', 'regur-also-read-post'),
+							}}
+						/>
+					</>	
 				)}
 
 				{/* Display loading message when suggestions are being fetched */}
@@ -125,8 +129,7 @@ export default function Edit() {
 						<PanelBody title={__('Settings', 'regur-also-read-post')}>
 							{/* Button for Edit Post */}
 							<Button
-								className="components-button is-secondary"
-								style={{ marginBottom: '10px' , width: '100%' , textAlign: 'center' , display: 'block', fontSize: '16px' }}
+								className="components-button is-secondary regur-also-read-post-edit-button"
 								onClick={() => {
 									setShowInput(true);
 									setSelectedPost(null);
