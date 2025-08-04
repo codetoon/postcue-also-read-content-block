@@ -44,6 +44,7 @@ export default function Edit() {
 	const [selectedPost, setSelectedPost] = useState(null); // State to hold the selected post
 	const [showInput, setShowInput] = useState(true); // State to control the visibility of the input field
 	const [isLoading, setIsLoading] = useState(false); // State to control the loading state
+	const [showMessage, setShowMessage] = useState(true); // State to control the visibility of the message
 	// Called when input changes
 	const onChange = (event, {newValue}) =>{
 		setValue(newValue);
@@ -118,7 +119,7 @@ export default function Edit() {
 				{isLoading && suggestions.length == 0 && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
-				{suggestions.length === 0 && value && showInput && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
+				{!isLoading && suggestions.length === 0 && value && showInput && showMessage && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
 
 				{/* Render the selected post if available */}	
 				{selectedPost && (
@@ -136,7 +137,7 @@ export default function Edit() {
 								onClick={() => {
 									setShowInput(true);
 									setSelectedPost(null);
-									setValue('');
+									setShowMessage(false);
 								}}
 							>
 								{__('Edit', 'regur-also-read-post')}
