@@ -6,6 +6,8 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from 'react'; // Import useState for managing state
 import Autosuggest from 'react-autosuggest';
+import { InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, Button } from '@wordpress/components'; // Example components
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -111,6 +113,24 @@ export default function Edit() {
 					<Post selectedPost={selectedPost} />
 				)}
 			</div>
+			{
+				!showInput && (
+					<InspectorControls>
+						<PanelBody title={__('Settings', 'regur-also-read-post')}>
+							<Button
+								className="components-button is-secondary"
+								style={{ marginBottom: '10px' , width: '100%' , textAlign: 'center' , display: 'block', fontSize: '16px' }}
+								onClick={() => {
+									setShowInput(true);
+									setSelectedPost(null);
+								}}
+							>
+								{__('Edit', 'regur-also-read-post')}
+							</Button>
+						</PanelBody>
+					</InspectorControls>
+				)
+			}
 		</div>
 	);
 }
