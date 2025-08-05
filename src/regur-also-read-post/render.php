@@ -19,8 +19,8 @@ $thumbnail = esc_url($selectedPost['thumbnail'] ?? '');
 
 ?>
 <div <?php echo get_block_wrapper_attributes(); ?>>
-   <h2 class="post-title">Also Read</h2>
-     <ul class="post-listing">
+   <h2 class="display-posts-title ">Also Read</h2>
+     <ul class="display-posts-listing">
         <li class="listing-item">
 		<?php if($thumbnail): ?>
 			<a class="image" target="_blank" href="<?php echo $link; ?>">
