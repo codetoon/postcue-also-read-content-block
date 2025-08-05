@@ -136,7 +136,7 @@ export default function Edit({attributes, setAttributes}) {
 			</div>
 			{/* Show the InspectorControls only when not showing the input */}
 			{
-				!showInput && attributes.selectedPost?.id != undefined && (
+				attributes.selectedPost?.id != undefined && (
 					<InspectorControls>
 						<PanelBody title={__('Settings', 'regur-also-read-post')}>
 							{/* Button for Edit Post */}
