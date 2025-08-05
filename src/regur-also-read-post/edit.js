@@ -87,7 +87,7 @@ export default function Edit({attributes, setAttributes}) {
 
 	// Function to render each suggestion
 	const renderSuggestion = suggestion => (
-		<span>{suggestion.title}</span>
+		<span dangerouslySetInnerHTML={{__html : suggestion.title }}></span>
 	)
 	// Function to handle when a suggestion is selected
 	function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
