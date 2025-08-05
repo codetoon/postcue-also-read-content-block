@@ -3,6 +3,31 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 ?>
-<p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Regur Also Read Post – hello from a dynamic block!', 'regur-also-read-post' ); ?>
-</p>
+<?php
+$attributes = $attributes ?? [];
+
+$selectedPost = $attributes['selectedPost'] ?? null;
+
+if(empty($selectedPost)){
+	return '';
+}
+
+$title = esc_html($selectedPost['title'] ?? '');
+$link = esc_url($selectedPost['link'] ?? '#');
+$thumbnail = esc_url($selectedPost['thumbnail'] ?? '');
+
+
+?>
+<div <?php echo get_block_wrapper_attributes(); ?>>
+   <h2 class="post-title">Also Read</h2>
+     <ul class="post-listing">
+        <li class="listing-item">
+		<?php if($thumbnail): ?>
+			<a class="image" target="_blank" href="<?php echo $link; ?>">
+                    <img width="150" height="150" src="<?php echo $thumbnail; ?>" class="attachment-thumbnail size-thumbnail wp-post-image" alt="<?php echo $title; ?>" />
+            </a>
+		<?php endif;?>
+		<a class="title" target="_blank" href="<?php echo $link; ?>"><?php echo $title; ?></a>
+		</li>
+	 </ul>
+</div>

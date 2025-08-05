@@ -35,16 +35,24 @@ import './editor.scss';
  */
 
 
-export default function Edit() {
+export default function Edit({attributes, setAttributes}) {
 
 	const blockProps = useBlockProps();
 
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
 	const [value, setValue] = useState(''); // State to hold the input value
-	const [selectedPost, setSelectedPost] = useState(null); // State to hold the selected post
 	const [showInput, setShowInput] = useState(true); // State to control the visibility of the input field
 	const [isLoading, setIsLoading] = useState(false); // State to control the loading state
 	const [showMessage, setShowMessage] = useState(true); // State to control the visibility of the message
+
+	const setSelectedPost = (post) => {
+    setAttributes({ selectedPost: {
+        id: post.id,
+        title: post.title,
+        link: post.link,
+        thumbnail: post.thumbnail
+    }});
+};
 	// Called when input changes
 	const onChange = (event, {newValue}) =>{
 		setValue(newValue);
@@ -83,8 +91,8 @@ export default function Edit() {
 	)
 	// Function to handle when a suggestion is selected
 	function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
-		setSelectedPost(suggestion);
 		setShowInput(false);
+		setSelectedPost(suggestion)
 
 	}
 
@@ -92,7 +100,7 @@ export default function Edit() {
 		<div>
 			<div {...blockProps}>
 				{/* Show the input field only when showInput is true */}
-				{showInput && (
+				{showInput && attributes.selectedPost?.id == undefined && (
 					<>
 						<label className="regur-also-read-post-label">
 							{__('Search for a post:', 'regur-also-read-post')}
@@ -121,14 +129,14 @@ export default function Edit() {
 				{/* Display no suggestions message when there are no suggestions */}
 				{!isLoading && suggestions.length === 0 && value && showInput && showMessage && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
 
-				{/* Render the selected post if available */}	
-				{selectedPost && (
-					<Post selectedPost={selectedPost} />
+				{/* Render the selected post if available & Show the selected post if it exists */}	
+				{attributes.selectedPost?.id && (
+					<Post selectedPost={attributes.selectedPost} />
 				)}
 			</div>
 			{/* Show the InspectorControls only when not showing the input */}
 			{
-				!showInput && (
+				!showInput && attributes.selectedPost?.id != undefined && (
 					<InspectorControls>
 						<PanelBody title={__('Settings', 'regur-also-read-post')}>
 							{/* Button for Edit Post */}
@@ -136,7 +144,7 @@ export default function Edit() {
 								className="components-button is-secondary regur-also-read-post-edit-button"
 								onClick={() => {
 									setShowInput(true);
-									setSelectedPost(null);
+									setSelectedPost('')
 									setShowMessage(false);
 								}}
 							>
