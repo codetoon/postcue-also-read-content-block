@@ -73,7 +73,7 @@ function rps_ajax_post_search()
 	$query = new WP_Query([ // Create a new WP_Query instance
 		's' => $term,
 		'post_type' => 'post',
-		'posts_per_page' => 10,
+		'posts_per_page' => 100,
 	]);
 
 	$results = [];
