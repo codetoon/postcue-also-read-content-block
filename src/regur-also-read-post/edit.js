@@ -40,10 +40,10 @@ export default function Edit({attributes, setAttributes}) {
 	const blockProps = useBlockProps();
 	const value = attributes.value;
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
-	const [showInput, setShowInput] = useState(true); // State to control the visibility of the input field
-	const [isLoading, setIsLoading] = useState(false); // State to control the loading state
-	const [showMessage, setShowMessage] = useState(true); // State to control the visibility of the message
-	const [editView, setEditView] = useState(false);
+	const showInput = attributes.showInput;
+	const isLoading = attributes.isLoading;
+	const showMessage = attributes.showMessage;
+	const editView = attributes.editView;
 
 	const setSelectedPost = (post) => {
     setAttributes({ selectedPost: {
@@ -65,7 +65,7 @@ export default function Edit({attributes, setAttributes}) {
 			return;
 		}
 		try {
-			setIsLoading(true);
+			setAttributes({ isLoading: true });
 			const res = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`);
 			const data = await res.json();
 			setSuggestions(data || []);
@@ -74,7 +74,7 @@ export default function Edit({attributes, setAttributes}) {
 			console.error('Suggestion fetch error:', error);
 			setSuggestions([]);
 		}finally{
-			setIsLoading(false);
+			setAttributes({ isLoading: false });
 		}
 	}
 
@@ -91,9 +91,10 @@ export default function Edit({attributes, setAttributes}) {
 	)
 	// Function to handle when a suggestion is selected
 	function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
-		setShowInput(false);
+		setAttributes({ showInput: false });
+		setAttributes({ editView: true });
+		setAttributes({showMessage: false});
 		setSelectedPost(suggestion)
-		setEditView(true);
 	}
 
 	return (
@@ -127,7 +128,7 @@ export default function Edit({attributes, setAttributes}) {
 				{isLoading && suggestions.length == 0 && showInput && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
-				{!isLoading && suggestions.length === 0 && value && showInput && showMessage && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
+				{!isLoading && suggestions.length == 0 && value && showInput && showMessage && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
@@ -141,9 +142,9 @@ export default function Edit({attributes, setAttributes}) {
 							editView ? (
 								<ToolbarButton
 									onClick={() => {
-										setShowInput(true);
-										setEditView(false);
-										setShowMessage(false);
+										setAttributes({ showInput: true });
+										setAttributes({ editView: false });
+										setAttributes({showMessage: true});
 									}}
 								>
 									{__('Edit', 'regur-also-read-post')}
@@ -152,9 +153,9 @@ export default function Edit({attributes, setAttributes}) {
 								: (
 									<ToolbarButton
 										onClick={() => {
-											setShowInput(false);
-											setEditView(true);
-											setShowMessage(false);
+											setAttributes({ showInput: false });
+											setAttributes({ editView: true });
+											setAttributes({showMessage: false});
 										}}
 									>
 										{__('Cancel', 'regur-also-read-post')}

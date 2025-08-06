@@ -23,6 +23,22 @@
 		"value":{
 			"type":"string",
 			"default": ""
+		},
+		"showInput":{
+			"type":"boolean",
+			"default": true
+		},
+		"editView":{
+			"type":"boolean",
+			"default" : false
+		},
+		"isLoading":{
+			"type" :"boolean",
+			"default" : false
+		},
+		"showMessage":{
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"render": "file:./render.php",
