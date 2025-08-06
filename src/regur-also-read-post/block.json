@@ -19,6 +19,10 @@
 		"selectedPost": {
 		"type": "object",
 		"default": {}
+		},
+		"value":{
+			"type":"string",
+			"default": ""
 		}
 	},
 	"render": "file:./render.php",

@@ -38,24 +38,24 @@ import './editor.scss';
 export default function Edit({attributes, setAttributes}) {
 
 	const blockProps = useBlockProps();
-
+	const value = attributes.value;
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
-	const [value, setValue] = useState(''); // State to hold the input value
 	const [showInput, setShowInput] = useState(true); // State to control the visibility of the input field
 	const [isLoading, setIsLoading] = useState(false); // State to control the loading state
 	const [showMessage, setShowMessage] = useState(true); // State to control the visibility of the message
+	const [editView, setEditView] = useState(false);
 
 	const setSelectedPost = (post) => {
     setAttributes({ selectedPost: {
-        id: post.id,
-        title: post.title,
-        link: post.link,
-        thumbnail: post.thumbnail
+				id: post.id,
+				title: post.title,
+				link: post.link,
+				thumbnail: post.thumbnail
     }});
-};
+	};
 	// Called when input changes
 	const onChange = (event, {newValue}) =>{
-		setValue(newValue);
+		setAttributes({ value: newValue });
 	}
 
 	// Called when suggestions need to be fetched
@@ -93,14 +93,14 @@ export default function Edit({attributes, setAttributes}) {
 	function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
 		setShowInput(false);
 		setSelectedPost(suggestion)
-
+		setEditView(true);
 	}
 
 	return (
 		<div>
 			<div {...blockProps}>
 				{/* Show the input field only when showInput is true */}
-				{showInput && attributes.selectedPost?.id == undefined && (
+				{showInput && (
 					<>
 						<label className="regur-also-read-post-label">
 							{__('Search for a post:', 'regur-also-read-post')}
@@ -120,39 +120,50 @@ export default function Edit({attributes, setAttributes}) {
 								placeholder: __('Type to search posts...', 'regur-also-read-post'),
 							}}
 						/>
-					</>	
+					</>
 				)}
 
 				{/* Display loading message when suggestions are being fetched */}
-				{isLoading && suggestions.length == 0 && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
+				{isLoading && suggestions.length == 0 && showInput && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
 				{!isLoading && suggestions.length === 0 && value && showInput && showMessage && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
 
-				{/* Render the selected post if available & Show the selected post if it exists */}	
-				{attributes.selectedPost?.id && (
+				{/* Render the selected post if available & Show the selected post if it exists */}
+				{attributes.selectedPost?.id && !showInput && (
 					<Post selectedPost={attributes.selectedPost} />
 				)}
 			</div>
-			{/* Show the InspectorControls only when not showing the input */}
-			{
-				attributes.selectedPost?.id != undefined && (
-					<BlockControls>
-						<ToolbarGroup>
-							<ToolbarButton
-								onClick={() => {
-									setShowInput(true);
-									setSelectedPost('')
-									setShowMessage(false);
-								}}
-							>
-								{__('Edit', 'regur-also-read-post')}
-							</ToolbarButton>
-						</ToolbarGroup>
-					</BlockControls>
-
-				)
-			}
+			{attributes.selectedPost?.id != undefined && (
+				<BlockControls>
+					<ToolbarGroup>
+						{
+							editView ? (
+								<ToolbarButton
+									onClick={() => {
+										setShowInput(true);
+										setEditView(false);
+										setShowMessage(false);
+									}}
+								>
+									{__('Edit', 'regur-also-read-post')}
+								</ToolbarButton>
+							)
+								: (
+									<ToolbarButton
+										onClick={() => {
+											setShowInput(false);
+											setEditView(true);
+											setShowMessage(false);
+										}}
+									>
+										{__('Cancel', 'regur-also-read-post')}
+									</ToolbarButton>
+								)
+						}
+					</ToolbarGroup>
+				</BlockControls>
+			)}
 		</div>
 	);
 }
