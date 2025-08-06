@@ -143,7 +143,8 @@ export default function Edit({attributes, setAttributes}) {
 								<ToolbarButton
 									onClick={() => {
 										setAttributes({ showInput: true });
-										setAttributes({ editView: false });
+										setAttributes({ editView: false });	
+										setAttributes({ value: attributes.selectedPost?.title});
 									}}
 								>
 									{__('Edit', 'regur-also-read-post')}
