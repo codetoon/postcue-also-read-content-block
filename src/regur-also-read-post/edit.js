@@ -42,7 +42,7 @@ export default function Edit({attributes, setAttributes}) {
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
 	const showInput = attributes.showInput;
 	const isLoading = attributes.isLoading;
-	const showMessage = attributes.showMessage;
+	const showNotFoundMsg = attributes.showNotFoundMsg;
 	const editView = attributes.editView;
 
 	const setSelectedPost = (post) => {
@@ -62,19 +62,20 @@ export default function Edit({attributes, setAttributes}) {
 	const onSuggestionsFetchRequested = async ({ value }) => {
 		if (!value) {
 			setSuggestions([]);
+			setAttributes({ isLoading: false, showNotFoundMsg: false });
 			return;
 		}
+		setAttributes({ isLoading: true, showNotFoundMsg: false });
 		try {
-			setAttributes({ isLoading: true });
 			const res = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`);
 			const data = await res.json();
 			setSuggestions(data || []);
+			setAttributes({ isLoading: false, showNotFoundMsg: (Array.isArray(data) && data.length === 0) });
 
 		} catch (error) {
 			console.error('Suggestion fetch error:', error);
 			setSuggestions([]);
-		}finally{
-			setAttributes({ isLoading: false });
+			setAttributes({ isLoading: false, showNotFoundMsg: true });
 		}
 	}
 
@@ -93,7 +94,6 @@ export default function Edit({attributes, setAttributes}) {
 	function onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
 		setAttributes({ showInput: false });
 		setAttributes({ editView: true });
-		setAttributes({showMessage: false});
 		setSelectedPost(suggestion)
 	}
 
@@ -125,10 +125,10 @@ export default function Edit({attributes, setAttributes}) {
 				)}
 
 				{/* Display loading message when suggestions are being fetched */}
-				{isLoading && suggestions.length == 0 && showInput && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
+				{isLoading && suggestions.length == 0 && showInput && value && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
-				{!isLoading && suggestions.length == 0 && value && showInput && showMessage && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
+				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
@@ -144,7 +144,6 @@ export default function Edit({attributes, setAttributes}) {
 									onClick={() => {
 										setAttributes({ showInput: true });
 										setAttributes({ editView: false });
-										setAttributes({showMessage: true});
 									}}
 								>
 									{__('Edit', 'regur-also-read-post')}
@@ -155,7 +154,6 @@ export default function Edit({attributes, setAttributes}) {
 										onClick={() => {
 											setAttributes({ showInput: false });
 											setAttributes({ editView: true });
-											setAttributes({showMessage: false});
 										}}
 									>
 										{__('Cancel', 'regur-also-read-post')}

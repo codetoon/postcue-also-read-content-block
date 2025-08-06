@@ -36,9 +36,9 @@
 			"type" :"boolean",
 			"default" : false
 		},
-		"showMessage":{
+		"showNotFoundMsg":{
 			"type": "boolean",
-			"default": true
+			"default": false
 		}
 	},
 	"render": "file:./render.php",
