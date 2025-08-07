@@ -38,12 +38,8 @@ import './editor.scss';
 export default function Edit({attributes, setAttributes}) {
 
 	const blockProps = useBlockProps();
-	const value = attributes.value;
+	const {value, showInput, isLoading, showNotFoundMsg, editView } = attributes;
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
-	const showInput = attributes.showInput;
-	const isLoading = attributes.isLoading;
-	const showNotFoundMsg = attributes.showNotFoundMsg;
-	const editView = attributes.editView;
 
 	const setSelectedPost = (post) => {
     setAttributes({ selectedPost: {
@@ -132,7 +128,7 @@ export default function Edit({attributes, setAttributes}) {
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
-					<Post selectedPost={attributes.selectedPost} attributes={attributes}/>
+					<Post attributes={attributes}/>
 				)}
 			</div>
 			{attributes.selectedPost?.id != undefined && (
