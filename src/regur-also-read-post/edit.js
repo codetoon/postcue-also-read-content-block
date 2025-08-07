@@ -6,8 +6,8 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from 'react'; // Import useState for managing state
 import Autosuggest from 'react-autosuggest';
-import { BlockControls } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { ToolbarGroup, ToolbarButton, TextControl, PanelBody} from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -132,10 +132,11 @@ export default function Edit({attributes, setAttributes}) {
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
-					<Post selectedPost={attributes.selectedPost} />
+					<Post selectedPost={attributes.selectedPost} attributes={attributes}/>
 				)}
 			</div>
 			{attributes.selectedPost?.id != undefined && (
+				<>
 				<BlockControls>
 					<ToolbarGroup>
 						{
@@ -162,6 +163,16 @@ export default function Edit({attributes, setAttributes}) {
 						}
 					</ToolbarGroup>
 				</BlockControls>
+				<InspectorControls>
+					<PanelBody title="Settings">
+						<TextControl
+							label="Block Title"
+							onChange={ ( placeholder ) => setAttributes( { blockTitle : placeholder } ) }
+							value={ attributes.blockTitle }
+						/>
+					</PanelBody>
+				</InspectorControls>
+				</>
 			)}
 		</div>
 	);

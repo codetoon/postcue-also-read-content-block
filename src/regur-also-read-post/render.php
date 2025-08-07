@@ -7,6 +7,8 @@
 $attributes = $attributes ?? [];
 
 $selectedPost = $attributes['selectedPost'] ?? null;
+$blockTitle = $attributes['blockTitle'] ?? '';
+
 
 if(empty($selectedPost)){
 	return '';
@@ -19,7 +21,7 @@ $thumbnail = esc_url($selectedPost['thumbnail'] ?? '');
 
 ?>
 <div <?php echo get_block_wrapper_attributes(); ?>>
-   <h2 class="display-posts-title ">Also Read</h2>
+   <h2 class="display-posts-title "><?php echo $blockTitle; ?></h2>
      <ul class="display-posts-listing">
         <li class="listing-item">
 		<?php if($thumbnail): ?>
