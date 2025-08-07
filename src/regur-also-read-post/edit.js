@@ -6,8 +6,8 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from 'react'; // Import useState for managing state
 import Autosuggest from 'react-autosuggest';
-import { BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton, TextControl, PanelBody} from '@wordpress/components';
+import { BlockControls, InspectorControls, ColorPalette } from '@wordpress/block-editor';
+import { ToolbarGroup, ToolbarButton, TextControl, PanelBody, FontSizePicker } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -165,6 +165,18 @@ export default function Edit({attributes, setAttributes}) {
 							label="Block Title"
 							onChange={ ( placeholder ) => setAttributes( { blockTitle : placeholder } ) }
 							value={ attributes.blockTitle }
+						/>
+						<ColorPalette
+							value={ attributes.textColor }
+							onChange={ ( newColor ) => setAttributes( { textColor: newColor } ) }
+						/>
+						 <FontSizePicker
+							value={ attributes.fontSize } // The current selected font size
+							onChange={ ( newSize ) => setAttributes( { fontSize: newSize } ) }
+							fontSizes={ [ // Define the available font sizes for this picker
+								{ name: 'Small', slug: 'small', size: 12 },
+								{ name: 'Regular', slug: 'regular', size: 16 },
+							] }
 						/>
 					</PanelBody>
 				</InspectorControls>

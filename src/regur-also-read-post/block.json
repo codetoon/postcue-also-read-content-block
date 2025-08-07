@@ -43,6 +43,14 @@
 		"blockTitle":{
 			"type": "string",
 			"default": "Also Read"
+		},
+        "textColor": {
+          "type": "string",
+		  "default": "#696969"
+        },
+		"fontSize": {
+			"type": "string",
+			"default": "18px" 
 		}
 	},
 	"render": "file:./render.php",
