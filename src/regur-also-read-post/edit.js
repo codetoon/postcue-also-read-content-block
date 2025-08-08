@@ -161,48 +161,73 @@ export default function Edit({attributes, setAttributes}) {
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title="Title Settings" initialOpen={ false }>
+						<div style={{ marginBottom: '16px' }}>
+							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+								Block Title
+							</span>
 						<TextControl
-							label="Block Title"
+							
 							onChange={ ( placeholder ) => setAttributes( { blockTitle : placeholder } ) }
 							value={ attributes.blockTitle }
 						/>
-						<ColorPalette
-							label="Text Color"
-							value={ attributes.textColor }
-							onChange={ ( newColor ) => setAttributes( { textColor: newColor } ) }
-						/>
-						<FontSizePicker
-							label="Font Size"
-							value={ attributes.fontSize }
-							onChange={ ( newSize ) => setAttributes( { fontSize: newSize } ) }
-							fontSizes={ [
-								{ name: 'Small', slug: 'small', size: 12 },
-								{ name: 'Regular', slug: 'regular', size: 16 },
-								{ name: 'Large', slug: 'large', size: 24 },
-							] }
-						/>
+						</div>
+						<div style={{ marginBottom: '16px' }}>
+							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+								Block Title Text Color
+							</span>
+							<ColorPalette
+								value={ attributes.textColor }
+								onChange={ ( newColor ) => setAttributes( { textColor: newColor } ) }
+							/>
+						</div>
+						<div style={{ marginBottom: '16px' }}>
+							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+								Block Title Font Size
+							</span>
+							<FontSizePicker
+								value={ attributes.fontSize }
+								onChange={ ( newSize ) => setAttributes( { fontSize: newSize } ) }
+								fontSizes={ [
+									{ name: 'Small', slug: 'small', size: 12 },
+									{ name: 'Regular', slug: 'regular', size: 16 },
+									{ name: 'Large', slug: 'large', size: 24 },
+								] }
+							/>
+						</div>
 					</PanelBody>
 					<PanelBody title="Post Settings" initialOpen={ false }>
-						<ColorPalette
-							label="Text Color"
-							value={ attributes.postTitleTextColor }
-							onChange={ ( newColor ) => setAttributes( { postTitleTextColor: newColor } ) }
-						/>
-						<ColorPalette
-							label="Background Color"
-							value={ attributes.postBgColor }
-							onChange={ ( newColor ) => setAttributes( { postBgColor: newColor } ) }
-						/>
-						<FontSizePicker
-							label="Font Size"
-							value={ attributes.postTitleFontSize }
-							onChange={ ( newSize ) => setAttributes( { postTitleFontSize: newSize } ) }
-							fontSizes={ [
-								{ name: 'Small', slug: 'small', size: 12 },
-								{ name: 'Regular', slug: 'regular', size: 16 },
-								{ name: 'Large', slug: 'large', size: 24 },
-							] }
-						/>
+						<div style={{ marginBottom: '16px' }}>
+							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+								Post Title Color
+							</span>
+							<ColorPalette
+								value={ attributes.postTitleTextColor }
+								onChange={ ( newColor ) => setAttributes( { postTitleTextColor: newColor } ) }
+							/>
+						</div>
+						<div style={{ marginBottom: '16px' }}>
+							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+								Post Background Color
+							</span>
+							<ColorPalette
+								value={ attributes.postBgColor }
+								onChange={ ( newColor ) => setAttributes( { postBgColor: newColor } ) }
+							/>
+						</div>
+						<div style={{ marginBottom: '16px' }}>
+							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+								Post Title Font Size
+							</span>
+							<FontSizePicker
+								value={ attributes.postTitleFontSize }
+								onChange={ ( newSize ) => setAttributes( { postTitleFontSize: newSize } ) }
+								fontSizes={ [
+									{ name: 'Small', slug: 'small', size: 12 },
+									{ name: 'Regular', slug: 'regular', size: 16 },
+									{ name: 'Large', slug: 'large', size: 24 },
+								] }
+							/>
+						</div>
 					</PanelBody>
 				</InspectorControls>
 				</>
