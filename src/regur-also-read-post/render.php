@@ -5,6 +5,7 @@
 ?>
 <?php
 $attributes = $attributes ?? [];
+$selectedPost = $attributes['selectedPost'] ?? null;
 
 if(empty($selectedPost)){
 	return '';
@@ -13,7 +14,6 @@ if(empty($selectedPost)){
 $title = esc_html($selectedPost['title'] ?? '');
 $link = esc_url($selectedPost['link'] ?? '#');
 $thumbnail = esc_url($selectedPost['thumbnail'] ?? '');
-$selectedPost = $attributes['selectedPost'] ?? null;
 $blockTitle = $attributes['blockTitle'] ?? '';
 $textColor = $attributes['textColor'] ?? '';
 $fontSize = $attributes['fontSize'] ?? '';
