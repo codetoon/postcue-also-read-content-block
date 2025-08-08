@@ -41,6 +41,29 @@ export default function Edit({attributes, setAttributes}) {
 	const {value, showInput, isLoading, showNotFoundMsg, editView } = attributes;
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
 
+	// Get global defaults from window.rpsDefaults (set in PHP)
+    const globalDefaults = (typeof window !== "undefined" && window.rpsDefaults) ? window.rpsDefaults : {};
+
+    // Compose the style props for Post component
+    const postProps = attributes.allowGlobalOverride
+        ? {
+            blockTitle: globalDefaults.blockTitle,
+            textColor: globalDefaults.textColor,
+            fontSize: globalDefaults.fontSize,
+            postTitleTextColor: globalDefaults.postTitleTextColor,
+            postTitleFontSize: globalDefaults.postTitleFontSize,
+            postBgColor: globalDefaults.postBgColor,
+            selectedPost: attributes.selectedPost
+        }
+        : {
+            blockTitle: attributes.blockTitle,
+            textColor: attributes.textColor,
+            fontSize: attributes.fontSize,
+            postTitleTextColor: attributes.postTitleTextColor,
+            postTitleFontSize: attributes.postTitleFontSize,
+            postBgColor: attributes.postBgColor,
+            selectedPost: attributes.selectedPost
+        };
 	const setSelectedPost = (post) => {
     setAttributes({ selectedPost: {
 				id: post.id,
@@ -128,7 +151,7 @@ export default function Edit({attributes, setAttributes}) {
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
-					<Post attributes={attributes}/>
+					<Post attributes={postProps}/>
 				)}
 			</div>
 			{attributes.selectedPost?.id != undefined && (

@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
+require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
 function create_block_regur_also_read_post_block_init() {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
@@ -95,26 +96,42 @@ function rps_ajax_post_search()
 
 	wp_send_json($results);
 }
-// Enqueue scripts for the frontend
-function rps_enqueue_scripts()
-{
-	wp_enqueue_script(
-		'rps-search',
-		plugin_dir_url(__FILE__) . 'view.js', // for frontend view
-		['jquery'],
-		null,
-		true
-	);
+// Helper to get global default styles
+function rps_get_global_defaults() {
+    return get_option('regur_also_read_post_defaults', [
+        'blockTitle' => 'Also Read',
+        'textColor' => '#696969',
+        'fontSize' => '18px',
+        'postTitleTextColor' => '#ffffff',
+        'postTitleFontSize' => '18px',
+        'postBgColor' => '#06b7d3',
+    ]);
+}
 
-	wp_localize_script('rps-search', 'rps_ajax', [
-		'ajax_url' => admin_url('admin-ajax.php') // URL for AJAX requests
-	]);
+// Enqueue scripts for the frontend
+function rps_enqueue_scripts() {
+    wp_enqueue_script(
+        'rps-search',
+        plugin_dir_url(__FILE__) . 'view.js',
+        ['jquery'],
+        null,
+        true
+    );
+
+    wp_localize_script('rps-search', 'rps_ajax', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'defaults' => rps_get_global_defaults(),
+    ]);
 }
 add_action('wp_enqueue_scripts', 'rps_enqueue_scripts');
 
 // Enqueue in block editor too
-function rps_enqueue_editor_scripts()
-{
-	wp_add_inline_script('wp-block-editor', 'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";', 'before'); // Ensure ajaxurl is available in the block editor
+function rps_enqueue_editor_scripts() {
+    $defaults = rps_get_global_defaults();
+    wp_add_inline_script(
+        'wp-block-editor',
+        'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";window.rpsDefaults = ' . json_encode($defaults) . ';',
+        'before'
+    );
 }
 add_action('enqueue_block_editor_assets', 'rps_enqueue_editor_scripts');

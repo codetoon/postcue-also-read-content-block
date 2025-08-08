@@ -8,7 +8,7 @@ export default function Post({attributes}) {
                     color: attributes.textColor,
                     fontSize: attributes.fontSize
                 }}
-            >
+            >   
                 {attributes.blockTitle}
             </h2>
             <ul class="display-posts-listing">
