@@ -160,22 +160,47 @@ export default function Edit({attributes, setAttributes}) {
 					</ToolbarGroup>
 				</BlockControls>
 				<InspectorControls>
-					<PanelBody title="Settings">
+					<PanelBody title="Title Settings" initialOpen={ false }>
 						<TextControl
 							label="Block Title"
 							onChange={ ( placeholder ) => setAttributes( { blockTitle : placeholder } ) }
 							value={ attributes.blockTitle }
 						/>
 						<ColorPalette
+							label="Text Color"
 							value={ attributes.textColor }
 							onChange={ ( newColor ) => setAttributes( { textColor: newColor } ) }
 						/>
-						 <FontSizePicker
-							value={ attributes.fontSize } // The current selected font size
+						<FontSizePicker
+							label="Font Size"
+							value={ attributes.fontSize }
 							onChange={ ( newSize ) => setAttributes( { fontSize: newSize } ) }
-							fontSizes={ [ // Define the available font sizes for this picker
+							fontSizes={ [
 								{ name: 'Small', slug: 'small', size: 12 },
 								{ name: 'Regular', slug: 'regular', size: 16 },
+								{ name: 'Large', slug: 'large', size: 24 },
+							] }
+						/>
+					</PanelBody>
+					<PanelBody title="Post Settings" initialOpen={ false }>
+						<ColorPalette
+							label="Text Color"
+							value={ attributes.postTitleTextColor }
+							onChange={ ( newColor ) => setAttributes( { postTitleTextColor: newColor } ) }
+						/>
+						<ColorPalette
+							label="Background Color"
+							value={ attributes.postBgColor }
+							onChange={ ( newColor ) => setAttributes( { postBgColor: newColor } ) }
+						/>
+						<FontSizePicker
+							label="Font Size"
+							value={ attributes.postTitleFontSize }
+							onChange={ ( newSize ) => setAttributes( { postTitleFontSize: newSize } ) }
+							fontSizes={ [
+								{ name: 'Small', slug: 'small', size: 12 },
+								{ name: 'Regular', slug: 'regular', size: 16 },
+								{ name: 'Large', slug: 'large', size: 24 },
 							] }
 						/>
 					</PanelBody>

@@ -9,6 +9,13 @@
 	position: relative;
 }
 
+.display-posts-title {
+  left: 10px !important;
+  margin: 10px 0 8px !important;
+  font-weight: bold !important;
+}
+
+
 /* Start Also read posts custom styling */
 .display-posts-listing {
   margin-left: 0 !important;
@@ -16,9 +23,7 @@
   padding: 0 !important;
   
   a.title {
-    color: white;
     font-weight: bold;
-    font-size: 18px;
     text-decoration: none;
     margin-top: 13px;
     flex: 1;
@@ -41,7 +46,6 @@
     display: flex;
     padding: 9px;
     position: relative;
-    background-color: #06b7d3;
     border-radius: 5px;
     margin-bottom: 12px;
     align-items: start;

@@ -51,6 +51,18 @@
 		"fontSize": {
 			"type": "string",
 			"default": "18px" 
+		},
+		"postTitleTextColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"postTitleFontSize": {
+			"type": "string",
+			"default": "18px"
+		},
+		"postBgColor": {
+			"type": "string",
+			"default": "#06b7d3"
 		}
 	},
 	"render": "file:./render.php",
