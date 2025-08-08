@@ -50,6 +50,9 @@
     margin-bottom: 12px;
     align-items: start;
   }
+  li:before{
+    display: none;
+  }
 }
 
 /* Media query for small devices */

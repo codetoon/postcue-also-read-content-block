@@ -63,6 +63,10 @@
 		"postBgColor": {
 			"type": "string",
 			"default": "#06b7d3"
+		},
+		"allowGlobalOverride": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"render": "file:./render.php",

@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 import { useState } from 'react'; // Import useState for managing state
 import Autosuggest from 'react-autosuggest';
 import { BlockControls, InspectorControls, ColorPalette } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton, TextControl, PanelBody, FontSizePicker } from '@wordpress/components';
+import { ToolbarGroup, ToolbarButton, TextControl, PanelBody, FontSizePicker, ToggleControl } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -133,103 +133,117 @@ export default function Edit({attributes, setAttributes}) {
 			</div>
 			{attributes.selectedPost?.id != undefined && (
 				<>
-				<BlockControls>
-					<ToolbarGroup>
-						{
-							editView ? (
-								<ToolbarButton
-									onClick={() => {
-										setAttributes({ showInput: true });
-										setAttributes({ editView: false });	
-									}}
-								>
-									{__('Edit', 'regur-also-read-post')}
-								</ToolbarButton>
-							)
-								: (
+					<BlockControls>
+						<ToolbarGroup>
+							{
+								editView ? (
 									<ToolbarButton
 										onClick={() => {
-											setAttributes({ showInput: false });
-											setAttributes({ editView: true });
+											setAttributes({ showInput: true });
+											setAttributes({ editView: false });
 										}}
 									>
-										{__('Cancel', 'regur-also-read-post')}
+										{__('Edit', 'regur-also-read-post')}
 									</ToolbarButton>
 								)
+									: (
+										<ToolbarButton
+											onClick={() => {
+												setAttributes({ showInput: false });
+												setAttributes({ editView: true });
+											}}
+										>
+											{__('Cancel', 'regur-also-read-post')}
+										</ToolbarButton>
+									)
+							}
+						</ToolbarGroup>
+					</BlockControls>
+					<InspectorControls>
+						<PanelBody title="Global Style Settings" initialOpen={true}>
+							<ToggleControl
+								label="Allow Global Override"
+								checked={attributes.allowGlobalOverride}
+								onChange={(val) => setAttributes({ allowGlobalOverride: val })}
+								help="If disabled, block will not use global defaults."
+							/>
+						</PanelBody>
+						{
+							!attributes.allowGlobalOverride && (
+								<>
+									<PanelBody title="Title Settings" initialOpen={false}>
+										<div style={{ marginBottom: '16px' }}>
+											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+												Block Title
+											</span>
+											<TextControl
+
+												onChange={(placeholder) => setAttributes({ blockTitle: placeholder })}
+												value={attributes.blockTitle}
+											/>
+										</div>
+										<div style={{ marginBottom: '16px' }}>
+											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+												Block Title Text Color
+											</span>
+											<ColorPalette
+												value={attributes.textColor}
+												onChange={(newColor) => setAttributes({ textColor: newColor })}
+											/>
+										</div>
+										<div style={{ marginBottom: '16px' }}>
+											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+												Block Title Font Size
+											</span>
+											<FontSizePicker
+												value={attributes.fontSize}
+												onChange={(newSize) => setAttributes({ fontSize: newSize })}
+												fontSizes={[
+													{ name: 'Small', slug: 'small', size: 12 },
+													{ name: 'Regular', slug: 'regular', size: 16 },
+													{ name: 'Large', slug: 'large', size: 24 },
+												]}
+											/>
+										</div>
+									</PanelBody>
+									<PanelBody title="Post Settings" initialOpen={false}>
+										<div style={{ marginBottom: '16px' }}>
+											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+												Post Title Color
+											</span>
+											<ColorPalette
+												value={attributes.postTitleTextColor}
+												onChange={(newColor) => setAttributes({ postTitleTextColor: newColor })}
+											/>
+										</div>
+										<div style={{ marginBottom: '16px' }}>
+											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+												Post Background Color
+											</span>
+											<ColorPalette
+												value={attributes.postBgColor}
+												onChange={(newColor) => setAttributes({ postBgColor: newColor })}
+											/>
+										</div>
+										<div style={{ marginBottom: '16px' }}>
+											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
+												Post Title Font Size
+											</span>
+											<FontSizePicker
+												value={attributes.postTitleFontSize}
+												onChange={(newSize) => setAttributes({ postTitleFontSize: newSize })}
+												fontSizes={[
+													{ name: 'Small', slug: 'small', size: 12 },
+													{ name: 'Regular', slug: 'regular', size: 16 },
+													{ name: 'Large', slug: 'large', size: 24 },
+								] }
+											/>
+										</div>
+									</PanelBody>
+								</>
+							)
 						}
-					</ToolbarGroup>
-				</BlockControls>
-				<InspectorControls>
-					<PanelBody title="Title Settings" initialOpen={ false }>
-						<div style={{ marginBottom: '16px' }}>
-							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-								Block Title
-							</span>
-						<TextControl
-							
-							onChange={ ( placeholder ) => setAttributes( { blockTitle : placeholder } ) }
-							value={ attributes.blockTitle }
-						/>
-						</div>
-						<div style={{ marginBottom: '16px' }}>
-							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-								Block Title Text Color
-							</span>
-							<ColorPalette
-								value={ attributes.textColor }
-								onChange={ ( newColor ) => setAttributes( { textColor: newColor } ) }
-							/>
-						</div>
-						<div style={{ marginBottom: '16px' }}>
-							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-								Block Title Font Size
-							</span>
-							<FontSizePicker
-								value={ attributes.fontSize }
-								onChange={ ( newSize ) => setAttributes( { fontSize: newSize } ) }
-								fontSizes={ [
-									{ name: 'Small', slug: 'small', size: 12 },
-									{ name: 'Regular', slug: 'regular', size: 16 },
-									{ name: 'Large', slug: 'large', size: 24 },
-								] }
-							/>
-						</div>
-					</PanelBody>
-					<PanelBody title="Post Settings" initialOpen={ false }>
-						<div style={{ marginBottom: '16px' }}>
-							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-								Post Title Color
-							</span>
-							<ColorPalette
-								value={ attributes.postTitleTextColor }
-								onChange={ ( newColor ) => setAttributes( { postTitleTextColor: newColor } ) }
-							/>
-						</div>
-						<div style={{ marginBottom: '16px' }}>
-							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-								Post Background Color
-							</span>
-							<ColorPalette
-								value={ attributes.postBgColor }
-								onChange={ ( newColor ) => setAttributes( { postBgColor: newColor } ) }
-							/>
-						</div>
-						<div style={{ marginBottom: '16px' }}>
-							<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-								Post Title Font Size
-							</span>
-							<FontSizePicker
-								value={ attributes.postTitleFontSize }
-								onChange={ ( newSize ) => setAttributes( { postTitleFontSize: newSize } ) }
-								fontSizes={ [
-									{ name: 'Small', slug: 'small', size: 12 },
-									{ name: 'Regular', slug: 'regular', size: 16 },
-									{ name: 'Large', slug: 'large', size: 24 },
-								] }
-							/>
-						</div>
-					</PanelBody>
-				</InspectorControls>
+					</InspectorControls>
 				</>
 			)}
 		</div>
