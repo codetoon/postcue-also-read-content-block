@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:       Regur Also Read Post
+ * Plugin Name:       WP Also Read Block
  * Description:       A simple plugin to display also read posts.
  * Version:           0.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
- * Author:            <a href="https://www.regur.net">Regur Technology Solutions</a>
+ * Author:            
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       regur-also-read-post
+ * Text Domain:       rts-wp-also-read-block
  *
  * @package CreateBlock
  */
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
 require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
-function create_block_regur_also_read_post_block_init() {
+function rtswparb_create_block_init() {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
 	 * based on the registered block metadata.
@@ -57,13 +57,13 @@ function create_block_regur_also_read_post_block_init() {
 		register_block_type( __DIR__ . "/build/{$block_type}" );
 	}
 }
-add_action( 'init', 'create_block_regur_also_read_post_block_init' );
+add_action( 'init', 'rtswparb_create_block_init' );
 
 // Register AJAX handlers for both logged-in and guest users
-add_action('wp_ajax_post_search', 'rps_ajax_post_search');
-add_action('wp_ajax_nopriv_post_search', 'rps_ajax_post_search');
+add_action('wp_ajax_post_search', 'rtswparb_ajax_post_search');
+add_action('wp_ajax_nopriv_post_search', 'rtswparb_ajax_post_search');
 
-function rps_ajax_post_search()
+function rtswparb_ajax_post_search()
 {
 	error_log('AJAX called');
 
@@ -97,8 +97,8 @@ function rps_ajax_post_search()
 	wp_send_json($results);
 }
 // Helper to get global default styles
-function rps_get_global_defaults() {
-    return get_option('regur_also_read_post_defaults', [
+function rtswparb_get_global_defaults() {
+    return get_option('rts_wp_also_read_block_defaults', [
         'blockTitle' => 'Also Read',
         'textColor' => '#696969',
         'fontSize' => '18px',
@@ -109,7 +109,7 @@ function rps_get_global_defaults() {
 }
 
 // Enqueue scripts for the frontend
-function rps_enqueue_scripts() {
+function rtswparb_enqueue_scripts() {
     wp_enqueue_script(
         'rps-search',
         plugin_dir_url(__FILE__) . 'view.js',
@@ -120,18 +120,18 @@ function rps_enqueue_scripts() {
 
     wp_localize_script('rps-search', 'rps_ajax', [
         'ajax_url' => admin_url('admin-ajax.php'),
-        'defaults' => rps_get_global_defaults(),
+        'defaults' => rtswparb_get_global_defaults(),
     ]);
 }
-add_action('wp_enqueue_scripts', 'rps_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'rtswparb_enqueue_scripts');
 
 // Enqueue in block editor too
-function rps_enqueue_editor_scripts() {
-    $defaults = rps_get_global_defaults();
+function rtswparb_enqueue_editor_scripts() {
+    $defaults = rtswparb_get_global_defaults();
     wp_add_inline_script(
         'wp-block-editor',
         'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";window.rpsDefaults = ' . json_encode($defaults) . ';',
         'before'
     );
 }
-add_action('enqueue_block_editor_assets', 'rps_enqueue_editor_scripts');
+add_action('enqueue_block_editor_assets', 'rtswparb_enqueue_editor_scripts');

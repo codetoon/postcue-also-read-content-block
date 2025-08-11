@@ -21,5 +21,5 @@
  */
 
 /* eslint-disable no-console */
-// console.log( 'Hello World! (from create-block-regur-also-read-post block)' );
+// console.log( 'Hello World! (from create-block-rts-wp-also-read-block block)' );
 /* eslint-enable no-console */

@@ -122,8 +122,8 @@ export default function Edit({attributes, setAttributes}) {
 				{/* Show the input field only when showInput is true */}
 				{showInput && (
 					<>
-						<label className="regur-also-read-post-label">
-							{__('Search for a post:', 'regur-also-read-post')}
+						<label className="rts-wp-also-read-block-label">
+							{__('Search for a post:', 'rts-wp-also-read-block')}
 						</label>
 						<Autosuggest
 							suggestions={suggestions}
@@ -135,19 +135,19 @@ export default function Edit({attributes, setAttributes}) {
 							inputProps={{
 								value,
 								onChange,
-								id: 'regur-also-read-post-input',
-								name: 'regur-also-read-post-input',
-								placeholder: __('Type to search posts...', 'regur-also-read-post'),
+								id: 'rts-wp-also-read-block-input',
+								name: 'rts-wp-also-read-block-input',
+								placeholder: __('Type to search posts...', 'rts-wp-also-read-block'),
 							}}
 						/>
 					</>
 				)}
 
 				{/* Display loading message when suggestions are being fetched */}
-				{isLoading && suggestions.length == 0 && showInput && value && <p className='regur-also-read-post-loading'>{__('Loading suggestions...', 'regur-also-read-post-loading')}</p>}
+				{isLoading && suggestions.length == 0 && showInput && value && <p className='rts-wp-also-read-block-loading'>{__('Loading suggestions...', 'rts-wp-also-read-block-loading')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
-				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="regur-also-read-post-no-suggestions"> {__('No posts found for your search.', 'regur-also-read-post')}</p>}
+				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="rts-wp-also-read-block-no-suggestions"> {__('No posts found for your search.', 'rts-wp-also-read-block')}</p>}
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
@@ -166,7 +166,7 @@ export default function Edit({attributes, setAttributes}) {
 											setAttributes({ editView: false });
 										}}
 									>
-										{__('Edit', 'regur-also-read-post')}
+										{__('Edit', 'rts-wp-also-read-block')}
 									</ToolbarButton>
 								)
 									: (
@@ -176,7 +176,7 @@ export default function Edit({attributes, setAttributes}) {
 												setAttributes({ editView: true });
 											}}
 										>
-											{__('Cancel', 'regur-also-read-post')}
+											{__('Cancel', 'rts-wp-also-read-block')}
 										</ToolbarButton>
 									)
 							}

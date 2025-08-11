@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "create-block/regur-also-read-post",
+	"name": "create-block/rts-wp-also-read-block",
 	"version": "0.1.0",
-	"title": "Regur Also Read Post",
+	"title": "WP Also Read Block",
 	"category": "widgets",
 	"icon": "smiley",
 	"description": "A block to display also read posts based on the search term",
@@ -11,7 +11,7 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "regur-also-read-post",
+	"textdomain": "rts-wp-also-read-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",

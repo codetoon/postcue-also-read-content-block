@@ -4,9 +4,9 @@
  */
 
 // Helper to get global defaults (same as in main plugin file)
-if ( ! function_exists( 'rps_get_global_defaults' ) ) {
-    function rps_get_global_defaults() {
-        return get_option('regur_also_read_post_defaults', [
+if ( ! function_exists( 'rtswparb_get_global_defaults' ) ) {
+    function rtswparb_get_global_defaults() {
+        return get_option('rts-wp-also-read-block_defaults', [
             'blockTitle' => 'Also Read',
             'textColor' => '#696969',
             'fontSize' => '18px',
@@ -26,7 +26,7 @@ if(empty($selectedPost)){
 
 // Use global defaults if allowGlobalOverride is true, else use block attributes
 if (!empty($attributes['allowGlobalOverride'])) {
-    $defaults = rps_get_global_defaults();
+    $defaults = rtswparb_get_global_defaults();
     $blockTitle = $defaults['blockTitle'] ?? '';
     $textColor = $defaults['textColor'] ?? '';
     $fontSize = $defaults['fontSize'] ?? '';
