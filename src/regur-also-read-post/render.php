@@ -2,25 +2,49 @@
 /**
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
-?>
-<?php
+
+// Helper to get global defaults (same as in main plugin file)
+if ( ! function_exists( 'rps_get_global_defaults' ) ) {
+    function rps_get_global_defaults() {
+        return get_option('regur_also_read_post_defaults', [
+            'blockTitle' => 'Also Read',
+            'textColor' => '#696969',
+            'fontSize' => '18px',
+            'postTitleTextColor' => '#ffffff',
+            'postTitleFontSize' => '18px',
+            'postBgColor' => '#06b7d3',
+        ]);
+    }
+}
+
 $attributes = $attributes ?? [];
 $selectedPost = $attributes['selectedPost'] ?? null;
 
 if(empty($selectedPost)){
-	return '';
+    return '';
+}
+
+// Use global defaults if allowGlobalOverride is true, else use block attributes
+if (!empty($attributes['allowGlobalOverride'])) {
+    $defaults = rps_get_global_defaults();
+    $blockTitle = $defaults['blockTitle'] ?? '';
+    $textColor = $defaults['textColor'] ?? '';
+    $fontSize = $defaults['fontSize'] ?? '';
+    $postTitleTextColor = $defaults['postTitleTextColor'] ?? '';
+    $postTitleFontSize = $defaults['postTitleFontSize'] ?? '';
+    $postBgColor = $defaults['postBgColor'] ?? '';
+} else {
+    $blockTitle = $attributes['blockTitle'] ?? '';
+    $textColor = $attributes['textColor'] ?? '';
+    $fontSize = $attributes['fontSize'] ?? '';
+    $postTitleTextColor = $attributes['postTitleTextColor'] ?? '';
+    $postTitleFontSize = $attributes['postTitleFontSize'] ?? '';
+    $postBgColor = $attributes['postBgColor'] ?? '';
 }
 
 $title = esc_html($selectedPost['title'] ?? '');
 $link = esc_url($selectedPost['link'] ?? '#');
 $thumbnail = esc_url($selectedPost['thumbnail'] ?? '');
-$blockTitle = $attributes['blockTitle'] ?? '';
-$textColor = $attributes['textColor'] ?? '';
-$fontSize = $attributes['fontSize'] ?? '';
-$postTitleTextColor = $attributes['postTitleTextColor'] ?? '';
-$postBgColor = $attributes['postBgColor'] ?? '';
-$postTitleFontSize = $attributes['postTitleFontSize'] ?? '';
-
 
 ?>
 <div <?php echo get_block_wrapper_attributes(); ?>>
