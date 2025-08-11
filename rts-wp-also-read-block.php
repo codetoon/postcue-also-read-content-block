@@ -130,7 +130,7 @@ function rtswparb_enqueue_editor_scripts() {
     $defaults = rtswparb_get_global_defaults();
     wp_add_inline_script(
         'wp-block-editor',
-        'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";window.rpsDefaults = ' . json_encode($defaults) . ';',
+        'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";window.rtswparbDefaults = ' . json_encode($defaults) . ';',
         'before'
     );
 }

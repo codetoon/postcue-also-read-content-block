@@ -41,8 +41,8 @@ export default function Edit({attributes, setAttributes}) {
 	const {value, showInput, isLoading, showNotFoundMsg, editView } = attributes;
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
 
-	// Get global defaults from window.rpsDefaults (set in PHP)
-    const globalDefaults = (typeof window !== "undefined" && window.rpsDefaults) ? window.rpsDefaults : {};
+	// Get global defaults from window.rtswparbDefaults (set in PHP)
+    const globalDefaults = (typeof window !== "undefined" && window.rtswparbDefaults) ? window.rtswparbDefaults : {};
 
     // Compose the style props for Post component
     const postProps = attributes.allowGlobalOverride
