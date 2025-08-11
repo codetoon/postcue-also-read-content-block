@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 add_action('admin_menu', function() {
     add_options_page(
         'WP Also Read Block Settings',

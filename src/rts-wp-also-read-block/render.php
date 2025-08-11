@@ -3,6 +3,10 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 // Helper to get global defaults (same as in main plugin file)
 if ( ! function_exists( 'rtswparb_get_global_defaults' ) ) {
     function rtswparb_get_global_defaults() {
