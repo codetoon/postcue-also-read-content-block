@@ -117,8 +117,7 @@ export default function Edit({attributes, setAttributes}) {
 	}
 
 	return (
-		<div>
-			<div {...blockProps}>
+		<div {...blockProps}>
 				{/* Show the input field only when showInput is true */}
 				{showInput && (
 					<>
@@ -153,7 +152,6 @@ export default function Edit({attributes, setAttributes}) {
 				{attributes.selectedPost?.id && !showInput && (
 					<Post attributes={postProps}/>
 				)}
-			</div>
 			{attributes.selectedPost?.id != undefined && (
 				<>
 					<BlockControls>

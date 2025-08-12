@@ -11,7 +11,7 @@
 
 .display-posts-title {
   left: 10px !important;
-  margin: 10px 0 8px !important;
+  margin: 8px 0 !important;
   font-weight: bold !important;
 }
 
@@ -20,6 +20,8 @@
 .display-posts-listing {
   margin-left: 0 !important;
   margin-right: 0 !important;
+  margin-top: 12px !important;
+  margin-bottom: 18px !important;
   padding: 0 !important;
   
   a.title {
@@ -31,23 +33,25 @@
     align-items: center;
     text-align: left;
   }
-
+  li a.image{
+    width: 100px !important;
+    height: 66px !important;
+    margin: 8px 15px 8px 0 !important;
+  }
   img {
     box-shadow: 0px 1px 8px #70707096 !important;
-    width: 100px !important;
-    height: 66px;
-    margin: 8px 15px 10px 0;
-    flex-shrink: 0;
-    margin-bottom: 0;
+    width: 100% !important;
+    height: 100% !important; 
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   li {
     list-style: none !important;
     display: flex;
-    padding: 9px;
+    padding: 10px !important;
     position: relative;
     border-radius: 5px;
-    margin-bottom: 12px;
     align-items: start;
   }
   li:before{
@@ -57,16 +61,11 @@
 
 /* Media query for small devices */
 @media screen and (max-width: 600px) {
-  .display-posts-listing li {
-    padding: 10px;
-  }
-
-  .display-posts-listing img {
+  .display-posts-listing li a.image {
     width: 90px !important;
     height: auto;
-    margin-right: 10px;
+    margin-right: 10px !important;
   }
-
   .display-posts-listing a.title {
     font-size: 16px;
     margin-top: 0;
