@@ -186,7 +186,7 @@ export default function Edit({attributes, setAttributes}) {
 								label="Allow Global Override"
 								checked={attributes.allowGlobalOverride}
 								onChange={(val) => setAttributes({ allowGlobalOverride: val })}
-								help="If disabled, block will not use global defaults."
+								help="If disabled, this block will use custom styles instead of global defaults."
 							/>
 						</PanelBody>
 						{
