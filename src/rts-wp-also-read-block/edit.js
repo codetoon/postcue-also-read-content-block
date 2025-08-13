@@ -4,7 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { useState } from 'react'; // Import useState for managing state
+import { useState, useEffect} from 'react'; // Import useState for managing state
 import Autosuggest from 'react-autosuggest';
 import { BlockControls, InspectorControls, ColorPalette } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarButton, TextControl, PanelBody, FontSizePicker, ToggleControl } from '@wordpress/components';
@@ -43,27 +43,38 @@ export default function Edit({attributes, setAttributes}) {
 
 	// Get global defaults from window.rtswparbDefaults (set in PHP)
     const globalDefaults = (typeof window !== "undefined" && window.rtswparbDefaults) ? window.rtswparbDefaults : {};
+	
+	// Only initialize local styles once, when global override is disabled
+	useEffect(() => {
+		if (attributes.allowGlobalOverride) {
+			setAttributes({
+				blockTitle: globalDefaults.blockTitle,
+				textColor: globalDefaults.textColor,
+				fontSize: globalDefaults.fontSize,
+				postTitleTextColor: globalDefaults.postTitleTextColor,
+				postTitleFontSize: globalDefaults.postTitleFontSize,
+				postBgColor: globalDefaults.postBgColor,
+			});
+		}
+	}, [globalDefaults]);
+	
+	// Compute final style values based on allowGlobalOverride
+	const blockTitle = attributes.allowGlobalOverride ? globalDefaults.blockTitle : attributes.blockTitle;
+	const textColor = attributes.allowGlobalOverride ? globalDefaults.textColor : attributes.textColor;
+	const fontSize = attributes.allowGlobalOverride ? globalDefaults.fontSize : attributes.fontSize;
+	const postTitleTextColor = attributes.allowGlobalOverride ? globalDefaults.postTitleTextColor : attributes.postTitleTextColor;
+	const postTitleFontSize = attributes.allowGlobalOverride ? globalDefaults.postTitleFontSize : attributes.postTitleFontSize;
+	const postBgColor = attributes.allowGlobalOverride ? globalDefaults.postBgColor : attributes.postBgColor;
 
-    // Compose the style props for Post component
-    const postProps = attributes.allowGlobalOverride
-        ? {
-            blockTitle: globalDefaults.blockTitle,
-            textColor: globalDefaults.textColor,
-            fontSize: globalDefaults.fontSize,
-            postTitleTextColor: globalDefaults.postTitleTextColor,
-            postTitleFontSize: globalDefaults.postTitleFontSize,
-            postBgColor: globalDefaults.postBgColor,
-            selectedPost: attributes.selectedPost
-        }
-        : {
-            blockTitle: attributes.blockTitle,
-            textColor: attributes.textColor,
-            fontSize: attributes.fontSize,
-            postTitleTextColor: attributes.postTitleTextColor,
-            postTitleFontSize: attributes.postTitleFontSize,
-            postBgColor: attributes.postBgColor,
-            selectedPost: attributes.selectedPost
-        };
+	const postProps = {
+		blockTitle,
+		textColor,
+		fontSize,
+		postTitleTextColor,
+		postTitleFontSize,
+		postBgColor,
+		selectedPost: attributes.selectedPost,
+	};
 	const setSelectedPost = (post) => {
     setAttributes({ selectedPost: {
 				id: post.id,
