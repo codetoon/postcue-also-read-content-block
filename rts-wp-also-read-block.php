@@ -65,11 +65,8 @@ add_action('wp_ajax_nopriv_post_search', 'rtswparb_ajax_post_search');
 
 function rtswparb_ajax_post_search()
 {
-	error_log('AJAX called');
 
 	$term = isset($_GET['term']) ? sanitize_text_field($_GET['term']) : ''; // Sanitize the search term
-
-	error_log('Search term: ' . $term); 
 
 	$query = new WP_Query([ // Create a new WP_Query instance
 		's' => $term,
@@ -91,9 +88,7 @@ function rtswparb_ajax_post_search()
 			];
 		}
 	}
-
-	error_log('Results found: ' . count($results));
-
+	
 	wp_send_json($results);
 }
 // Helper to get global default styles
