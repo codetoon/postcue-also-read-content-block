@@ -28,8 +28,16 @@ if(empty($selectedPost)){
     return '';
 }
 
-// Use global defaults if allowGlobalOverride is true, else use block attributes
-if (!empty($attributes['allowGlobalOverride'])) {
+// Use global defaults if allowCustomStyle is true, else use block attributes
+if (!empty($attributes['allowCustomStyle'])) {
+    $blockTitle = $attributes['blockTitle'] ?? '';
+    $textColor = $attributes['textColor'] ?? '';
+    $fontSize = $attributes['fontSize'] ?? '';
+    $postTitleTextColor = $attributes['postTitleTextColor'] ?? '';
+    $postTitleFontSize = $attributes['postTitleFontSize'] ?? '';
+    $postBgColor = $attributes['postBgColor'] ?? '';
+
+} else {
     $defaults = rtswparb_get_global_defaults();
     $blockTitle = $defaults['blockTitle'] ?? '';
     $textColor = $defaults['textColor'] ?? '';
@@ -37,13 +45,6 @@ if (!empty($attributes['allowGlobalOverride'])) {
     $postTitleTextColor = $defaults['postTitleTextColor'] ?? '';
     $postTitleFontSize = $defaults['postTitleFontSize'] ?? '';
     $postBgColor = $defaults['postBgColor'] ?? '';
-} else {
-    $blockTitle = $attributes['blockTitle'] ?? '';
-    $textColor = $attributes['textColor'] ?? '';
-    $fontSize = $attributes['fontSize'] ?? '';
-    $postTitleTextColor = $attributes['postTitleTextColor'] ?? '';
-    $postTitleFontSize = $attributes['postTitleFontSize'] ?? '';
-    $postBgColor = $attributes['postBgColor'] ?? '';
 }
 
 $title = esc_html($selectedPost['title'] ?? '');

@@ -64,9 +64,9 @@
 			"type": "string",
 			"default": "#06b7d3"
 		},
-		"allowGlobalOverride": {
+		"allowCustomStyle": {
 			"type": "boolean",
-			"default": true
+			"default": false
 		}
 	},
 	"render": "file:./render.php",

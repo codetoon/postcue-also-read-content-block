@@ -46,7 +46,7 @@ export default function Edit({attributes, setAttributes}) {
 	
 	// Only initialize local styles once, when global override is disabled
 	useEffect(() => {
-		if (attributes.allowGlobalOverride) {
+		if (!attributes.allowCustomStyle) {
 			setAttributes({
 				blockTitle: globalDefaults.blockTitle,
 				textColor: globalDefaults.textColor,
@@ -58,13 +58,13 @@ export default function Edit({attributes, setAttributes}) {
 		}
 	}, [globalDefaults]);
 	
-	// Compute final style values based on allowGlobalOverride
-	const blockTitle = attributes.allowGlobalOverride ? globalDefaults.blockTitle : attributes.blockTitle;
-	const textColor = attributes.allowGlobalOverride ? globalDefaults.textColor : attributes.textColor;
-	const fontSize = attributes.allowGlobalOverride ? globalDefaults.fontSize : attributes.fontSize;
-	const postTitleTextColor = attributes.allowGlobalOverride ? globalDefaults.postTitleTextColor : attributes.postTitleTextColor;
-	const postTitleFontSize = attributes.allowGlobalOverride ? globalDefaults.postTitleFontSize : attributes.postTitleFontSize;
-	const postBgColor = attributes.allowGlobalOverride ? globalDefaults.postBgColor : attributes.postBgColor;
+	// Compute final style values based on allowCustomStyle
+	const blockTitle = !attributes.allowCustomStyle ? globalDefaults.blockTitle : attributes.blockTitle;
+	const textColor = !attributes.allowCustomStyle ? globalDefaults.textColor : attributes.textColor;
+	const fontSize = !attributes.allowCustomStyle ? globalDefaults.fontSize : attributes.fontSize;
+	const postTitleTextColor = !attributes.allowCustomStyle ? globalDefaults.postTitleTextColor : attributes.postTitleTextColor;
+	const postTitleFontSize = !attributes.allowCustomStyle ? globalDefaults.postTitleFontSize : attributes.postTitleFontSize;
+	const postBgColor = !attributes.allowCustomStyle ? globalDefaults.postBgColor : attributes.postBgColor;
 
 	const postProps = {
 		blockTitle,
@@ -192,16 +192,16 @@ export default function Edit({attributes, setAttributes}) {
 						</ToolbarGroup>
 					</BlockControls>
 					<InspectorControls>
-						<PanelBody title="Global Style Settings" initialOpen={true}>
+						<PanelBody title="Custom Style Settings" initialOpen={true}>
 							<ToggleControl
-								label="Allow Global Override"
-								checked={attributes.allowGlobalOverride}
-								onChange={(val) => setAttributes({ allowGlobalOverride: val })}
-								help="If disabled, this block will use custom styles instead of global defaults."
+								label="Allow Custom style"
+								checked={attributes.allowCustomStyle}
+								onChange={(val) => setAttributes({ allowCustomStyle: val })}
+								help="If enable, this block will use custom styles instead of global defaults."
 							/>
 						</PanelBody>
 						{
-							!attributes.allowGlobalOverride && (
+							attributes.allowCustomStyle && (
 								<>
 									<PanelBody title="Title Settings" initialOpen={false}>
 										<div style={{ marginBottom: '16px' }}>
