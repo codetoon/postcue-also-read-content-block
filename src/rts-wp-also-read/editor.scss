@@ -4,7 +4,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-rts-wp-also-read-block .react-autosuggest__input {
+.wp-block-create-block-rts-wp-also-read .react-autosuggest__input {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 10px 12px;
@@ -17,11 +17,11 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-.wp-block-create-block-rts-wp-also-read-block .react-autosuggest__input::placeholder {
+.wp-block-create-block-rts-wp-also-read .react-autosuggest__input::placeholder {
   color: #999;
 }
 
-.wp-block-create-block-rts-wp-also-read-block .react-autosuggest__input:focus {
+.wp-block-create-block-rts-wp-also-read .react-autosuggest__input:focus {
   border-color: #0077cc;
   box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.2);
   outline: none;
@@ -69,21 +69,21 @@
   max-height: 40vh;
 }
 
-p.rts-wp-also-read-block-loading, p.rts-wp-also-read-block-no-suggestions{
+p.rts-wp-also-read-loading, p.rts-wp-also-read-no-suggestions{
   text-align: center !important;
   font-size: 16px;
   color: #666;
   padding: 20px;
 }
 
-.rts-wp-also-read-block-edit-button{
+.rts-wp-also-read-edit-button{
   display: block;
   width: 100%;
   text-align: center;
   font-size: 16px;
   margin-bottom: 10px;
 }
-.rts-wp-also-read-block-label{
+.rts-wp-also-read-label{
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
