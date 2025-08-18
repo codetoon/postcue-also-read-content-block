@@ -44,7 +44,7 @@ export default function Edit({attributes, setAttributes}) {
 	// Get global defaults from window.rtswparbDefaults (set in PHP)
     const globalDefaults = (typeof window !== "undefined" && window.rtswparbDefaults) ? window.rtswparbDefaults : {};
 	
-	// Only initialize local styles once, when global override is disabled
+	// Only initialize local styles once, when custom style is disabled
 	useEffect(() => {
 		if (!attributes.allowCustomStyle) {
 			setAttributes({
