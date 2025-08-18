@@ -74,6 +74,11 @@ function rtswpar_ajax_post_search()
         return;
     }
 
+	// Capability check for logged-in users
+    if ( is_user_logged_in() && ! current_user_can( 'edit_posts' ) ) {
+        wp_send_json_error( 'Insufficient permissions.' );
+        return;
+    }
 	// Unslash and sanitize
     $term = isset($_GET['term']) ? sanitize_text_field( wp_unslash($_GET['term']) ) : '';
 
