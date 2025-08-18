@@ -53,7 +53,7 @@ $thumbnail = $selectedPost['thumbnail'] ?? '';
 
 ?>
 <div <?php echo esc_attr(get_block_wrapper_attributes()); ?>>
-   <h2 class="display-posts-title" style="color: <?php echo esc_attr($textColor); ?> !important; font-size: <?php echo esc_attr($fontSize); ?> !important;"><?php echo esc_html($blockTitle); ?></h2>
+   <h2 class="display-posts-title" style="color: <?php echo esc_attr($textColor); ?> !important; font-size: <?php echo esc_attr($fontSize); ?> !important;"><?php echo esc_html__($blockTitle, 'rts-wp-also-read'); ?></h2>
      <ul class="display-posts-listing">
         <li class="listing-item" style="background-color: <?php echo esc_attr($postBgColor); ?> !important;">
         <?php if($thumbnail): ?>
@@ -61,7 +61,7 @@ $thumbnail = $selectedPost['thumbnail'] ?? '';
                     <img width="150" height="150" src="<?php echo esc_url($thumbnail); ?>" class="attachment-thumbnail size-thumbnail wp-post-image" alt="<?php echo esc_html($title); ?>" />
             </a>
         <?php endif;?>
-        <a class="title" target="_blank" href="<?php echo esc_url($link); ?>" style="color: <?php echo esc_attr($postTitleTextColor); ?> !important; background-color: <?php echo esc_attr($postBgColor); ?> !important; font-size: <?php echo esc_attr($postTitleFontSize); ?> !important;"><?php echo esc_html($title); ?></a>
+        <a class="title" target="_blank" href="<?php echo esc_url($link); ?>" style="color: <?php echo esc_attr($postTitleTextColor); ?> !important; background-color: <?php echo esc_attr($postBgColor); ?> !important; font-size: <?php echo esc_attr($postTitleFontSize); ?> !important;"><?php echo esc_html__($title, 'rts-wp-also-read'); ?></a>
         </li>
      </ul>
 </div>

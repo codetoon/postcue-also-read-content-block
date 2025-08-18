@@ -192,31 +192,30 @@ export default function Edit({attributes, setAttributes}) {
 						</ToolbarGroup>
 					</BlockControls>
 					<InspectorControls>
-						<PanelBody title="Custom Style Settings" initialOpen={true}>
+						<PanelBody title={__('Custom Style Settings', 'rts-wp-also-read')} initialOpen={true}>
 							<ToggleControl
-								label="Allow Custom style"
+								label={__('Allow Custom style', 'rts-wp-also-read')}
 								checked={attributes.allowCustomStyle}
 								onChange={(val) => setAttributes({ allowCustomStyle: val })}
-								help="If enable, this block will use custom styles instead of global defaults."
+								help={__('If enabled, this block will use custom styles instead of global defaults.', 'rts-wp-also-read')}
 							/>
 						</PanelBody>
 						{
 							attributes.allowCustomStyle && (
 								<>
-									<PanelBody title="Title Settings" initialOpen={false}>
+									<PanelBody title={__('Title Settings', 'rts-wp-also-read')} initialOpen={false}>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												Block Title
+												{__('Block Title', 'rts-wp-also-read')}
 											</span>
 											<TextControl
-
 												onChange={(placeholder) => setAttributes({ blockTitle: placeholder })}
 												value={attributes.blockTitle}
 											/>
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												Block Title Text Color
+												{__('Block Title Text Color', 'rts-wp-also-read')}
 											</span>
 											<ColorPalette
 												value={attributes.textColor}
@@ -225,23 +224,23 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												Block Title Font Size
+												{__('Block Title Font Size', 'rts-wp-also-read')}
 											</span>
 											<FontSizePicker
 												value={attributes.fontSize}
 												onChange={(newSize) => setAttributes({ fontSize: newSize })}
 												fontSizes={[
-													{ name: 'Small', slug: 'small', size: 12 },
-													{ name: 'Regular', slug: 'regular', size: 16 },
-													{ name: 'Large', slug: 'large', size: 24 },
+													{ name: __('Small', 'rts-wp-also-read'), slug: 'small', size: 12 },
+													{ name: __('Regular', 'rts-wp-also-read'), slug: 'regular', size: 16 },
+													{ name: __('Large', 'rts-wp-also-read'), slug: 'large', size: 24 },
 												]}
 											/>
 										</div>
 									</PanelBody>
-									<PanelBody title="Post Settings" initialOpen={false}>
+									<PanelBody title={__('Post Settings', 'rts-wp-also-read')} initialOpen={false}>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												Post Title Color
+												{__('Post Title Color', 'rts-wp-also-read')}
 											</span>
 											<ColorPalette
 												value={attributes.postTitleTextColor}
@@ -250,7 +249,7 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												Post Background Color
+												{__('Post Background Color', 'rts-wp-also-read')}
 											</span>
 											<ColorPalette
 												value={attributes.postBgColor}
@@ -259,16 +258,16 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												Post Title Font Size
+												{__('Post Title Font Size', 'rts-wp-also-read')}
 											</span>
 											<FontSizePicker
 												value={attributes.postTitleFontSize}
 												onChange={(newSize) => setAttributes({ postTitleFontSize: newSize })}
 												fontSizes={[
-													{ name: 'Small', slug: 'small', size: 12 },
-													{ name: 'Regular', slug: 'regular', size: 16 },
-													{ name: 'Large', slug: 'large', size: 24 },
-								] }
+													{ name: __('Small', 'rts-wp-also-read'), slug: 'small', size: 12 },
+													{ name: __('Regular', 'rts-wp-also-read'), slug: 'regular', size: 16 },
+													{ name: __('Large', 'rts-wp-also-read'), slug: 'large', size: 24 },
+												]}
 											/>
 										</div>
 									</PanelBody>

@@ -40,7 +40,7 @@ function rtswpar_settings_page() {
         ];
 
         update_option( 'rts_wp_also_read_defaults', $sanitized );
-        echo '<div class="updated"><p>Settings saved.</p></div>';
+        echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'rts-wp-also-read') . '</p></div>';
     }
     $defaults = get_option('rts_wp_also_read_defaults', [
         'blockTitle' => 'Also Read',
@@ -52,36 +52,36 @@ function rtswpar_settings_page() {
     ]);
 ?>
     <div class="wrap">
-        <h1>WP Also Read - Default Styles</h1>
+        <h1><?php echo esc_html__('WP Also Read - Default Styles', 'rts-wp-also-read'); ?></h1>
         <form method="post">
             <?php wp_nonce_field( 'rtswpar_save_settings', 'rtswpar_nonce' ); ?>
             <table class="form-table">
                 <tr>
-                    <th>Block Title</th>
+                    <th><?php echo esc_html__('Block Title', 'rts-wp-also-read'); ?></th>
                     <td><input name="rtswpar_defaults[blockTitle]" value="<?php echo esc_attr($defaults['blockTitle']); ?>"></td>
                 </tr>
                 <tr>
-                    <th>Block Title Color</th>
+                    <th><?php echo esc_html__('Block Title Color', 'rts-wp-also-read'); ?></th>
                     <td><input type="color" name="rtswpar_defaults[textColor]" value="<?php echo esc_attr($defaults['textColor']); ?>"></td>
                 </tr>
                 <tr>
-                    <th>Block Title Font Size</th>
+                    <th><?php echo esc_html__('Block Title Font Size', 'rts-wp-also-read'); ?></th>
                     <td><input name="rtswpar_defaults[fontSize]" value="<?php echo esc_attr($defaults['fontSize']); ?>"></td>
                 </tr>
                 <tr>
-                    <th>Post Title Color</th>
+                    <th><?php echo esc_html__('Post Title Color', 'rts-wp-also-read'); ?></th>
                     <td><input type="color" name="rtswpar_defaults[postTitleTextColor]" value="<?php echo esc_attr($defaults['postTitleTextColor']); ?>"></td>
                 </tr>
                 <tr>
-                    <th>Post Title Font Size</th>
+                    <th><?php echo esc_html__('Post Title Font Size', 'rts-wp-also-read'); ?></th>
                     <td><input name="rtswpar_defaults[postTitleFontSize]" value="<?php echo esc_attr($defaults['postTitleFontSize']); ?>"></td>
                 </tr>
                 <tr>
-                    <th>Post BG Color</th>
+                    <th><?php echo esc_html__('Post BG Color', 'rts-wp-also-read'); ?></th>
                     <td><input type="color" name="rtswpar_defaults[postBgColor]" value="<?php echo esc_attr($defaults['postBgColor']); ?>"></td>
                 </tr>
             </table>
-            <input type="submit" class="button-primary" value="Save Changes">
+            <input type="submit" class="button-primary" value="<?php echo esc_html__('Save Changes', 'rts-wp-also-read'); ?>">
         </form>
     </div>
 <?php
