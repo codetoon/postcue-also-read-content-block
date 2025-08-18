@@ -9,11 +9,11 @@ add_action('admin_menu', function() {
         'WP Also Read',
         'manage_options',
         'rts-wp-also-read',
-        'rts_wp_also_read_settings_page'
+        'rtswpar_settings_page'
     );
 });
 
-function rts_wp_also_read_settings_page() {
+function rtswpar_settings_page() {
     $input = null;
 
     // Avoid direct $_POST access in conditional
