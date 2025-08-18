@@ -103,24 +103,9 @@ function rtswpar_get_global_defaults() {
     ]);
 }
 
-// Enqueue scripts for the frontend
-function rtswpar_enqueue_scripts() {
-    wp_enqueue_script(
-        'rtswpar-search',
-        plugin_dir_url(__FILE__) . 'view.js',
-        ['jquery'],
-        null,
-        true
-    );
+// Remove frontend script enqueue (no view.js, no localization)
 
-    wp_localize_script('rtswpar-search', 'rtswpar_ajax', [
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'defaults' => rtswpar_get_global_defaults(),
-    ]);
-}
-add_action('wp_enqueue_scripts', 'rtswpar_enqueue_scripts');
-
-// Enqueue in block editor too
+// Enqueue in block editor only
 function rtswpar_enqueue_editor_scripts() {
     $defaults = rtswpar_get_global_defaults();
     wp_add_inline_script(
