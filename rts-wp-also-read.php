@@ -65,8 +65,17 @@ add_action('wp_ajax_nopriv_post_search', 'rtswpar_ajax_post_search');
 
 function rtswpar_ajax_post_search()
 {
+    // Safely retrieve and sanitize nonce
+    $nonce = isset($_GET['_rtswparnonce']) ? sanitize_text_field( wp_unslash( $_GET['_rtswparnonce'] ) ) : '';
 
-	$term = isset($_GET['term']) ? sanitize_text_field($_GET['term']) : ''; // Sanitize the search term
+    // Verify nonce
+    if ( ! wp_verify_nonce( $nonce, 'rtswpar_post_search' ) ) {
+        wp_send_json_error( 'Invalid request (nonce verification failed)' );
+        return;
+    }
+
+	// Unslash and sanitize
+    $term = isset($_GET['term']) ? sanitize_text_field( wp_unslash($_GET['term']) ) : '';
 
 	$query = new WP_Query([ // Create a new WP_Query instance
 		's' => $term,
@@ -110,8 +119,11 @@ function rtswpar_enqueue_editor_scripts() {
     $defaults = rtswpar_get_global_defaults();
     wp_add_inline_script(
         'wp-block-editor',
-        'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";window.rtswparbDefaults = ' . json_encode($defaults) . ';',
+        'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";' .
+        'window.rtswparbDefaults = ' . json_encode($defaults) . ';' .
+        'window.rtswparbNonce = "' . wp_create_nonce('rtswpar_post_search') . '";',
         'before'
     );
 }
+
 add_action('enqueue_block_editor_assets', 'rtswpar_enqueue_editor_scripts');

@@ -97,7 +97,7 @@ export default function Edit({attributes, setAttributes}) {
 		}
 		setAttributes({ isLoading: true, showNotFoundMsg: false });
 		try {
-			const res = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}`);
+            const res = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}&_rtswparnonce=${encodeURIComponent(window.rtswparbNonce)}`);
 			const data = await res.json();
 			setSuggestions(data || []);
 			setAttributes({ isLoading: false, showNotFoundMsg: (Array.isArray(data) && data.length === 0) });
