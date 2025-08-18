@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Helper to get global defaults (same as in main plugin file)
 if ( ! function_exists( 'rtswpar_get_global_defaults' ) ) {
     function rtswpar_get_global_defaults() {
-        return get_option('rts-wp-also-read_defaults', [
+        return get_option('rts_wp_also_read_defaults', [
             'blockTitle' => 'Also Read',
             'textColor' => '#696969',
             'fontSize' => '18px',
