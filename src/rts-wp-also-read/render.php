@@ -29,23 +29,15 @@ if(empty($selectedPost)){
 }
 
 // Use block attributes if allowCustomStyle is true, else use global defaults
-if (!empty($attributes['allowCustomStyle'])) {
-    $blockTitle = $attributes['blockTitle'] ?? '';
-    $textColor = $attributes['textColor'] ?? '';
-    $fontSize = $attributes['fontSize'] ?? '';
-    $postTitleTextColor = $attributes['postTitleTextColor'] ?? '';
-    $postTitleFontSize = $attributes['postTitleFontSize'] ?? '';
-    $postBgColor = $attributes['postBgColor'] ?? '';
+$source = !empty($attributes['allowCustomStyle']) ? $attributes : rtswpar_get_global_defaults();
 
-} else {
-    $defaults = rtswpar_get_global_defaults();
-    $blockTitle = $defaults['blockTitle'] ?? '';
-    $textColor = $defaults['textColor'] ?? '';
-    $fontSize = $defaults['fontSize'] ?? '';
-    $postTitleTextColor = $defaults['postTitleTextColor'] ?? '';
-    $postTitleFontSize = $defaults['postTitleFontSize'] ?? '';
-    $postBgColor = $defaults['postBgColor'] ?? '';
-}
+$blockTitle = $source['blockTitle'] ?? '';
+$textColor = $source['textColor'] ?? '';
+$fontSize = $source['fontSize'] ?? '';
+$postTitleTextColor = $source['postTitleTextColor'] ?? '';
+$postTitleFontSize = $source['postTitleFontSize'] ?? '';
+$postBgColor = $source['postBgColor'] ?? '';
+
 
 $title = $selectedPost['title'] ?? '';
 $link = $selectedPost['link'] ?? '#';
