@@ -28,7 +28,7 @@ if(empty($selectedPost)){
     return '';
 }
 
-// Use global defaults if allowCustomStyle is true, else use block attributes
+// Use block attributes if allowCustomStyle is true, else use global defaults
 if (!empty($attributes['allowCustomStyle'])) {
     $blockTitle = $attributes['blockTitle'] ?? '';
     $textColor = $attributes['textColor'] ?? '';
