@@ -14,7 +14,7 @@ add_action('admin_menu', function() {
 });
 
 function rts_wp_also_read_settings_page() {
-    if (isset($_POST['rtswpar_defaults'])) {
+    if (isset($_POST['rtswpar_defaults']) || wp_verify_nonce( $_POST['rtswpar_defaults'], 'my_action' )) {
         update_option('rts_wp_also_read_defaults', $_POST['rtswpar_defaults']);
         echo '<div class="updated"><p>Settings saved.</p></div>';
     }
