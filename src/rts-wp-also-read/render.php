@@ -47,21 +47,21 @@ if (!empty($attributes['allowCustomStyle'])) {
     $postBgColor = $defaults['postBgColor'] ?? '';
 }
 
-$title = esc_html($selectedPost['title'] ?? '');
-$link = esc_url($selectedPost['link'] ?? '#');
-$thumbnail = esc_url($selectedPost['thumbnail'] ?? '');
+$title = $selectedPost['title'] ?? '';
+$link = $selectedPost['link'] ?? '#';
+$thumbnail = $selectedPost['thumbnail'] ?? '';
 
 ?>
-<div <?php echo get_block_wrapper_attributes(); ?>>
+<div <?php echo esc_attr(get_block_wrapper_attributes()); ?>>
    <h2 class="display-posts-title" style="color: <?php echo esc_attr($textColor); ?> !important; font-size: <?php echo esc_attr($fontSize); ?> !important;"><?php echo esc_html($blockTitle); ?></h2>
      <ul class="display-posts-listing">
         <li class="listing-item" style="background-color: <?php echo esc_attr($postBgColor); ?> !important;">
         <?php if($thumbnail): ?>
-            <a class="image" target="_blank" href="<?php echo $link; ?>">
-                    <img width="150" height="150" src="<?php echo $thumbnail; ?>" class="attachment-thumbnail size-thumbnail wp-post-image" alt="<?php echo $title; ?>" />
+            <a class="image" target="_blank" href="<?php echo esc_url($link); ?>">
+                    <img width="150" height="150" src="<?php echo esc_url($thumbnail); ?>" class="attachment-thumbnail size-thumbnail wp-post-image" alt="<?php echo esc_html($title); ?>" />
             </a>
         <?php endif;?>
-        <a class="title" target="_blank" href="<?php echo $link; ?>" style="color: <?php echo esc_attr($postTitleTextColor); ?> !important; background-color: <?php echo esc_attr($postBgColor); ?> !important; font-size: <?php echo esc_attr($postTitleFontSize); ?> !important;"><?php echo $title; ?></a>
+        <a class="title" target="_blank" href="<?php echo esc_url($link); ?>" style="color: <?php echo esc_attr($postTitleTextColor); ?> !important; background-color: <?php echo esc_attr($postBgColor); ?> !important; font-size: <?php echo esc_attr($postTitleFontSize); ?> !important;"><?php echo esc_html($title); ?></a>
         </li>
      </ul>
 </div>
