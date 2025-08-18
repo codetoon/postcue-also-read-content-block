@@ -14,8 +14,32 @@ add_action('admin_menu', function() {
 });
 
 function rts_wp_also_read_settings_page() {
-    if (isset($_POST['rtswpar_defaults']) || wp_verify_nonce( $_POST['rtswpar_defaults'], 'my_action' )) {
-        update_option('rts_wp_also_read_defaults', $_POST['rtswpar_defaults']);
+    $input = null;
+
+    // Avoid direct $_POST access in conditional
+    if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+        if ( isset( $_POST['rtswpar_nonce'] ) && check_admin_referer( 'rtswpar_save_settings', 'rtswpar_nonce' ) ) {
+            // Safe to access now
+            $raw_input = filter_input( INPUT_POST, 'rtswpar_defaults', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+            
+            if ( is_array( $raw_input ) ) {
+                $input = wp_unslash( $raw_input ); // unescape slashes from POST
+            }
+        }
+    }
+
+    if ( is_array( $input ) ) {
+        // Sanitize each field
+        $sanitized = [
+            'blockTitle' => sanitize_text_field( $input['blockTitle'] ?? '' ),
+            'textColor' => sanitize_hex_color( $input['textColor'] ?? '' ),
+            'fontSize' => sanitize_text_field( $input['fontSize'] ?? '' ),
+            'postTitleTextColor' => sanitize_hex_color( $input['postTitleTextColor'] ?? '' ),
+            'postTitleFontSize' => sanitize_text_field( $input['postTitleFontSize'] ?? '' ),
+            'postBgColor' => sanitize_hex_color( $input['postBgColor'] ?? '' ),
+        ];
+
+        update_option( 'rts_wp_also_read_defaults', $sanitized );
         echo '<div class="updated"><p>Settings saved.</p></div>';
     }
     $defaults = get_option('rts_wp_also_read_defaults', [
@@ -26,10 +50,11 @@ function rts_wp_also_read_settings_page() {
         'postTitleFontSize' => '18px',
         'postBgColor' => '#06b7d3',
     ]);
-    ?>
+?>
     <div class="wrap">
         <h1>WP Also Read - Default Styles</h1>
         <form method="post">
+            <?php wp_nonce_field( 'rtswpar_save_settings', 'rtswpar_nonce' ); ?>
             <table class="form-table">
                 <tr>
                     <th>Block Title</th>
@@ -59,5 +84,5 @@ function rts_wp_also_read_settings_page() {
             <input type="submit" class="button-primary" value="Save Changes">
         </form>
     </div>
-    <?php
+<?php
 }
