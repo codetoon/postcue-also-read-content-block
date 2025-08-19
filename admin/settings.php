@@ -5,13 +5,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once plugin_dir_path(__DIR__) . './includes/functions.php';
 add_action('admin_menu', function() {
-    add_options_page(
-        'WP Also Read Settings',
-        'WP Also Read',
-        'manage_options',
-        'rts-wp-also-read',
-        'rtswpar_settings_page'
-    );
+    if (current_user_can('edit_posts')) {
+        add_menu_page(
+            'WP Also Read Settings',
+            'WP Also Read',
+            'edit_posts',
+            'rts-wp-also-read-settings',
+            'rtswpar_settings_page',
+            'dashicons-admin-generic',
+            80     
+        );
+    }
 });
 
 function rtswpar_settings_page() {
@@ -80,3 +84,4 @@ function rtswpar_settings_page() {
     </div>
 <?php
 }
+
