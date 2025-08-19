@@ -12,8 +12,8 @@ if ( ! function_exists( 'rtswpar_get_global_defaults' ) ) {
     function rtswpar_get_global_defaults() {
         return get_option('rts_wp_also_read_defaults', [
             'blockTitle' => 'Also Read',
-            'textColor' => '#696969',
-            'fontSize' => '18px',
+            'blockTitleTextColor' => '#696969',
+            'blockTitleFontSize' => '18px',
             'postTitleTextColor' => '#ffffff',
             'postTitleFontSize' => '18px',
             'postBgColor' => '#06b7d3',
@@ -32,8 +32,8 @@ if(empty($selectedPost)){
 $source = !empty($attributes['allowCustomStyle']) ? $attributes : rtswpar_get_global_defaults();
 
 $blockTitle = $source['blockTitle'] ?? '';
-$textColor = $source['textColor'] ?? '';
-$fontSize = $source['fontSize'] ?? '';
+$blockTitleTextColor = $source['blockTitleTextColor'] ?? '';
+$blockTitleFontSize = $source['blockTitleFontSize'] ?? '';
 $postTitleTextColor = $source['postTitleTextColor'] ?? '';
 $postTitleFontSize = $source['postTitleFontSize'] ?? '';
 $postBgColor = $source['postBgColor'] ?? '';
@@ -45,7 +45,7 @@ $thumbnail = $selectedPost['thumbnail'] ?? '';
 
 ?>
 <div <?php echo esc_attr(get_block_wrapper_attributes()); ?>>
-   <h2 class="display-posts-title" style="color: <?php echo esc_attr($textColor); ?> !important; font-size: <?php echo esc_attr($fontSize); ?> !important;"><?php echo esc_html__($blockTitle, 'rts-wp-also-read'); ?></h2>
+   <h2 class="display-posts-title" style="color: <?php echo esc_attr($blockTitleTextColor); ?> !important; font-size: <?php echo esc_attr($blockTitleFontSize); ?> !important;"><?php echo esc_html__($blockTitle, 'rts-wp-also-read'); ?></h2>
      <ul class="display-posts-listing">
         <li class="listing-item" style="background-color: <?php echo esc_attr($postBgColor); ?> !important;">
         <?php if($thumbnail): ?>

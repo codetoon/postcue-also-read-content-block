@@ -32,8 +32,8 @@ function rtswpar_settings_page() {
         // Sanitize each field
         $sanitized = [
             'blockTitle' => sanitize_text_field( $input['blockTitle'] ?? '' ),
-            'textColor' => sanitize_hex_color( $input['textColor'] ?? '' ),
-            'fontSize' => sanitize_text_field( $input['fontSize'] ?? '' ),
+            'blockTitleTextColor' => sanitize_hex_color( $input['blockTitleTextColor'] ?? '' ),
+            'blockTitleFontSize' => sanitize_text_field( $input['blockTitleFontSize'] ?? '' ),
             'postTitleTextColor' => sanitize_hex_color( $input['postTitleTextColor'] ?? '' ),
             'postTitleFontSize' => sanitize_text_field( $input['postTitleFontSize'] ?? '' ),
             'postBgColor' => sanitize_hex_color( $input['postBgColor'] ?? '' ),
@@ -44,8 +44,8 @@ function rtswpar_settings_page() {
     }
     $defaults = get_option('rts_wp_also_read_defaults', [
         'blockTitle' => 'Also Read',
-        'textColor' => '#696969',
-        'fontSize' => '18px',
+        'blockTitleTextColor' => '#696969',
+        'blockTitleFontSize' => '18px',
         'postTitleTextColor' => '#ffffff',
         'postTitleFontSize' => '18px',
         'postBgColor' => '#06b7d3',
@@ -62,11 +62,11 @@ function rtswpar_settings_page() {
                 </tr>
                 <tr>
                     <th><?php echo esc_html__('Block Title Color', 'rts-wp-also-read'); ?></th>
-                    <td><input type="color" name="rtswpar_defaults[textColor]" value="<?php echo esc_attr($defaults['textColor']); ?>"></td>
+                    <td><input type="color" name="rtswpar_defaults[blockTitleTextColor]" value="<?php echo esc_attr($defaults['blockTitleTextColor']); ?>"></td>
                 </tr>
                 <tr>
                     <th><?php echo esc_html__('Block Title Font Size', 'rts-wp-also-read'); ?></th>
-                    <td><input name="rtswpar_defaults[fontSize]" value="<?php echo esc_attr($defaults['fontSize']); ?>"></td>
+                    <td><input name="rtswpar_defaults[blockTitleFontSize]" value="<?php echo esc_attr($defaults['blockTitleFontSize']); ?>"></td>
                 </tr>
                 <tr>
                     <th><?php echo esc_html__('Post Title Color', 'rts-wp-also-read'); ?></th>

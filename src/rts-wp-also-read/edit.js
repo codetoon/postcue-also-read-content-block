@@ -49,8 +49,8 @@ export default function Edit({attributes, setAttributes}) {
 		if (!attributes.allowCustomStyle) {
 			setAttributes({
 				blockTitle: globalDefaults.blockTitle,
-				textColor: globalDefaults.textColor,
-				fontSize: globalDefaults.fontSize,
+				blockTitleTextColor: globalDefaults.blockTitleTextColor,
+				blockTitleFontSize: globalDefaults.blockTitleFontSize,
 				postTitleTextColor: globalDefaults.postTitleTextColor,
 				postTitleFontSize: globalDefaults.postTitleFontSize,
 				postBgColor: globalDefaults.postBgColor,
@@ -60,16 +60,16 @@ export default function Edit({attributes, setAttributes}) {
 	
 	// Compute final style values based on allowCustomStyle
 	const blockTitle = !attributes.allowCustomStyle ? globalDefaults.blockTitle : attributes.blockTitle;
-	const textColor = !attributes.allowCustomStyle ? globalDefaults.textColor : attributes.textColor;
-	const fontSize = !attributes.allowCustomStyle ? globalDefaults.fontSize : attributes.fontSize;
+	const blockTitleTextColor = !attributes.allowCustomStyle ? globalDefaults.blockTitleTextColor : attributes.blockTitleTextColor;
+	const blockTitleFontSize = !attributes.allowCustomStyle ? globalDefaults.fontSize : attributes.blockTitleFontSize;
 	const postTitleTextColor = !attributes.allowCustomStyle ? globalDefaults.postTitleTextColor : attributes.postTitleTextColor;
 	const postTitleFontSize = !attributes.allowCustomStyle ? globalDefaults.postTitleFontSize : attributes.postTitleFontSize;
 	const postBgColor = !attributes.allowCustomStyle ? globalDefaults.postBgColor : attributes.postBgColor;
 
 	const postProps = {
 		blockTitle,
-		textColor,
-		fontSize,
+		blockTitleTextColor,
+		blockTitleFontSize,
 		postTitleTextColor,
 		postTitleFontSize,
 		postBgColor,
@@ -218,8 +218,8 @@ export default function Edit({attributes, setAttributes}) {
 												{__('Block Title Text Color', 'rts-wp-also-read')}
 											</span>
 											<ColorPalette
-												value={attributes.textColor}
-												onChange={(newColor) => setAttributes({ textColor: newColor })}
+												value={attributes.blockTitleTextColor}
+												onChange={(newColor) => setAttributes({ blockTitleTextColor: newColor })}
 											/>
 										</div>
 										<div style={{ marginBottom: '16px' }}>
@@ -227,8 +227,8 @@ export default function Edit({attributes, setAttributes}) {
 												{__('Block Title Font Size', 'rts-wp-also-read')}
 											</span>
 											<FontSizePicker
-												value={attributes.fontSize}
-												onChange={(newSize) => setAttributes({ fontSize: newSize })}
+												value={attributes.blockTitleFontSize}
+												onChange={(newSize) => setAttributes({ blockTitleFontSize: newSize })}
 												fontSizes={[
 													{ name: __('Small', 'rts-wp-also-read'), slug: 'small', size: 12 },
 													{ name: __('Regular', 'rts-wp-also-read'), slug: 'regular', size: 16 },

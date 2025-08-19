@@ -44,11 +44,11 @@
 			"type": "string",
 			"default": "Also Read"
 		},
-        "textColor": {
+        "blockTitleTextColor": {
           "type": "string",
 		  "default": "#696969"
         },
-		"fontSize": {
+		"blockTitleFontSize": {
 			"type": "string",
 			"default": "18px" 
 		},

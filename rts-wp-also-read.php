@@ -109,8 +109,8 @@ function rtswpar_ajax_post_search()
 function rtswpar_get_global_defaults() {
     return get_option('rts_wp_also_read_defaults', [
         'blockTitle' => 'Also Read',
-        'textColor' => '#696969',
-        'fontSize' => '18px',
+        'blockTitleTextColor' => '#696969',
+        'blockTitleFontSize' => '18px',
         'postTitleTextColor' => '#ffffff',
         'postTitleFontSize' => '18px',
         'postBgColor' => '#06b7d3',

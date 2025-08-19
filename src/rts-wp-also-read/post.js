@@ -5,8 +5,8 @@ export default function Post({attributes}) {
             <h2
                 class="display-posts-title"
                 style={{
-                    color: attributes.textColor,
-                    fontSize: attributes.fontSize
+                    color: attributes.blockTitleTextColor,
+                    blockTitleFontSize: attributes.blockTitleFontSize
                 }}
             >   
                 {attributes.blockTitle}
