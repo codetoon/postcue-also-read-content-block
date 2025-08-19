@@ -128,7 +128,7 @@ export default function Edit({attributes, setAttributes}) {
 	}
 
 	return (
-		<div {...blockProps}>
+		<div {...blockProps} id="rts-wp-also-read-block">
 				{/* Show the input field only when showInput is true */}
 				{showInput && (
 					<>
