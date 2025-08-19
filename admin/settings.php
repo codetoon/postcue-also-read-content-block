@@ -3,6 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+require_once plugin_dir_path(__DIR__) . './includes/functions.php';
 add_action('admin_menu', function() {
     add_options_page(
         'WP Also Read Settings',
@@ -42,14 +43,7 @@ function rtswpar_settings_page() {
         update_option( 'rts_wp_also_read_defaults', $sanitized );
         echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'rts-wp-also-read') . '</p></div>';
     }
-    $defaults = get_option('rts_wp_also_read_defaults', [
-        'blockTitle' => 'Also Read',
-        'blockTitleTextColor' => '#696969',
-        'blockTitleFontSize' => '18px',
-        'postTitleTextColor' => '#ffffff',
-        'postTitleFontSize' => '18px',
-        'postBgColor' => '#06b7d3',
-    ]);
+    $defaults = rtswpar_get_global_defaults();
 ?>
     <div class="wrap">
         <h1><?php echo esc_html__('WP Also Read - Default Styles', 'rts-wp-also-read'); ?></h1>

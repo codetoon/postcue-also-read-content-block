@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
 require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
+require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
+
 function rtswpar_create_block_init() {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
@@ -104,17 +106,6 @@ function rtswpar_ajax_post_search()
 	}
 	
 	wp_send_json($results);
-}
-// Helper to get global default styles
-function rtswpar_get_global_defaults() {
-    return get_option('rts_wp_also_read_defaults', [
-        'blockTitle' => 'Also Read',
-        'blockTitleTextColor' => '#696969',
-        'blockTitleFontSize' => '18px',
-        'postTitleTextColor' => '#ffffff',
-        'postTitleFontSize' => '18px',
-        'postBgColor' => '#06b7d3',
-    ]);
 }
 
 // Remove frontend script enqueue (no view.js, no localization)
