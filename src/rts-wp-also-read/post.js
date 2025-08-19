@@ -6,7 +6,7 @@ export default function Post({attributes}) {
                 class="display-posts-title"
                 style={{
                     color: attributes.blockTitleTextColor,
-                    blockTitleFontSize: attributes.blockTitleFontSize
+                    fontSize: attributes.blockTitleFontSize
                 }}
             >   
                 {attributes.blockTitle}

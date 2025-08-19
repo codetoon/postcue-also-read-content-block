@@ -61,7 +61,7 @@ export default function Edit({attributes, setAttributes}) {
 	// Compute final style values based on allowCustomStyle
 	const blockTitle = !attributes.allowCustomStyle ? globalDefaults.blockTitle : attributes.blockTitle;
 	const blockTitleTextColor = !attributes.allowCustomStyle ? globalDefaults.blockTitleTextColor : attributes.blockTitleTextColor;
-	const blockTitleFontSize = !attributes.allowCustomStyle ? globalDefaults.fontSize : attributes.blockTitleFontSize;
+	const blockTitleFontSize = !attributes.allowCustomStyle ? globalDefaults.blockTitleFontSize : attributes.blockTitleFontSize;
 	const postTitleTextColor = !attributes.allowCustomStyle ? globalDefaults.postTitleTextColor : attributes.postTitleTextColor;
 	const postTitleFontSize = !attributes.allowCustomStyle ? globalDefaults.postTitleFontSize : attributes.postTitleFontSize;
 	const postBgColor = !attributes.allowCustomStyle ? globalDefaults.postBgColor : attributes.postBgColor;
