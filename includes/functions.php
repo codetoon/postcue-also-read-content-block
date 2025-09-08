@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 if ( ! function_exists( 'rtswpar_get_global_defaults' ) ) {
     function rtswpar_get_global_defaults() {
         return get_option('rts_wp_also_read_defaults', [
