@@ -3,7 +3,7 @@
  * Plugin Name:       WP Also Read
  * Description:       A simple plugin to display also read posts.
  * Version:           0.1.0
- * Requires at least: 5.9
+ * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            
  * License:           GPL-2.0-or-later
