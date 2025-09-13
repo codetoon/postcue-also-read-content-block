@@ -73,11 +73,14 @@ function rtswpar_settings_page() {
         .rtswpar-sidebar a.button {
             text-align: center;
         }
+        p.rtswpar-paragraph{
+            width:30%;
+        }
     </style>
 
     <div class="wrap">
         <h1><?php echo esc_html__('WP Also Read - Global Styles', 'rts-wp-also-read'); ?></h1>
-        <p style="width:30%"><?php echo esc_html__('Use the settings below to customize the appearance of the "Also Read" block across your site. These global styles will be applied automatically unless you override them on individual posts.', 'rts-wp-also-read'); ?></p>
+        <p class="rtswpar-paragraph"><?php echo esc_html__('Use the settings below to customize the appearance of the "Also Read" block across your site. These global styles will be applied automatically unless you override them on individual posts.', 'rts-wp-also-read'); ?></p>
 
         <div class="rtswpar-container">
             <div class="rtswpar-main">
@@ -114,13 +117,26 @@ function rtswpar_settings_page() {
             </div>
 
             <div class="rtswpar-sidebar">
-                <h2>About This Plugin</h2>
-                <p><a href="https://wpalsoread.com" target="_blank">Visit our Website</a></p>
+                <h2><?php echo esc_html__('About This Plugin', 'rts-wp-also-read'); ?></h2>
+                <p>
+                    <a href="https://wpalsoread.com" target="_blank">
+                        <?php echo esc_html__('Visit our Website', 'rts-wp-also-read'); ?>
+                    </a>
+                </p>
 
-                <h2>Feedback</h2>
-                <p><a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">💡 I have an idea</a></p>
-                <p><a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">🛠️ I need help</a></p>
+                <h2><?php echo esc_html__('Feedback', 'rts-wp-also-read'); ?></h2>
+                <p>
+                    <a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">
+                        💡 <?php echo esc_html__('I have an idea', 'rts-wp-also-read'); ?>
+                    </a>
+                </p>
+                <p>
+                    <a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">
+                        🛠️ <?php echo esc_html__('I need help', 'rts-wp-also-read'); ?>
+                    </a>
+                </p>
             </div>
+
         </div>
     </div>
 
