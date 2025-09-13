@@ -24,16 +24,18 @@
   margin-bottom: 16px !important;
   padding: 0 !important;
   
-  a.title {
+  .title {
     font-weight: bold;
     text-decoration: none;
     margin-top: 13px;
     flex: 1;
     display: flex;
-    align-items: center;
     text-align: left;
   }
-  li a.image{
+   .title a{
+    margin-left: 10px;
+  }
+  li .image{
     width: 100px !important;
     height: 66px !important;
     margin: 8px 15px 8px 0 !important;
@@ -62,12 +64,12 @@
 /* Media query for small devices */
 @media screen and (max-width: 600px) {
 #rts-wp-also-read-block{
-  .display-posts-listing li a.image {
+  .display-posts-listing li .image {
     width: 90px !important;
     height: auto;
     margin-right: 10px !important;
   }
-  .display-posts-listing a.title {
+  .display-posts-listing .title {
     font-size: 16px;
     margin-top: 0;
   }
