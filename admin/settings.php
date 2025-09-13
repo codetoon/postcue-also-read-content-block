@@ -60,7 +60,7 @@ function rtswpar_settings_page() {
             width: 35%;
         }
         .rtswpar-sidebar {
-            width: 30%;
+            width: 20%;
             background: #fff;
             border: 1px solid #ccd0d4;
             padding: 20px;
