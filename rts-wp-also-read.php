@@ -1,11 +1,13 @@
 <?php
 /**
  * Plugin Name:       WP Also Read
- * Description:       A simple plugin to display also read posts.
- * Version:           0.1.0
+ * Plugin URI: https://wpalsoread.com/
+ * Description: Add "Also Read" blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.
+ * Version:           1.0.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
- * Author:            
+ * Author: Regur Technology Solutions
+ * Author URI: https://www.regur.net/            
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       rts-wp-also-read
