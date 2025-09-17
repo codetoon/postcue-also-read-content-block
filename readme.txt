@@ -1,4 +1,4 @@
-=== WP Also Red ===
+=== WP Also Read - Easily add "Also Read" blocks within your blog post content ===
 Contributors: codetoon,faizan_regur
 Tags: content internal linking, Also Read, SEO
 Requires at least: 6.1
@@ -10,7 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Boost Your Content With "Also Read" content blocks in your blog posts.
 
 == Description ==
-Add "Also Read" blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.
+Easily add "Also Read" blocks to your blog posts for engaging and visually appealing interlinked content that keeps readers exploring and improves your website SEO.
 
 == Installation ==
 - Visit Plugins > Add New
