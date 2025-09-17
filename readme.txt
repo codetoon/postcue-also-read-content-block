@@ -1,55 +1,53 @@
-=== WP Also Read ===
-Contributors:      Regur Technology Solutions
-Tags:              Also Read
-Tested up to:      6.8
-Stable tag:        0.1.0
-License:           GPL-2.0-or-later
-License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+=== WP Also Red ===
+Contributors: codetoon,faizan_regur
+Tags: content internal linking, Also Read, SEO
+Requires at least: 6.1
+Tested up to: 6.8
+Requires PHP: 7.4
+License: GPL-2.0-or-late
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Example block scaffolded with Create Block tool.
+Boost Your Content With "Also Read" content blocks in your blog posts.
 
 == Description ==
-
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Add "Also Read" blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.
 
 == Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload the plugin files to the `/wp-content/plugins/rts-wp-also-read` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
+- Visit Plugins > Add New
+- Search for “WP Also Read”
+- Install and Activate WP Also Read from your Plugins page
+- To add “Also Read” block in a blog post, edit the post in the editor and add “WP Also Read” block.
+- Read the documentation to get started
 
 == Frequently Asked Questions ==
+= What does this plugin do? =
+The plugin helps enhance post engagement by adding inline “Also Read” blocks that link to other content. It allows multiple links per post, offers global style settings, and supports individual block customization.
 
-= A question that someone might have =
+= Can I customize the appearance of the blocks? =
+Yes, the plugin lets you customize both individual post blocks and global styles.
 
-An answer to that question.
+= Is there a settings page for the plugin? =
+Yes, the plugin includes a global style settings page where you can configure the global settings for the blocks.
 
-= What about foo bar? =
+= Can I edit the posts I add to the block? =
+Absolutely! The plugin allows you to easily edit or change the posts you’ve added to your blocks.
 
-Answer to foo bar dilemma.
+= Can I add multiple blocks to a single post? =
+Yes, you can add multiple “Also Read” blocks to a single post, each linking to different posts.
+
+= Is the plugin easy to install and set up? =
+
+Yes, the plugin is designed to be easy to install and configure, making it simple for you to start adding and customizing post blocks in your WordPress site.
+
+= Where can I get more help and support for this plugin? =
+You can reach our free support here. We’ll do our best to assist you.
+
 
 == Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. screenhshot-1.png
+2. screenshot-2.png
+3. screenshot-3.png
 
 == Changelog ==
-
-= 0.1.0 =
-* Release
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+V-1.0.0
+- Initial Version
