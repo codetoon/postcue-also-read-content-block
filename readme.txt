@@ -1,5 +1,5 @@
 === WP Also Read - Easily add "Also Read" blocks within your blog post content ===
-Contributors: codetoon,faizan_regur
+Contributors: codetoon, faizanregur
 Tags: content internal linking, Also Read, SEO
 Requires at least: 6.1
 Tested up to: 6.8
