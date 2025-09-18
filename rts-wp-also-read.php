@@ -95,3 +95,10 @@ function rtswpar_enqueue_editor_scripts() {
 }
 
 add_action('enqueue_block_editor_assets', 'rtswpar_enqueue_editor_scripts');
+
+function my_plugin_add_settings_link( $links ) {
+    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=rts-wp-also-read-settings') . '">' . __('Settings', 'rts-wp-also-read') . '</a>';
+    array_unshift( $links, $settings_link ); // Add to the beginning of the array
+    return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'my_plugin_add_settings_link' );
