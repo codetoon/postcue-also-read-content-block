@@ -12,7 +12,7 @@ add_action('admin_menu', function() {
             'edit_posts',
             'rts-wp-also-read-settings',
             'rtswpar_settings_page',
-            plugin_dir_url(__DIR__) . 'assets/img/icon.svg',
+            plugin_dir_url(__DIR__) . 'images/icon.svg',
             80     
         );
     }
