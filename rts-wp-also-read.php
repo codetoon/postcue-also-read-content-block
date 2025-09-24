@@ -10,7 +10,7 @@
  * Author URI: https://www.regur.net/            
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       rts-wp-also-read
+ * Text Domain:       wp-also-read
  *
  * @package CreateBlock
  */
@@ -97,7 +97,7 @@ function rtswpar_enqueue_editor_scripts() {
 add_action('enqueue_block_editor_assets', 'rtswpar_enqueue_editor_scripts');
 
 function my_plugin_add_settings_link( $links ) {
-    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=rts-wp-also-read-settings') . '">' . __('Settings', 'rts-wp-also-read') . '</a>';
+    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=rts-wp-also-read-settings') . '">' . __('Settings', 'wp-also-read') . '</a>';
     array_push( $links, $settings_link );
     return $links;
 }

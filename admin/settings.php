@@ -45,7 +45,7 @@ function rtswpar_settings_page() {
         ];
 
         update_option( 'rts_wp_also_read_defaults', $sanitized );
-        echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'rts-wp-also-read') . '</p></div>';
+        echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'wp-also-read') . '</p></div>';
     }
     $defaults = rtswpar_get_global_defaults();
     ?>
@@ -79,8 +79,8 @@ function rtswpar_settings_page() {
     </style>
 
     <div class="wrap">
-        <h1><?php echo esc_html__('WP Also Read - Global Styles', 'rts-wp-also-read'); ?></h1>
-        <p class="rtswpar-paragraph"><?php echo esc_html__('Use the settings below to customize the appearance of the "Also Read" block across your site. These global styles will be applied automatically unless you override them on individual posts.', 'rts-wp-also-read'); ?></p>
+        <h1><?php echo esc_html__('WP Also Read - Global Styles', 'wp-also-read'); ?></h1>
+        <p class="rtswpar-paragraph"><?php echo esc_html__('Use the settings below to customize the appearance of the "Also Read" block across your site. These global styles will be applied automatically unless you override them on individual posts.', 'wp-also-read'); ?></p>
 
         <div class="rtswpar-container">
             <div class="rtswpar-main">
@@ -88,51 +88,51 @@ function rtswpar_settings_page() {
                     <?php wp_nonce_field('rtswpar_save_settings', 'rtswpar_nonce'); ?>
                     <table class="form-table">
                         <tr>
-                            <th><?php echo esc_html__('Block Title', 'rts-wp-also-read'); ?></th>
+                            <th><?php echo esc_html__('Block Title', 'wp-also-read'); ?></th>
                             <td><input name="rtswpar_defaults[blockTitle]" value="<?php echo esc_attr($defaults['blockTitle']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Block Title Color', 'rts-wp-also-read'); ?></th>
+                            <th><?php echo esc_html__('Block Title Color', 'wp-also-read'); ?></th>
                             <td><input type="color" name="rtswpar_defaults[blockTitleTextColor]" value="<?php echo esc_attr($defaults['blockTitleTextColor']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Block Title Font Size', 'rts-wp-also-read'); ?></th>
+                            <th><?php echo esc_html__('Block Title Font Size', 'wp-also-read'); ?></th>
                             <td><input name="rtswpar_defaults[blockTitleFontSize]" value="<?php echo esc_attr($defaults['blockTitleFontSize']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Post Title Color', 'rts-wp-also-read'); ?></th>
+                            <th><?php echo esc_html__('Post Title Color', 'wp-also-read'); ?></th>
                             <td><input type="color" name="rtswpar_defaults[postTitleTextColor]" value="<?php echo esc_attr($defaults['postTitleTextColor']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Post Title Font Size', 'rts-wp-also-read'); ?></th>
+                            <th><?php echo esc_html__('Post Title Font Size', 'wp-also-read'); ?></th>
                             <td><input name="rtswpar_defaults[postTitleFontSize]" value="<?php echo esc_attr($defaults['postTitleFontSize']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Post BG Color', 'rts-wp-also-read'); ?></th>
+                            <th><?php echo esc_html__('Post BG Color', 'wp-also-read'); ?></th>
                             <td><input type="color" name="rtswpar_defaults[postBgColor]" value="<?php echo esc_attr($defaults['postBgColor']); ?>"></td>
                         </tr>
                     </table>
-                    <input type="submit" class="button-primary" value="<?php echo esc_html__('Save Changes', 'rts-wp-also-read'); ?>">
+                    <input type="submit" class="button-primary" value="<?php echo esc_html__('Save Changes', 'wp-also-read'); ?>">
                 </form>
             </div>
 
             <div class="rtswpar-sidebar">
-                <h2><?php echo esc_html__('About This Plugin', 'rts-wp-also-read'); ?></h2>
+                <h2><?php echo esc_html__('About This Plugin', 'wp-also-read'); ?></h2>
                 <p>
                     <a href="https://wpalsoread.com" target="_blank">
-                        <?php echo esc_html__('Visit our Website', 'rts-wp-also-read'); ?>
+                        <?php echo esc_html__('Visit our Website', 'wp-also-read'); ?>
                     </a>
                 </p>
 
-                <h2><?php echo esc_html__('Feedback', 'rts-wp-also-read'); ?></h2>
+                <h2><?php echo esc_html__('Feedback', 'wp-also-read'); ?></h2>
                 <p>
                     <a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">
-                        💡 <?php echo esc_html__('I have an idea', 'rts-wp-also-read'); ?>
+                        💡 <?php echo esc_html__('I have an idea', 'wp-also-read'); ?>
                     </a>
                 </p>
                 <p>
                     <a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">
-                        🛠️ <?php echo esc_html__('I need help', 'rts-wp-also-read'); ?>
+                        🛠️ <?php echo esc_html__('I need help', 'wp-also-read'); ?>
                     </a>
                 </p>
             </div>
