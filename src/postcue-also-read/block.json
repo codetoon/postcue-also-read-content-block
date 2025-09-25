@@ -2,11 +2,11 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "create-block/postcue-also-read",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"title": "PostCue Also Read",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "A block to display also read posts based on the search term",
+	"description": "Add 'Also Read' blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.",
 	"example": {},
 	"supports": {
 		"html": false
