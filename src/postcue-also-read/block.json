@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "create-block/rts-wp-also-read",
+	"name": "create-block/postcue-also-read",
 	"version": "0.1.0",
-	"title": "WP Also Read",
+	"title": "PostCue Also Read",
 	"category": "widgets",
 	"icon": "smiley",
 	"description": "A block to display also read posts based on the search term",
@@ -11,7 +11,7 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "wp-also-read",
+	"textdomain": "postcue-also-read",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",

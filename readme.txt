@@ -17,7 +17,7 @@ Easily add inline "Also Read" blocks to your blog posts for engaging and visuall
 - Visit Plugins > Add New
 - Search for “PostCue Also Read Content Block”
 - Install and Activate "PostCue Also Read Content Block" from your Plugins page
-- To add “Also Read” block in a blog post, edit the post in the editor and add “WP Also Read” block.
+- To add “Also Read” block in a blog post, edit the post in the editor and add “PostCue Also Read” block.
 - Read the documentation to get started
 
 == Frequently Asked Questions ==

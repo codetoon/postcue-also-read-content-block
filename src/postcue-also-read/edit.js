@@ -41,8 +41,8 @@ export default function Edit({attributes, setAttributes}) {
 	const {value, showInput, isLoading, showNotFoundMsg, editView } = attributes;
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
 
-	// Get global defaults from window.rtswparbDefaults (set in PHP)
-    const globalDefaults = (typeof window !== "undefined" && window.rtswparbDefaults) ? window.rtswparbDefaults : {};
+	// Get global defaults from window.postcuealsoreadDefaults (set in PHP)
+    const globalDefaults = (typeof window !== "undefined" && window.postcue_alsoread_defaults) ? window.postcue_alsoread_defaults : {};
 	
 	// Only initialize local styles once, when custom style is disabled
 	useEffect(() => {
@@ -97,7 +97,7 @@ export default function Edit({attributes, setAttributes}) {
 		}
 		setAttributes({ isLoading: true, showNotFoundMsg: false });
 		try {
-            const res = await fetch(`${window.ajaxurl}?action=post_search&term=${encodeURIComponent(value)}&_rtswparnonce=${encodeURIComponent(window.rtswparbNonce)}`);
+            const res = await fetch(`${window.postcue_alsoread_ajaxurl}?action=post_search&term=${encodeURIComponent(value)}&_postcue_alsoread_nonce=${encodeURIComponent(window.postcue_alsoread_nonce)}`);
 			const data = await res.json();
 			setSuggestions(data || []);
 			setAttributes({ isLoading: false, showNotFoundMsg: (Array.isArray(data) && data.length === 0) });
@@ -128,12 +128,12 @@ export default function Edit({attributes, setAttributes}) {
 	}
 
 	return (
-		<div {...blockProps} id="rts-wp-also-read-block">
+		<div {...blockProps} id="postcue-also-read-block">
 				{/* Show the input field only when showInput is true */}
 				{showInput && (
 					<>
-						<label className="rts-wp-also-read-label" htmlFor='rts-wp-also-read-input'>
-							{__('Search for a post:', 'wp-also-read')}
+						<label className="postcue-also-read-label" htmlFor='postcue-also-read-input'>
+							{__('Search for a post:', 'postcue-also-read')}
 						</label>
 						<Autosuggest
 							suggestions={suggestions}
@@ -145,19 +145,19 @@ export default function Edit({attributes, setAttributes}) {
 							inputProps={{
 								value,
 								onChange,
-								id: 'rts-wp-also-read-input',
-								name: 'rts-wp-also-read-input',
-								placeholder: __('Type to search posts...', 'wp-also-read'),
+								id: 'postcue-also-read-input',
+								name: 'postcue-also-read-input',
+								placeholder: __('Type to search posts...', 'postcue-also-read'),
 							}}
 						/>
 					</>
 				)}
 
 				{/* Display loading message when suggestions are being fetched */}
-				{isLoading && suggestions.length == 0 && showInput && value && <p className='rts-wp-also-read-loading'>{__('Loading suggestions...', 'wp-also-read')}</p>}
+				{isLoading && suggestions.length == 0 && showInput && value && <p className='postcue-also-read-loading'>{__('Loading suggestions...', 'postcue-also-read')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
-				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="rts-wp-also-read-no-suggestions"> {__('No posts found for your search.', 'wp-also-read')}</p>}
+				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="postcue-also-read-no-suggestions"> {__('No posts found for your search.', 'postcue-also-read')}</p>}
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
@@ -175,7 +175,7 @@ export default function Edit({attributes, setAttributes}) {
 											setAttributes({ editView: false });
 										}}
 									>
-										{__('Edit', 'wp-also-read')}
+										{__('Edit', 'postcue-also-read')}
 									</ToolbarButton>
 								)
 									: (
@@ -185,28 +185,28 @@ export default function Edit({attributes, setAttributes}) {
 												setAttributes({ editView: true });
 											}}
 										>
-											{__('Cancel', 'wp-also-read')}
+											{__('Cancel', 'postcue-also-read')}
 										</ToolbarButton>
 									)
 							}
 						</ToolbarGroup>
 					</BlockControls>
 					<InspectorControls>
-						<PanelBody title={__('Custom Style Settings', 'wp-also-read')} initialOpen={true}>
+						<PanelBody title={__('Custom Style Settings', 'postcue-also-read')} initialOpen={true}>
 							<ToggleControl
-								label={__('Allow Custom style', 'wp-also-read')}
+								label={__('Allow Custom style', 'postcue-also-read')}
 								checked={attributes.allowCustomStyle}
 								onChange={(val) => setAttributes({ allowCustomStyle: val })}
-								help={__('If enabled, this block will use custom styles instead of global defaults.', 'wp-also-read')}
+								help={__('If enabled, this block will use custom styles instead of global defaults.', 'postcue-also-read')}
 							/>
 						</PanelBody>
 						{
 							attributes.allowCustomStyle && (
 								<>
-									<PanelBody title={__('Title Settings', 'wp-also-read')} initialOpen={false}>
+									<PanelBody title={__('Title Settings', 'postcue-also-read')} initialOpen={false}>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Block Title', 'wp-also-read')}
+												{__('Block Title', 'postcue-also-read')}
 											</span>
 											<TextControl
 												onChange={(placeholder) => setAttributes({ blockTitle: placeholder })}
@@ -215,7 +215,7 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Block Title Text Color', 'wp-also-read')}
+												{__('Block Title Text Color', 'postcue-also-read')}
 											</span>
 											<ColorPalette
 												value={attributes.blockTitleTextColor}
@@ -224,23 +224,23 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Block Title Font Size', 'wp-also-read')}
+												{__('Block Title Font Size', 'postcue-also-read')}
 											</span>
 											<FontSizePicker
 												value={attributes.blockTitleFontSize}
 												onChange={(newSize) => setAttributes({ blockTitleFontSize: newSize })}
 												fontSizes={[
-													{ name: __('Small', 'wp-also-read'), slug: 'small', size: 12 },
-													{ name: __('Regular', 'wp-also-read'), slug: 'regular', size: 16 },
-													{ name: __('Large', 'wp-also-read'), slug: 'large', size: 24 },
+													{ name: __('Small', 'postcue-also-read'), slug: 'small', size: 12 },
+													{ name: __('Regular', 'postcue-also-read'), slug: 'regular', size: 16 },
+													{ name: __('Large', 'postcue-also-read'), slug: 'large', size: 24 },
 												]}
 											/>
 										</div>
 									</PanelBody>
-									<PanelBody title={__('Post Settings', 'wp-also-read')} initialOpen={false}>
+									<PanelBody title={__('Post Settings', 'postcue-also-read')} initialOpen={false}>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Post Title Color', 'wp-also-read')}
+												{__('Post Title Color', 'postcue-also-read')}
 											</span>
 											<ColorPalette
 												value={attributes.postTitleTextColor}
@@ -249,7 +249,7 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Post Background Color', 'wp-also-read')}
+												{__('Post Background Color', 'postcue-also-read')}
 											</span>
 											<ColorPalette
 												value={attributes.postBgColor}
@@ -258,15 +258,15 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Post Title Font Size', 'wp-also-read')}
+												{__('Post Title Font Size', 'postcue-also-read')}
 											</span>
 											<FontSizePicker
 												value={attributes.postTitleFontSize}
 												onChange={(newSize) => setAttributes({ postTitleFontSize: newSize })}
 												fontSizes={[
-													{ name: __('Small', 'wp-also-read'), slug: 'small', size: 12 },
-													{ name: __('Regular', 'wp-also-read'), slug: 'regular', size: 16 },
-													{ name: __('Large', 'wp-also-read'), slug: 'large', size: 24 },
+													{ name: __('Small', 'postcue-also-read'), slug: 'small', size: 12 },
+													{ name: __('Regular', 'postcue-also-read'), slug: 'regular', size: 16 },
+													{ name: __('Large', 'postcue-also-read'), slug: 'large', size: 24 },
 												]}
 											/>
 										</div>

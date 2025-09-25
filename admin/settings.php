@@ -7,25 +7,25 @@ require_once plugin_dir_path(__DIR__) . './includes/functions.php';
 add_action('admin_menu', function() {
     if (current_user_can('edit_posts')) {
         add_menu_page(
-            'WP Also Read Settings',
-            'WP Also Read',
+            'PostCue Also Read Settings',
+            'PostCue Also Read',
             'edit_posts',
-            'rts-wp-also-read-settings',
-            'rtswpar_settings_page',
+            'postcue-also-read-settings',
+            'postcue_alsoread_settings_page',
             plugin_dir_url(__DIR__) . 'images/icon.svg',
             80     
         );
     }
 });
 
-function rtswpar_settings_page() {
+function postcue_alsoread_settings_page() {
     $input = null;
 
     // Avoid direct $_POST access in conditional
     if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-        if ( isset( $_POST['rtswpar_nonce'] ) && check_admin_referer( 'rtswpar_save_settings', 'rtswpar_nonce' ) ) {
+        if ( isset( $_POST['postcue_alsoread_nonce'] ) && check_admin_referer( 'postcue_alsoread_save_settings', 'postcue_alsoread_nonce' ) ) {
             // Safe to access now
-            $raw_input = filter_input( INPUT_POST, 'rtswpar_defaults', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+            $raw_input = filter_input( INPUT_POST, 'postcue_alsoread_defaults', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
             
             if ( is_array( $raw_input ) ) {
                 $input = wp_unslash( $raw_input ); // unescape slashes from POST
@@ -44,95 +44,95 @@ function rtswpar_settings_page() {
             'postBgColor' => sanitize_hex_color( $input['postBgColor'] ?? '' ),
         ];
 
-        update_option( 'rts_wp_also_read_defaults', $sanitized );
-        echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'wp-also-read') . '</p></div>';
+        update_option( 'postcue_alsoread_defaults', $sanitized );
+        echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'postcue-also-read') . '</p></div>';
     }
-    $defaults = rtswpar_get_global_defaults();
+    $defaults = postcue_alsoread_get_global_defaults();
     ?>
 
     <style>
-        .rtswpar-container {
+        .postcue-also-read-container {
             display: flex;
             gap: 30px;
             align-items: flex-start;
         }
-        .rtswpar-main {
+        .postcue-also-read-main {
             width: 35%;
         }
-        .rtswpar-sidebar {
+        .postcue-also-read-sidebar {
             width: 20%;
             background: #fff;
             border: 1px solid #ccd0d4;
             padding: 20px;
             border-radius: 10px;
         }
-        .rtswpar-sidebar h2 {
+        .postcue-also-read-sidebar h2 {
             font-size: 16px;
             margin-top: 0;
         }
-        .rtswpar-sidebar a.button {
+        .postcue-also-read-sidebar a.button {
             text-align: center;
         }
-        p.rtswpar-paragraph{
+        p.postcue-also-read-paragraph{
             width:30%;
         }
     </style>
 
     <div class="wrap">
-        <h1><?php echo esc_html__('WP Also Read - Global Styles', 'wp-also-read'); ?></h1>
-        <p class="rtswpar-paragraph"><?php echo esc_html__('Use the settings below to customize the appearance of the "Also Read" block across your site. These global styles will be applied automatically unless you override them on individual posts.', 'wp-also-read'); ?></p>
+        <h1><?php echo esc_html__('PostCue Also Read - Global Styles', 'postcue-also-read'); ?></h1>
+        <p class="postcue-also-read-paragraph"><?php echo esc_html__('Use the settings below to customize the appearance of the "Also Read" block across your site. These global styles will be applied automatically unless you override them on individual posts.', 'postcue-also-read'); ?></p>
 
-        <div class="rtswpar-container">
-            <div class="rtswpar-main">
+        <div class="postcue-also-read-container">
+            <div class="postcue-also-read-main">
                 <form method="post">
-                    <?php wp_nonce_field('rtswpar_save_settings', 'rtswpar_nonce'); ?>
+                    <?php wp_nonce_field('postcue_alsoread_save_settings', 'postcue_alsoread_nonce'); ?>
                     <table class="form-table">
                         <tr>
-                            <th><?php echo esc_html__('Block Title', 'wp-also-read'); ?></th>
-                            <td><input name="rtswpar_defaults[blockTitle]" value="<?php echo esc_attr($defaults['blockTitle']); ?>"></td>
+                            <th><?php echo esc_html__('Block Title', 'postcue-also-read'); ?></th>
+                            <td><input name="postcue_alsoread_defaults[blockTitle]" value="<?php echo esc_attr($defaults['blockTitle']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Block Title Color', 'wp-also-read'); ?></th>
-                            <td><input type="color" name="rtswpar_defaults[blockTitleTextColor]" value="<?php echo esc_attr($defaults['blockTitleTextColor']); ?>"></td>
+                            <th><?php echo esc_html__('Block Title Color', 'postcue-also-read'); ?></th>
+                            <td><input type="color" name="postcue_alsoread_defaults[blockTitleTextColor]" value="<?php echo esc_attr($defaults['blockTitleTextColor']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Block Title Font Size', 'wp-also-read'); ?></th>
-                            <td><input name="rtswpar_defaults[blockTitleFontSize]" value="<?php echo esc_attr($defaults['blockTitleFontSize']); ?>"></td>
+                            <th><?php echo esc_html__('Block Title Font Size', 'postcue-also-read'); ?></th>
+                            <td><input name="postcue_alsoread_defaults[blockTitleFontSize]" value="<?php echo esc_attr($defaults['blockTitleFontSize']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Post Title Color', 'wp-also-read'); ?></th>
-                            <td><input type="color" name="rtswpar_defaults[postTitleTextColor]" value="<?php echo esc_attr($defaults['postTitleTextColor']); ?>"></td>
+                            <th><?php echo esc_html__('Post Title Color', 'postcue-also-read'); ?></th>
+                            <td><input type="color" name="postcue_alsoread_defaults[postTitleTextColor]" value="<?php echo esc_attr($defaults['postTitleTextColor']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Post Title Font Size', 'wp-also-read'); ?></th>
-                            <td><input name="rtswpar_defaults[postTitleFontSize]" value="<?php echo esc_attr($defaults['postTitleFontSize']); ?>"></td>
+                            <th><?php echo esc_html__('Post Title Font Size', 'postcue-also-read'); ?></th>
+                            <td><input name="postcue_alsoread_defaults[postTitleFontSize]" value="<?php echo esc_attr($defaults['postTitleFontSize']); ?>"></td>
                         </tr>
                         <tr>
-                            <th><?php echo esc_html__('Post BG Color', 'wp-also-read'); ?></th>
-                            <td><input type="color" name="rtswpar_defaults[postBgColor]" value="<?php echo esc_attr($defaults['postBgColor']); ?>"></td>
+                            <th><?php echo esc_html__('Post BG Color', 'postcue-also-read'); ?></th>
+                            <td><input type="color" name="postcue_alsoread_defaults[postBgColor]" value="<?php echo esc_attr($defaults['postBgColor']); ?>"></td>
                         </tr>
                     </table>
-                    <input type="submit" class="button-primary" value="<?php echo esc_html__('Save Changes', 'wp-also-read'); ?>">
+                    <input type="submit" class="button-primary" value="<?php echo esc_html__('Save Changes', 'postcue-also-read'); ?>">
                 </form>
             </div>
 
-            <div class="rtswpar-sidebar">
-                <h2><?php echo esc_html__('About This Plugin', 'wp-also-read'); ?></h2>
+            <div class="postcue-also-read-sidebar">
+                <h2><?php echo esc_html__('About This Plugin', 'postcue-also-read'); ?></h2>
                 <p>
-                    <a href="https://wpalsoread.com" target="_blank">
-                        <?php echo esc_html__('Visit our Website', 'wp-also-read'); ?>
+                    <a href="https://postcue.regur.net/" target="_blank">
+                        <?php echo esc_html__('Visit our Website', 'postcue-also-read'); ?>
                     </a>
                 </p>
 
-                <h2><?php echo esc_html__('Feedback', 'wp-also-read'); ?></h2>
+                <h2><?php echo esc_html__('Feedback', 'postcue-also-read'); ?></h2>
                 <p>
-                    <a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">
-                        💡 <?php echo esc_html__('I have an idea', 'wp-also-read'); ?>
+                    <a href="https://postcue.regur.net/contact" class="button button-secondary" target="_blank">
+                        💡 <?php echo esc_html__('I have an idea', 'postcue-also-read'); ?>
                     </a>
                 </p>
                 <p>
-                    <a href="https://wpalsoread.com/contact" class="button button-secondary" target="_blank">
-                        🛠️ <?php echo esc_html__('I need help', 'wp-also-read'); ?>
+                    <a href="https://postcue.regur.net/contact" class="button button-secondary" target="_blank">
+                        🛠️ <?php echo esc_html__('I need help', 'postcue-also-read'); ?>
                     </a>
                 </p>
             </div>

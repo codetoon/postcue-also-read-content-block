@@ -17,7 +17,7 @@ if(empty($selectedPost)){
 }
 
 // Use block attributes if allowCustomStyle is true, else use global defaults
-$source = !empty($attributes['allowCustomStyle']) ? $attributes : rtswpar_get_global_defaults();
+$source = !empty($attributes['allowCustomStyle']) ? $attributes : postcue_alsoread_get_global_defaults();
 
 $blockTitle = $source['blockTitle'] ?? '';
 $blockTitleTextColor = $source['blockTitleTextColor'] ?? '';
@@ -32,7 +32,7 @@ $postLink = $selectedPost['link'] ?? '#';
 $postThumbnail = $selectedPost['thumbnail'] ?? '';
 
 ?>
-<div id="rts-wp-also-read-block" <?php echo esc_attr(get_block_wrapper_attributes()); ?>>
+<div id="postcue-also-read-block" <?php echo esc_attr(get_block_wrapper_attributes()); ?>>
    <h2 class="display-posts-title" style="color: <?php echo esc_attr($blockTitleTextColor); ?> !important; font-size: <?php echo esc_attr($blockTitleFontSize); ?> !important;"><?php echo esc_html($blockTitle); ?></h2>
      <ul class="display-posts-listing">
         <li class="listing-item" style="background-color: <?php echo esc_attr($postBgColor); ?> !important;">

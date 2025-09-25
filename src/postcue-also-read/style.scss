@@ -5,7 +5,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-#rts-wp-also-read-block {
+#postcue-also-read-block {
 	position: relative;
   margin: 0 auto;
 
@@ -63,7 +63,7 @@
 }
 /* Media query for small devices */
 @media screen and (max-width: 600px) {
-#rts-wp-also-read-block{
+#postcue-also-read-block{
   .display-posts-listing li .image {
     width: 90px !important;
     height: auto;

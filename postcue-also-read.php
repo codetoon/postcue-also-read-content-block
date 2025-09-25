@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       PostCue Also Read Content Block
- * Plugin URI: https://wpalsoread.com/
+ * Plugin URI:        https://postcue.regur.net/
  * Description: Add "Also Read" blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.
  * Version:           1.0.0
  * Requires at least: 6.1
@@ -22,23 +22,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 
-function rtswpar_create_block_init() {
-register_block_type( __DIR__ . '/build/rts-wp-also-read' );
+function postcue_alsoread_create_block_init() {
+register_block_type( __DIR__ . '/build/postcue-also-read' );
 }
 
-add_action( 'init', 'rtswpar_create_block_init' );
+add_action( 'init', 'postcue_alsoread_create_block_init' );
 
 // Register AJAX handlers for both logged-in and guest users
-add_action('wp_ajax_post_search', 'rtswpar_ajax_post_search');
-add_action('wp_ajax_nopriv_post_search', 'rtswpar_ajax_post_search');
+add_action('wp_ajax_post_search', 'postcue_alsoread_ajax_post_search');
+add_action('wp_ajax_nopriv_post_search', 'postcue_alsoread_ajax_post_search');
 
-function rtswpar_ajax_post_search()
+function postcue_alsoread_ajax_post_search()
 {
     // Safely retrieve and sanitize nonce
-    $nonce = isset($_GET['_rtswparnonce']) ? sanitize_text_field( wp_unslash( $_GET['_rtswparnonce'] ) ) : '';
+    $nonce = isset($_GET['_postcue_alsoread_nonce']) ? sanitize_text_field( wp_unslash( $_GET['_postcue_alsoread_nonce'] ) ) : '';
 
     // Verify nonce
-    if ( ! wp_verify_nonce( $nonce, 'rtswpar_post_search' ) ) {
+    if ( ! wp_verify_nonce( $nonce, 'postcue_alsoread_post_search' ) ) {
         wp_send_json_error( 'Invalid request (nonce verification failed)' );
         return;
     }
@@ -50,7 +50,7 @@ function rtswpar_ajax_post_search()
     }
 	// Unslash and sanitize
     $term = isset($_GET['term']) ? sanitize_text_field( wp_unslash($_GET['term']) ) : '';
-    $cache_key = 'rtswpar_post_search_' . md5($term);
+    $cache_key = 'postcue_alsoread_post_search_' . md5($term);
     $results = get_transient($cache_key);
 
     if ($results === false) {
@@ -83,22 +83,22 @@ function rtswpar_ajax_post_search()
 // Remove frontend script enqueue (no view.js, no localization)
 
 // Enqueue in block editor only
-function rtswpar_enqueue_editor_scripts() {
-    $defaults = rtswpar_get_global_defaults();
+function postcue_alsoread_enqueue_editor_scripts() {
+    $defaults = postcue_alsoread_get_global_defaults();
     wp_add_inline_script(
         'wp-block-editor',
-        'window.ajaxurl = "' . admin_url('admin-ajax.php') . '";' .
-        'window.rtswparbDefaults = ' . json_encode($defaults) . ';' .
-        'window.rtswparbNonce = "' . wp_create_nonce('rtswpar_post_search') . '";',
+        'window.postcue_alsoread_ajaxurl = "' . admin_url('admin-ajax.php') . '";' .
+        'window.postcue_alsoread_defaults = ' . json_encode($defaults) . ';' .
+        'window.postcue_alsoread_nonce = "' . wp_create_nonce('postcue_alsoread_post_search') . '";',
         'before'
     );
 }
 
-add_action('enqueue_block_editor_assets', 'rtswpar_enqueue_editor_scripts');
+add_action('enqueue_block_editor_assets', 'postcue_alsoread_enqueue_editor_scripts');
 
-function my_plugin_add_settings_link( $links ) {
-    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=rts-wp-also-read-settings') . '">' . __('Settings', 'wp-also-read') . '</a>';
+function postcue_alsoread_add_settings_link( $links ) {
+    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=postcue-also-read-settings') . '">' . __('Settings', 'postcue-also-read') . '</a>';
     array_push( $links, $settings_link );
     return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'my_plugin_add_settings_link' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'postcue_alsoread_add_settings_link' );
