@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-if ( ! function_exists( 'rtswpar_get_global_defaults' ) ) {
+if ( ! function_exists( 'postcue_alsoread_get_global_defaults' ) ) {
     function postcue_alsoread_get_global_defaults() {
         return get_option('postcue_alsoread_defaults', [
             'blockTitle' => 'Also Read',
