@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       WP Also Read
+ * Plugin Name:       PostCue Also Read Content Block
  * Plugin URI: https://wpalsoread.com/
  * Description: Add "Also Read" blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.
  * Version:           1.0.0
@@ -10,7 +10,7 @@
  * Author URI: https://www.regur.net/            
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       wp-also-read
+ * Text Domain:       postcue-also-read
  *
  * @package CreateBlock
  */

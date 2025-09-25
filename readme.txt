@@ -1,4 +1,4 @@
-=== WP Also Read ===
+=== PostCue Also Read Content Block ===
 Contributors: penuelr, faizanregur
 Tags: content internal linking, Also Read, SEO, Also Read content block, Related Posts block
 Requires at least: 6.1
@@ -15,8 +15,8 @@ Easily add inline "Also Read" blocks to your blog posts for engaging and visuall
 
 == Installation ==
 - Visit Plugins > Add New
-- Search for “WP Also Read”
-- Install and Activate WP Also Read from your Plugins page
+- Search for “PostCue Also Read Content Block”
+- Install and Activate "PostCue Also Read Content Block" from your Plugins page
 - To add “Also Read” block in a blog post, edit the post in the editor and add “WP Also Read” block.
 - Read the documentation to get started
 
