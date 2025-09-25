@@ -1,6 +1,6 @@
 === WP Also Read ===
 Contributors: penuelr, faizanregur
-Tags: content internal linking, Also Read, SEO
+Tags: content internal linking, Also Read, SEO, Also Read content block, Related Posts block
 Requires at least: 6.1
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Boost Your Content With "Also Read" content blocks in your blog posts.
 
 == Description ==
-Easily add "Also Read" blocks to your blog posts for engaging and visually appealing interlinked content that keeps readers exploring and improves your website SEO.
+Easily add inline "Also Read" blocks to your blog posts for engaging and visually appealing interlinked content that keeps readers exploring and improves your website SEO.
 
 == Installation ==
 - Visit Plugins > Add New
@@ -45,9 +45,11 @@ You can reach our free support here. We’ll do our best to assist you.
 
 
 == Screenshots ==
-1. screenhshot-1.png
-2. screenshot-2.png
-3. screenshot-3.png
+1. Adding the "Also Read" block within the blog post content at any desired location.
+2. Selecting a relevant blog article that you want to display in the "Also Read" block.
+3. You can customize the each block design using the settings panel or control using global styles.
+4. Settings page to control global style of each block on the website.
+5. "Also Read" block displayed on the blog post within the content. 
 
 == Changelog ==
 V-1.0.0
