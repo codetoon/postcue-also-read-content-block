@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       PostCue - Also Read Content Block
+ * Plugin Name:       PostCue Also Read Content Block
  * Plugin URI:        https://postcue.regur.net/
  * Description:       Add "Also Read" blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.
  * Version:           1.0.0
