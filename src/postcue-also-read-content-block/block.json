@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "create-block/postcue-also-read",
+	"name": "create-block/postcue-also-read-content-block",
 	"version": "1.0.0",
 	"title": "PostCue Also Read",
 	"category": "widgets",
@@ -11,7 +11,7 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "postcue-also-read",
+	"textdomain": "postcue-also-read-content-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",

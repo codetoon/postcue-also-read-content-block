@@ -23,7 +23,7 @@ require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 
 function postcue_alsoread_create_block_init() {
-register_block_type( __DIR__ . '/build/postcue-also-read' );
+register_block_type( __DIR__ . '/build/postcue-also-read-content-block' );
 }
 
 add_action( 'init', 'postcue_alsoread_create_block_init' );
