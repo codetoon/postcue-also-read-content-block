@@ -50,33 +50,7 @@ function postcue_alsoread_settings_page() {
     $defaults = postcue_alsoread_get_global_defaults();
     ?>
 
-    <style>
-        .postcue-also-read-container {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-        }
-        .postcue-also-read-main {
-            width: 35%;
-        }
-        .postcue-also-read-sidebar {
-            width: 20%;
-            background: #fff;
-            border: 1px solid #ccd0d4;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .postcue-also-read-sidebar h2 {
-            font-size: 16px;
-            margin-top: 0;
-        }
-        .postcue-also-read-sidebar a.button {
-            text-align: center;
-        }
-        p.postcue-also-read-paragraph{
-            width:30%;
-        }
-    </style>
+
 
     <div class="wrap">
         <h1><?php echo esc_html__('PostCue Also Read - Global Styles', 'postcue-also-read-content-block'); ?></h1>
@@ -143,4 +117,35 @@ function postcue_alsoread_settings_page() {
     <?php
 }
 
+add_action( 'admin_print_styles', 'postalre_admin_inline_css' );
 
+function postalre_admin_inline_css() {
+    echo'
+    <style>
+    .postcue-also-read-container {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+    }
+    .postcue-also-read-main {
+        width: 35%;
+    }
+    .postcue-also-read-sidebar {
+        width: 20%;
+        background: #fff;
+        border: 1px solid #ccd0d4;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .postcue-also-read-sidebar h2 {
+        font-size: 16px;
+        margin-top: 0;
+    }
+    .postcue-also-read-sidebar a.button {
+        text-align: center;
+    }
+    p.postcue-also-read-paragraph{
+        width:30%;
+    }
+    </style>';
+}
