@@ -87,9 +87,9 @@ function postcue_alsoread_enqueue_editor_scripts() {
     $defaults = postcue_alsoread_get_global_defaults();
     wp_add_inline_script(
         'wp-block-editor',
-        'window.postcue_alsoread_ajaxurl = "' . admin_url('admin-ajax.php') . '";' .
-        'window.postcue_alsoread_defaults = ' . json_encode($defaults) . ';' .
-        'window.postcue_alsoread_nonce = "' . wp_create_nonce('postcue_alsoread_post_search') . '";',
+        'window.postcue_alsoread_ajaxurl = "' . esc_url(admin_url('admin-ajax.php')) . '";' .
+        'window.postcue_alsoread_defaults = ' . wp_json_encode($defaults) . ';' .
+        'window.postcue_alsoread_nonce = "' . esc_js(wp_create_nonce('postcue_alsoread_post_search')) . '";',
         'before'
     );
 }
