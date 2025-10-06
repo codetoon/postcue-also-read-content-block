@@ -97,7 +97,7 @@ export default function Edit({attributes, setAttributes}) {
 		}
 		setAttributes({ isLoading: true, showNotFoundMsg: false });
 		try {
-            const res = await fetch(`${window.postcue_alsoread_ajaxurl}?action=post_search&term=${encodeURIComponent(value)}&_postcue_alsoread_nonce=${encodeURIComponent(window.postcue_alsoread_nonce)}`);
+            const res = await fetch(`${window.postcue_alsoread_ajaxurl}?action=postcue_alsoread_post_search&term=${encodeURIComponent(value)}&_postcue_alsoread_nonce=${encodeURIComponent(window.postcue_alsoread_nonce)}`);
 			const data = await res.json();
 			setSuggestions(data || []);
 			setAttributes({ isLoading: false, showNotFoundMsg: (Array.isArray(data) && data.length === 0) });

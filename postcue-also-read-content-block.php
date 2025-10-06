@@ -29,8 +29,8 @@ register_block_type( __DIR__ . '/build/postcue-also-read-content-block' );
 add_action( 'init', 'postcue_alsoread_create_block_init' );
 
 // Register AJAX handlers for both logged-in and guest users
-add_action('wp_ajax_post_search', 'postcue_alsoread_ajax_post_search');
-add_action('wp_ajax_nopriv_post_search', 'postcue_alsoread_ajax_post_search');
+add_action('wp_ajax_postcue_alsoread_post_search', 'postcue_alsoread_ajax_post_search');
+add_action('wp_ajax_nopriv_postcue_alsoread_post_search', 'postcue_alsoread_ajax_post_search');
 
 function postcue_alsoread_ajax_post_search()
 {

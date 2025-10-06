@@ -117,9 +117,9 @@ function postcue_alsoread_settings_page() {
     <?php
 }
 
-add_action( 'admin_print_styles', 'postalre_admin_inline_css' );
+add_action( 'admin_print_styles', 'postcue_alsoread_admin_inline_css' );
 
-function postalre_admin_inline_css() {
+function postcue_alsoread_admin_inline_css() {
     echo'
     <style>
     .postcue-also-read-container {
