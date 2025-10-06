@@ -128,7 +128,7 @@ export default function Edit({attributes, setAttributes}) {
 	}
 
 	return (
-		<div {...blockProps} id="postcue-also-read-block">
+		<div {...blockProps} id="postcue-also-read-content-block">
 				{/* Show the input field only when showInput is true */}
 				{showInput && (
 					<>
