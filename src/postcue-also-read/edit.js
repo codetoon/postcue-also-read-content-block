@@ -133,7 +133,7 @@ export default function Edit({attributes, setAttributes}) {
 				{showInput && (
 					<>
 						<label className="postcue-also-read-label" htmlFor='postcue-also-read-input'>
-							{__('Search for a post:', 'postcue-also-read')}
+							{__('Search for a post:', 'postcue-also-read-content-block')}
 						</label>
 						<Autosuggest
 							suggestions={suggestions}
@@ -147,17 +147,17 @@ export default function Edit({attributes, setAttributes}) {
 								onChange,
 								id: 'postcue-also-read-input',
 								name: 'postcue-also-read-input',
-								placeholder: __('Type to search posts...', 'postcue-also-read'),
+								placeholder: __('Type to search posts...', 'postcue-also-read-content-block'),
 							}}
 						/>
 					</>
 				)}
 
 				{/* Display loading message when suggestions are being fetched */}
-				{isLoading && suggestions.length == 0 && showInput && value && <p className='postcue-also-read-loading'>{__('Loading suggestions...', 'postcue-also-read')}</p>}
+				{isLoading && suggestions.length == 0 && showInput && value && <p className='postcue-also-read-loading'>{__('Loading suggestions...', 'postcue-also-read-content-block')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
-				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="postcue-also-read-no-suggestions"> {__('No posts found for your search.', 'postcue-also-read')}</p>}
+				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="postcue-also-read-no-suggestions"> {__('No posts found for your search.', 'postcue-also-read-content-block')}</p>}
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
@@ -175,7 +175,7 @@ export default function Edit({attributes, setAttributes}) {
 											setAttributes({ editView: false });
 										}}
 									>
-										{__('Edit', 'postcue-also-read')}
+										{__('Edit', 'postcue-also-read-content-block')}
 									</ToolbarButton>
 								)
 									: (
@@ -185,28 +185,28 @@ export default function Edit({attributes, setAttributes}) {
 												setAttributes({ editView: true });
 											}}
 										>
-											{__('Cancel', 'postcue-also-read')}
+											{__('Cancel', 'postcue-also-read-content-block')}
 										</ToolbarButton>
 									)
 							}
 						</ToolbarGroup>
 					</BlockControls>
 					<InspectorControls>
-						<PanelBody title={__('Custom Style Settings', 'postcue-also-read')} initialOpen={true}>
+						<PanelBody title={__('Custom Style Settings', 'postcue-also-read-content-block')} initialOpen={true}>
 							<ToggleControl
-								label={__('Allow Custom style', 'postcue-also-read')}
+								label={__('Allow Custom style', 'postcue-also-read-content-block')}
 								checked={attributes.allowCustomStyle}
 								onChange={(val) => setAttributes({ allowCustomStyle: val })}
-								help={__('If enabled, this block will use custom styles instead of global defaults.', 'postcue-also-read')}
+								help={__('If enabled, this block will use custom styles instead of global defaults.', 'postcue-also-read-content-block')}
 							/>
 						</PanelBody>
 						{
 							attributes.allowCustomStyle && (
 								<>
-									<PanelBody title={__('Title Settings', 'postcue-also-read')} initialOpen={false}>
+									<PanelBody title={__('Title Settings', 'postcue-also-read-content-block')} initialOpen={false}>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Block Title', 'postcue-also-read')}
+												{__('Block Title', 'postcue-also-read-content-block')}
 											</span>
 											<TextControl
 												onChange={(placeholder) => setAttributes({ blockTitle: placeholder })}
@@ -215,7 +215,7 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Block Title Text Color', 'postcue-also-read')}
+												{__('Block Title Text Color', 'postcue-also-read-content-block')}
 											</span>
 											<ColorPalette
 												value={attributes.blockTitleTextColor}
@@ -224,23 +224,23 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Block Title Font Size', 'postcue-also-read')}
+												{__('Block Title Font Size', 'postcue-also-read-content-block')}
 											</span>
 											<FontSizePicker
 												value={attributes.blockTitleFontSize}
 												onChange={(newSize) => setAttributes({ blockTitleFontSize: newSize })}
 												fontSizes={[
-													{ name: __('Small', 'postcue-also-read'), slug: 'small', size: 12 },
-													{ name: __('Regular', 'postcue-also-read'), slug: 'regular', size: 16 },
-													{ name: __('Large', 'postcue-also-read'), slug: 'large', size: 24 },
+													{ name: __('Small', 'postcue-also-read-content-block'), slug: 'small', size: 12 },
+													{ name: __('Regular', 'postcue-also-read-content-block'), slug: 'regular', size: 16 },
+													{ name: __('Large', 'postcue-also-read-content-block'), slug: 'large', size: 24 },
 												]}
 											/>
 										</div>
 									</PanelBody>
-									<PanelBody title={__('Post Settings', 'postcue-also-read')} initialOpen={false}>
+									<PanelBody title={__('Post Settings', 'postcue-also-read-content-block')} initialOpen={false}>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Post Title Color', 'postcue-also-read')}
+												{__('Post Title Color', 'postcue-also-read-content-block')}
 											</span>
 											<ColorPalette
 												value={attributes.postTitleTextColor}
@@ -249,7 +249,7 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Post Background Color', 'postcue-also-read')}
+												{__('Post Background Color', 'postcue-also-read-content-block')}
 											</span>
 											<ColorPalette
 												value={attributes.postBgColor}
@@ -258,15 +258,15 @@ export default function Edit({attributes, setAttributes}) {
 										</div>
 										<div style={{ marginBottom: '16px' }}>
 											<span style={{ display: 'block', marginBottom: '4px', fontWeight: '500' }}>
-												{__('Post Title Font Size', 'postcue-also-read')}
+												{__('Post Title Font Size', 'postcue-also-read-content-block')}
 											</span>
 											<FontSizePicker
 												value={attributes.postTitleFontSize}
 												onChange={(newSize) => setAttributes({ postTitleFontSize: newSize })}
 												fontSizes={[
-													{ name: __('Small', 'postcue-also-read'), slug: 'small', size: 12 },
-													{ name: __('Regular', 'postcue-also-read'), slug: 'regular', size: 16 },
-													{ name: __('Large', 'postcue-also-read'), slug: 'large', size: 24 },
+													{ name: __('Small', 'postcue-also-read-content-block'), slug: 'small', size: 12 },
+													{ name: __('Regular', 'postcue-also-read-content-block'), slug: 'regular', size: 16 },
+													{ name: __('Large', 'postcue-also-read-content-block'), slug: 'large', size: 24 },
 												]}
 											/>
 										</div>

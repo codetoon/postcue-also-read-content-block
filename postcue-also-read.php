@@ -10,7 +10,7 @@
  * Author URI:        https://www.regur.net/            
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       postcue-also-read
+ * Text Domain:       postcue-also-read-content-block
  *
  * @package CreateBlock
  */
@@ -97,7 +97,7 @@ function postcue_alsoread_enqueue_editor_scripts() {
 add_action('enqueue_block_editor_assets', 'postcue_alsoread_enqueue_editor_scripts');
 
 function postcue_alsoread_add_settings_link( $links ) {
-    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=postcue-also-read-settings') . '">' . __('Settings', 'postcue-also-read') . '</a>';
+    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=postcue-also-read-settings') . '">' . __('Settings', 'postcue-also-read-content-block') . '</a>';
     array_push( $links, $settings_link );
     return $links;
 }
