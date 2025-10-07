@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "create-block/postcue-also-read-content-block",
 	"version": "1.0.0",
-	"title": "PostCue Also Read",
+	"title": "PostCue Also Read Content Block",
 	"category": "widgets",
 	"icon": "smiley",
 	"description": "Add 'Also Read' blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.",
