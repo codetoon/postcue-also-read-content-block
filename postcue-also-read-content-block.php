@@ -97,7 +97,9 @@ function postcue_alsoread_enqueue_editor_scripts() {
 add_action('enqueue_block_editor_assets', 'postcue_alsoread_enqueue_editor_scripts');
 
 function postcue_alsoread_add_settings_link( $links ) {
-    $settings_link = '<a href="' . get_admin_url(null, 'admin.php?page=postcue-also-read-settings') . '">' . __('Settings', 'postcue-also-read-content-block') . '</a>';
+    $settings_url = get_admin_url(null, 'admin.php?page=postcue-also-read-settings');
+    $settings_link = '<a href="' . esc_url($settings_url) . '">' . __('Settings', 'postcue-also-read-content-block') . '</a>';
+    
     if (current_user_can('edit_posts')) { // Only show to users who can edit posts
         array_push( $links, $settings_link );
     }
