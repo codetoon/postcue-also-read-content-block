@@ -121,7 +121,7 @@ add_action( 'admin_print_styles', 'postcue_alsoread_admin_inline_css' );
 
 function postcue_alsoread_admin_inline_css() {
     echo'
-    <style>
+    <style id="postcue-also-read-admin-inline-css">
     .postcue-also-read-container {
         display: flex;
         gap: 30px;
