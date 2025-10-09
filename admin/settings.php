@@ -147,6 +147,9 @@ function postcue_alsoread_admin_inline_css() {
     p.postcue-also-read-paragraph{
         width:30%;
     }
+    .postcue-also-read-container .button-primary{
+        margin-top:12px !important;
+    }
     @media (max-width: 800px) {
         .postcue-also-read-container {
             flex-direction: column;
