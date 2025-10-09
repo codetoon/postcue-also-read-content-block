@@ -16,7 +16,6 @@ import { ToolbarGroup, ToolbarButton, TextControl, PanelBody, FontSizePicker, To
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import Post from './post.js';
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -161,7 +160,39 @@ export default function Edit({attributes, setAttributes}) {
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
-					<Post attributes={postProps}/>
+					<>
+						<h2
+							class="display-posts-title"
+							style={{
+								color: postProps.blockTitleTextColor,
+								fontSize: postProps.blockTitleFontSize,
+							}}
+						>
+							{postProps.blockTitle}
+						</h2>
+						<ul class="display-posts-listing">
+							<li class="listing-item" style={{ backgroundColor: postProps.postBgColor }}>
+								<div class="image">
+									<img decoding="async" width="150" height="150" src={postProps.selectedPost.thumbnail} alt="" />
+								</div>
+								<div
+									class="title"
+									style={{
+										color: postProps.postTitleTextColor,
+										fontSize: postProps.postTitleFontSize,
+									}}
+								>
+									<span dangerouslySetInnerHTML={{ __html: postProps.selectedPost.title }}></span>
+									<a target="_blank" href={postProps.selectedPost.link}>
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28" aria-hidden="true" focusable="false">
+											<path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path>
+										</svg>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</>
+
 				)}
 			{attributes.selectedPost?.id != undefined && (
 				<>
