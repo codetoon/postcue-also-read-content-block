@@ -147,5 +147,17 @@ function postcue_alsoread_admin_inline_css() {
     p.postcue-also-read-paragraph{
         width:30%;
     }
+    @media (max-width: 800px) {
+        .postcue-also-read-container {
+            flex-direction: column;
+            width: 100%;
+        }
+        .postcue-also-read-main, .postcue-also-read-sidebar {
+            width: 80%;
+        }
+        p.postcue-also-read-paragraph{
+            width:100%;
+        }
+    }
     </style>';
 }
