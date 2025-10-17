@@ -51,6 +51,10 @@ You can reach our free support here. We’ll do our best to assist you.
 4. Settings page to control global style of each block on the website.
 5. "Also Read" block displayed on the blog post within the content. 
 
+== Support ==
+If you encounter any issues or need help with the plugin, please visit our GitHub repository and open an issue:  
+https://github.com/codetoon/postcue-also-read-content-block
+
 == Changelog ==
 V-1.0.0
 - Initial Version
