@@ -53,7 +53,7 @@ function pocualrecb_settings_page() {
 
 
     <div class="postcue-also-read-content-block-wrap">
-        <h1><?php echo esc_html__('PostCue Also Read Content Block - Global Styles', 'postcue-also-read-content-block'); ?></h1>
+        <h1 class="postcue-also-read-content-block-heading"><?php echo esc_html__('PostCue Also Read Content Block - Global Styles', 'postcue-also-read-content-block'); ?></h1>
         <p class="postcue-also-read-content-block-paragraph"><?php echo esc_html__('Use the settings below to customize the appearance of the "Also Read" block across your site. These global styles will be applied automatically unless you override them on individual posts.', 'postcue-also-read-content-block'); ?></p>
 
         <div class="postcue-also-read-content-block-container">
@@ -123,7 +123,7 @@ function pocualrecb_admin_inline_css() {
     echo'
     <style id="postcue-also-read-content-block-admin-inline-css">
     .postcue-also-read-content-block-wrap{
-        h1{
+        .postcue-also-read-content-block-heading{
             line-height:1.2;
             margin-bottom:10px !important;
             font-size:26px !important;
