@@ -50,32 +50,28 @@ function pocualrecb_ajax_post_search()
     }
 	// Unslash and sanitize
     $term = isset($_GET['term']) ? sanitize_text_field( wp_unslash($_GET['term']) ) : '';
-    $cache_key = 'pocualrecb_post_search_' . md5($term);
-    $results = get_transient($cache_key);
 
-    if ($results === false) {
-        $query = new WP_Query([
-            's' => $term,
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'posts_per_page' => 100,
-        ]);
-        $results = [];
-	    // Check if the query has posts
-        if ($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-			// Collect the post data
-                $results[] = [
-                    'id' => get_the_ID(),
-                    'title' => get_the_title(),
-                    'link' => get_permalink(),
-                    'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: '',
-                ];
-            }
+    $query = new WP_Query([
+        's' => $term,
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => 100,
+    ]);
+    $results = [];
+    // Check if the query has posts
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+        // Collect the post data
+            $results[] = [
+                'id' => get_the_ID(),
+                'title' => get_the_title(),
+                'link' => get_permalink(),
+                'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: '',
+            ];
         }
-        set_transient($cache_key, $results, 60 * 5); // Cache for 5 minutes
     }
+
 
     wp_send_json($results);
 }
