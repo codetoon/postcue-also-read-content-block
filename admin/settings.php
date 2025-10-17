@@ -45,7 +45,7 @@ function pocualrecb_settings_page() {
         ];
 
         update_option( 'pocualrecb_defaults', $sanitized );
-        echo '<div class="updated"><p>' . esc_html__('Settings saved.', 'postcue-also-read-content-block') . '</p></div>';
+        echo '<div class="postcue-also-read-content-block-updated-message"><p>' . esc_html__('Settings saved.', 'postcue-also-read-content-block') . '</p></div>';
     }
     $defaults = pocualrecb_get_global_defaults();
     ?>
@@ -60,7 +60,7 @@ function pocualrecb_settings_page() {
             <div class="postcue-also-read-content-block-main">
                 <form method="post">
                     <?php wp_nonce_field('pocualrecb_save_settings', 'pocualrecb_nonce'); ?>
-                    <table class="form-table">
+                    <table class="postcue-also-read-content-block-form-table">
                         <tr>
                             <th><?php echo esc_html__('Block Title', 'postcue-also-read-content-block'); ?></th>
                             <td><input name="pocualrecb_defaults[blockTitle]" value="<?php echo esc_attr($defaults['blockTitle']); ?>"></td>
@@ -86,7 +86,7 @@ function pocualrecb_settings_page() {
                             <td><input type="color" name="pocualrecb_defaults[postBgColor]" value="<?php echo esc_attr($defaults['postBgColor']); ?>"></td>
                         </tr>
                     </table>
-                    <input type="submit" class="button-primary" value="<?php echo esc_html__('Save Changes', 'postcue-also-read-content-block'); ?>">
+                    <input type="submit" class="postcue-also-read-content-block-button-primary" value="<?php echo esc_html__('Save Changes', 'postcue-also-read-content-block'); ?>">
                 </form>
             </div>
 
@@ -100,12 +100,12 @@ function pocualrecb_settings_page() {
 
                 <h2><?php echo esc_html__('Feedback', 'postcue-also-read-content-block'); ?></h2>
                 <p>
-                    <a href="https://postcue.regur.net/contact" class="button button-secondary" target="_blank">
+                    <a href="https://postcue.regur.net/contact" class="postcue-also-read-content-block-button-secondary" target="_blank">
                         💡 <?php echo esc_html__('I have an idea', 'postcue-also-read-content-block'); ?>
                     </a>
                 </p>
                 <p>
-                    <a href="https://postcue.regur.net/contact" class="button button-secondary" target="_blank">
+                    <a href="https://postcue.regur.net/contact" class="postcue-also-read-content-block-button-secondary" target="_blank">
                         🛠️ <?php echo esc_html__('I need help', 'postcue-also-read-content-block'); ?>
                     </a>
                 </p>
@@ -154,10 +154,87 @@ function pocualrecb_admin_inline_css() {
         p.postcue-also-read-content-block-paragraph{
             width:30%;
         }
-        .postcue-also-read-content-block-container .button-primary{
+        .postcue-also-read-content-block-container .postcue-also-read-content-block-button-primary{
             margin-top:12px !important;
+                display: inline-block;
+                text-decoration: none;
+                font-size: 13px;
+                line-height: 2.15384615;
+                min-height: 30px;
+                margin: 0;
+                padding: 0 10px;
+                cursor: pointer;
+                border-width: 1px;
+                border-style: solid;
+                -webkit-appearance: none;
+                border-radius: 3px;
+                white-space: nowrap;
+                box-sizing: border-box;
+                text-align: center;
+                background: #2271b1;
+                border-color: #2271b1;
+                color: #fff;
+                text-decoration: none;
+                text-shadow: none;
+        }
+        .postcue-also-read-content-block-form-table {
+            border-collapse: collapse;
+            margin-top: .5em;
+            width: 100%;
+            clear: both;
+            font-size: 14px;
+        }  
+        .postcue-also-read-content-block-form-table th {
+            vertical-align: top;
+            text-align: left;
+            padding: 20px 10px 20px 0;
+            width: 200px;
+            line-height: 1.3;
+            color: #1d2327;
+            text-shadow: none;
+            font-size: 14px;
+            font-weight: 600;
+        } 
+        .postcue-also-read-content-block-form-table td {
+            margin-bottom: 9px;
+            padding: 15px 10px;
+            line-height: 1.3;
+            vertical-align: middle;
+        }
+        .postcue-also-read-content-block-form-table input{
+            font-size: 14px;
+        }
+        .postcue-also-read-content-block-button-secondary{
+            color: #2271b1;
+            border-color: #2271b1;
+            background: #f6f7f7;
+            vertical-align: top;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 2.15384615;
+            min-height: 30px;
+            margin: 0;
+            padding: 0 10px;
+            cursor: pointer;
+            border-width: 1px;
+            border-style: solid;
+            -webkit-appearance: none;
+            border-radius: 3px;
+            white-space: nowrap;
+            box-sizing: border-box;
         }
     }
+    .postcue-also-read-content-block-updated-message{
+        background: #fff;
+        border: 1px solid #c3c4c7;
+        border-left-width: 4px;
+        box-shadow: 0 1px 1px rgba(0,0,0,.04);
+        margin: 5px 2px 2px;
+        padding: 1px 12px;
+        border-left-color: #00a32a;
+    }
+
     @media (max-width: 800px) {
     .postcue-also-read-content-block-wrap{
             .postcue-also-read-content-block-container {
