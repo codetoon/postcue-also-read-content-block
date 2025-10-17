@@ -37,7 +37,6 @@ Absolutely! The plugin allows you to easily edit or change the posts you’ve ad
 Yes, you can add multiple “Also Read” blocks to a single post, each linking to different posts.
 
 = Is the plugin easy to install and set up? =
-
 Yes, the plugin is designed to be easy to install and configure, making it simple for you to start adding and customizing post blocks in your WordPress site.
 
 = Where can I get more help and support for this plugin? =
