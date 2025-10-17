@@ -4,9 +4,9 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-postcue-also-read-content-block-content-block {
+.wp-block-create-block-postcue-also-read-content-block {
  
-.react-autosuggest__input {
+#postcue-also-read-content-block-input {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 10px 12px;
@@ -19,11 +19,11 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-.react-autosuggest__input::placeholder {
+#postcue-also-read-content-block-input::placeholder {
   color: #999;
 }
 
-.react-autosuggest__input:focus {
+#postcue-also-read-content-block-input:focus {
   border-color: #0077cc;
   box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.2);
   outline: none;

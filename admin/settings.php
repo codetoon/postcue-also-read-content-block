@@ -123,6 +123,12 @@ function pocualrecb_admin_inline_css() {
     echo'
     <style id="postcue-also-read-content-block-admin-inline-css">
     .postcue-also-read-content-block-wrap{
+        h1{
+            line-height:1.2;
+            margin-bottom:10px !important;
+            font-size:26px !important;
+            color:#23282d !important;
+        }
         .postcue-also-read-content-block-container {
             display: flex;
             gap: 30px;
