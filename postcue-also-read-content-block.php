@@ -35,10 +35,10 @@ add_action('wp_ajax_nopriv_pocualrecb_post_search', 'pocualrecb_ajax_post_search
 function pocualrecb_ajax_post_search()
 {
     // Safely retrieve and sanitize nonce
-    $nonce = isset($_GET['_pocualrecb_nonce']) ? sanitize_text_field( wp_unslash( $_GET['_pocualrecb_nonce'] ) ) : '';
+    $pocualrecb_nonce = isset($_GET['_pocualrecb_nonce']) ? sanitize_text_field( wp_unslash( $_GET['_pocualrecb_nonce'] ) ) : '';
 
     // Verify nonce
-    if ( ! wp_verify_nonce( $nonce, 'pocualrecb_post_search' ) ) {
+    if ( ! wp_verify_nonce( $pocualrecb_nonce, 'pocualrecb_post_search' ) ) {
         wp_send_json_error( 'Invalid request (nonce verification failed)' );
         return;
     }
@@ -49,23 +49,23 @@ function pocualrecb_ajax_post_search()
         return;
     }
 	// Unslash and sanitize
-    $term = isset($_GET['term']) ? sanitize_text_field( wp_unslash($_GET['term']) ) : '';
+    $pocualrecb_term = isset($_GET['term']) ? sanitize_text_field( wp_unslash($_GET['term']) ) : '';
 
-    $query = new WP_Query([
-        's' => $term,
+    $pocualrecb_query = new WP_Query([
+        's' => $pocualrecb_term,
         'post_type' => 'post',
         'orderby' => 'date',
         'order' => 'DESC',
         'post_status' => 'publish',
         'posts_per_page' => 100,
     ]);
-    $results = [];
+    $pocualrecb_results = [];
     // Check if the query has posts
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
+    if ($pocualrecb_query->have_posts()) {
+        while ($pocualrecb_query->have_posts()) {
+            $pocualrecb_query->the_post();
         // Collect the post data
-            $results[] = [
+            $pocualrecb_results[] = [
                 'id' => get_the_ID(),
                 'title' => get_the_title(),
                 'link' => get_permalink(),
@@ -75,18 +75,18 @@ function pocualrecb_ajax_post_search()
     }
 
 
-    wp_send_json($results);
+    wp_send_json($pocualrecb_results);
 }
 
 // Remove frontend script enqueue (no view.js, no localization)
 
 // Enqueue in block editor only
 function pocualrecb_enqueue_editor_scripts() {
-    $defaults = pocualrecb_get_global_defaults();
+    $pocualrecb_defaults = pocualrecb_get_global_defaults();
     wp_add_inline_script(
         'wp-block-editor',
         'window.pocualrecb_ajaxurl = "' . esc_url(admin_url('admin-ajax.php')) . '";' .
-        'window.pocualrecb_defaults = ' . wp_json_encode($defaults) . ';' .
+        'window.pocualrecb_defaults = ' . wp_json_encode($pocualrecb_defaults) . ';' .
         'window.pocualrecb_nonce = "' . esc_js(wp_create_nonce('pocualrecb_post_search')) . '";',
         'before'
     );
@@ -94,13 +94,13 @@ function pocualrecb_enqueue_editor_scripts() {
 
 add_action('enqueue_block_editor_assets', 'pocualrecb_enqueue_editor_scripts');
 
-function pocualrecb_add_settings_link( $links ) {
-    $settings_url = get_admin_url(null, 'admin.php?page=postcue-also-read-content-block-settings');
-    $settings_link = '<a href="' . esc_url($settings_url) . '">' . __('Settings', 'postcue-also-read-content-block') . '</a>';
+function pocualrecb_add_settings_link( $pocualrecb_links ) {
+    $pocualrecb_settings_url = get_admin_url(null, 'admin.php?page=postcue-also-read-content-block-settings');
+    $pocualrecb_settings_link = '<a href="' . esc_url($pocualrecb_settings_url) . '">' . __('Settings', 'postcue-also-read-content-block') . '</a>';
     
     if (current_user_can('edit_posts')) { // Only show to users who can edit posts
-        array_push( $links, $settings_link );
+        array_push( $pocualrecb_links, $pocualrecb_settings_link );
     }
-    return $links;
+    return $pocualrecb_links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'pocualrecb_add_settings_link' );

@@ -19,35 +19,35 @@ add_action('admin_menu', function() {
 });
 
 function pocualrecb_settings_page() {
-    $input = null;
+    $pocualrecb_input = null;
 
     // Avoid direct $_POST access in conditional
     if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
         if ( isset( $_POST['pocualrecb_nonce'] ) && check_admin_referer( 'pocualrecb_save_settings', 'pocualrecb_nonce' ) ) {
             // Safe to access now
-            $raw_input = filter_input( INPUT_POST, 'pocualrecb_defaults', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+            $pocualrecb_raw_input = filter_input( INPUT_POST, 'pocualrecb_defaults', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
             
-            if ( is_array( $raw_input ) ) {
-                $input = wp_unslash( $raw_input ); // unescape slashes from POST
+            if ( is_array( $pocualrecb_raw_input ) ) {
+                $pocualrecb_input = wp_unslash( $pocualrecb_raw_input ); // unescape slashes from POST
             }
         }
     }
 
-    if ( is_array( $input ) ) {
+    if ( is_array( $pocualrecb_input ) ) {
         // Sanitize each field
-        $sanitized = [
-            'blockTitle' => sanitize_text_field( $input['blockTitle'] ?? '' ),
-            'blockTitleTextColor' => sanitize_hex_color( $input['blockTitleTextColor'] ?? '' ),
-            'blockTitleFontSize' => sanitize_text_field( $input['blockTitleFontSize'] ?? '' ),
-            'postTitleTextColor' => sanitize_hex_color( $input['postTitleTextColor'] ?? '' ),
-            'postTitleFontSize' => sanitize_text_field( $input['postTitleFontSize'] ?? '' ),
-            'postBgColor' => sanitize_hex_color( $input['postBgColor'] ?? '' ),
+        $pocualrecb_sanitized = [
+            'blockTitle' => sanitize_text_field( $pocualrecb_input['blockTitle'] ?? '' ),
+            'blockTitleTextColor' => sanitize_hex_color( $pocualrecb_input['blockTitleTextColor'] ?? '' ),
+            'blockTitleFontSize' => sanitize_text_field( $pocualrecb_input['blockTitleFontSize'] ?? '' ),
+            'postTitleTextColor' => sanitize_hex_color( $pocualrecb_input['postTitleTextColor'] ?? '' ),
+            'postTitleFontSize' => sanitize_text_field( $pocualrecb_input['postTitleFontSize'] ?? '' ),
+            'postBgColor' => sanitize_hex_color( $pocualrecb_input['postBgColor'] ?? '' ),
         ];
 
-        update_option( 'pocualrecb_defaults', $sanitized );
+        update_option( 'pocualrecb_defaults', $pocualrecb_sanitized );
         echo '<div class="postcue-also-read-content-block-updated-message"><p>' . esc_html__('Settings saved.', 'postcue-also-read-content-block') . '</p></div>';
     }
-    $defaults = pocualrecb_get_global_defaults();
+    $pocualrecb_defaults = pocualrecb_get_global_defaults();
     ?>
 
 
@@ -63,27 +63,27 @@ function pocualrecb_settings_page() {
                     <table class="postcue-also-read-content-block-form-table">
                         <tr>
                             <th><?php echo esc_html__('Block Title', 'postcue-also-read-content-block'); ?></th>
-                            <td><input name="pocualrecb_defaults[blockTitle]" value="<?php echo esc_attr($defaults['blockTitle']); ?>"></td>
+                            <td><input name="pocualrecb_defaults[blockTitle]" value="<?php echo esc_attr($pocualrecb_defaults['blockTitle']); ?>"></td>
                         </tr>
                         <tr>
                             <th><?php echo esc_html__('Block Title Color', 'postcue-also-read-content-block'); ?></th>
-                            <td><input type="color" name="pocualrecb_defaults[blockTitleTextColor]" value="<?php echo esc_attr($defaults['blockTitleTextColor']); ?>"></td>
+                            <td><input type="color" name="pocualrecb_defaults[blockTitleTextColor]" value="<?php echo esc_attr($pocualrecb_defaults['blockTitleTextColor']); ?>"></td>
                         </tr>
                         <tr>
                             <th><?php echo esc_html__('Block Title Font Size', 'postcue-also-read-content-block'); ?></th>
-                            <td><input name="pocualrecb_defaults[blockTitleFontSize]" value="<?php echo esc_attr($defaults['blockTitleFontSize']); ?>"></td>
+                            <td><input name="pocualrecb_defaults[blockTitleFontSize]" value="<?php echo esc_attr($pocualrecb_defaults['blockTitleFontSize']); ?>"></td>
                         </tr>
                         <tr>
                             <th><?php echo esc_html__('Post Title Color', 'postcue-also-read-content-block'); ?></th>
-                            <td><input type="color" name="pocualrecb_defaults[postTitleTextColor]" value="<?php echo esc_attr($defaults['postTitleTextColor']); ?>"></td>
+                            <td><input type="color" name="pocualrecb_defaults[postTitleTextColor]" value="<?php echo esc_attr($pocualrecb_defaults['postTitleTextColor']); ?>"></td>
                         </tr>
                         <tr>
                             <th><?php echo esc_html__('Post Title Font Size', 'postcue-also-read-content-block'); ?></th>
-                            <td><input name="pocualrecb_defaults[postTitleFontSize]" value="<?php echo esc_attr($defaults['postTitleFontSize']); ?>"></td>
+                            <td><input name="pocualrecb_defaults[postTitleFontSize]" value="<?php echo esc_attr($pocualrecb_defaults['postTitleFontSize']); ?>"></td>
                         </tr>
                         <tr>
                             <th><?php echo esc_html__('Post BG Color', 'postcue-also-read-content-block'); ?></th>
-                            <td><input type="color" name="pocualrecb_defaults[postBgColor]" value="<?php echo esc_attr($defaults['postBgColor']); ?>"></td>
+                            <td><input type="color" name="pocualrecb_defaults[postBgColor]" value="<?php echo esc_attr($pocualrecb_defaults['postBgColor']); ?>"></td>
                         </tr>
                     </table>
                     <input type="submit" class="postcue-also-read-content-block-button-primary" value="<?php echo esc_html__('Save Changes', 'postcue-also-read-content-block'); ?>">
