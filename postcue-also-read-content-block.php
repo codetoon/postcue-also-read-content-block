@@ -22,23 +22,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path(__FILE__) . 'admin/settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 
-function postcue_alsoread_create_block_init() {
+function pocualrecb_create_block_init() {
 register_block_type( __DIR__ . '/build/postcue-also-read-content-block' );
 }
 
-add_action( 'init', 'postcue_alsoread_create_block_init' );
+add_action( 'init', 'pocualrecb_create_block_init' );
 
 // Register AJAX handlers for both logged-in and guest users
-add_action('wp_ajax_postcue_alsoread_post_search', 'postcue_alsoread_ajax_post_search');
-add_action('wp_ajax_nopriv_postcue_alsoread_post_search', 'postcue_alsoread_ajax_post_search');
+add_action('wp_ajax_pocualrecb_post_search', 'pocualrecb_ajax_post_search');
+add_action('wp_ajax_nopriv_pocualrecb_post_search', 'pocualrecb_ajax_post_search');
 
-function postcue_alsoread_ajax_post_search()
+function pocualrecb_ajax_post_search()
 {
     // Safely retrieve and sanitize nonce
-    $nonce = isset($_GET['_postcue_alsoread_nonce']) ? sanitize_text_field( wp_unslash( $_GET['_postcue_alsoread_nonce'] ) ) : '';
+    $nonce = isset($_GET['_pocualrecb_nonce']) ? sanitize_text_field( wp_unslash( $_GET['_pocualrecb_nonce'] ) ) : '';
 
     // Verify nonce
-    if ( ! wp_verify_nonce( $nonce, 'postcue_alsoread_post_search' ) ) {
+    if ( ! wp_verify_nonce( $nonce, 'pocualrecb_post_search' ) ) {
         wp_send_json_error( 'Invalid request (nonce verification failed)' );
         return;
     }
@@ -50,7 +50,7 @@ function postcue_alsoread_ajax_post_search()
     }
 	// Unslash and sanitize
     $term = isset($_GET['term']) ? sanitize_text_field( wp_unslash($_GET['term']) ) : '';
-    $cache_key = 'postcue_alsoread_post_search_' . md5($term);
+    $cache_key = 'pocualrecb_post_search_' . md5($term);
     $results = get_transient($cache_key);
 
     if ($results === false) {
@@ -83,21 +83,21 @@ function postcue_alsoread_ajax_post_search()
 // Remove frontend script enqueue (no view.js, no localization)
 
 // Enqueue in block editor only
-function postcue_alsoread_enqueue_editor_scripts() {
-    $defaults = postcue_alsoread_get_global_defaults();
+function pocualrecb_enqueue_editor_scripts() {
+    $defaults = pocualrecb_get_global_defaults();
     wp_add_inline_script(
         'wp-block-editor',
-        'window.postcue_alsoread_ajaxurl = "' . esc_url(admin_url('admin-ajax.php')) . '";' .
-        'window.postcue_alsoread_defaults = ' . wp_json_encode($defaults) . ';' .
-        'window.postcue_alsoread_nonce = "' . esc_js(wp_create_nonce('postcue_alsoread_post_search')) . '";',
+        'window.pocualrecb_ajaxurl = "' . esc_url(admin_url('admin-ajax.php')) . '";' .
+        'window.pocualrecb_defaults = ' . wp_json_encode($defaults) . ';' .
+        'window.pocualrecb_nonce = "' . esc_js(wp_create_nonce('pocualrecb_post_search')) . '";',
         'before'
     );
 }
 
-add_action('enqueue_block_editor_assets', 'postcue_alsoread_enqueue_editor_scripts');
+add_action('enqueue_block_editor_assets', 'pocualrecb_enqueue_editor_scripts');
 
-function postcue_alsoread_add_settings_link( $links ) {
-    $settings_url = get_admin_url(null, 'admin.php?page=postcue-also-read-settings');
+function pocualrecb_add_settings_link( $links ) {
+    $settings_url = get_admin_url(null, 'admin.php?page=postcue-also-read-content-block-settings');
     $settings_link = '<a href="' . esc_url($settings_url) . '">' . __('Settings', 'postcue-also-read-content-block') . '</a>';
     
     if (current_user_can('edit_posts')) { // Only show to users who can edit posts
@@ -105,4 +105,4 @@ function postcue_alsoread_add_settings_link( $links ) {
     }
     return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'postcue_alsoread_add_settings_link' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'pocualrecb_add_settings_link' );

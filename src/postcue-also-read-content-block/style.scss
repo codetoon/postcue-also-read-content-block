@@ -9,7 +9,7 @@
 	position: relative;
   margin: 0 auto;
 
-.display-posts-title {
+.postcue-also-read-content-block-title {
   left: 10px !important;
   margin: 8px 0 !important;
   font-weight: bold !important;
@@ -17,14 +17,14 @@
 
 
 /* Start Also read posts custom styling */
-.display-posts-listing {
+.postcue-also-read-content-block-post-listing {
   margin-left: 0 !important;
   margin-right: 0 !important;
   margin-top: 16px !important;
   margin-bottom: 16px !important;
   padding: 0 !important;
   
-  .title {
+  .postcue-also-read-content-block-post-title {
     font-weight: bold;
     text-decoration: none;
     margin-top: 13px;
@@ -32,15 +32,15 @@
     display: flex;
     text-align: left;
   }
-   .title a{
+   .postcue-also-read-content-block-post-title a{
     margin-left: 10px;
   }
-  li .image{
+  li.postcue-also-read-content-block-listing-item .postcue-also-read-content-block-post-image{
     width: 100px !important;
     height: 66px !important;
     margin: 8px 15px 8px 0 !important;
   }
-  img {
+  .postcue-also-read-content-block-post-image img {
     box-shadow: 0px 1px 8px #70707096 !important;
     width: 100% !important;
     height: 100% !important; 
@@ -48,7 +48,7 @@
     margin: 0 !important;
   }
 
-  li {
+  li.postcue-also-read-content-block-listing-item {
     list-style: none !important;
     display: flex;
     padding: 10px !important;
@@ -56,7 +56,7 @@
     border-radius: 5px;
     align-items: start;
   }
-  li:before{
+  li.postcue-also-read-content-block-listing-item:before{
     display: none;
   }
 }
@@ -64,12 +64,12 @@
 /* Media query for small devices */
 @media screen and (max-width: 600px) {
 #postcue-also-read-content-block{
-  .display-posts-listing li .image {
+  .postcue-also-read-content-block-post-listing li .postcue-also-read-content-block-post-image {
     width: 90px !important;
     height: auto;
     margin-right: 10px !important;
   }
-  .display-posts-listing .title {
+  .postcue-also-read-content-block-post-listing .postcue-also-read-content-block-post-title {
     font-size: 16px;
     margin-top: 6px;
   }

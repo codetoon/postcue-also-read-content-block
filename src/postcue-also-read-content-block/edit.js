@@ -41,7 +41,7 @@ export default function Edit({attributes, setAttributes}) {
 	const [suggestions, setSuggestions] = useState([]); // State to hold the suggestions
 
 	// Get global defaults from window.postcuealsoreadDefaults (set in PHP)
-    const globalDefaults = (typeof window !== "undefined" && window.postcue_alsoread_defaults) ? window.postcue_alsoread_defaults : {};
+    const globalDefaults = (typeof window !== "undefined" && window.pocualrecb_defaults) ? window.pocualrecb_defaults : {};
 	
 	// Only initialize local styles once, when custom style is disabled
 	useEffect(() => {
@@ -96,7 +96,7 @@ export default function Edit({attributes, setAttributes}) {
 		}
 		setAttributes({ isLoading: true, showNotFoundMsg: false });
 		try {
-            const res = await fetch(`${window.postcue_alsoread_ajaxurl}?action=postcue_alsoread_post_search&term=${encodeURIComponent(value)}&_postcue_alsoread_nonce=${encodeURIComponent(window.postcue_alsoread_nonce)}`);
+            const res = await fetch(`${window.pocualrecb_ajaxurl}?action=pocualrecb_post_search&term=${encodeURIComponent(value)}&_pocualrecb_nonce=${encodeURIComponent(window.pocualrecb_nonce)}`);
 			const data = await res.json();
 			setSuggestions(data || []);
 			setAttributes({ isLoading: false, showNotFoundMsg: (Array.isArray(data) && data.length === 0) });
@@ -131,7 +131,7 @@ export default function Edit({attributes, setAttributes}) {
 				{/* Show the input field only when showInput is true */}
 				{showInput && (
 					<>
-						<label className="postcue-also-read-label" htmlFor='postcue-also-read-input'>
+						<label className="postcue-also-read-content-block-label" htmlFor='postcue-also-read-content-block-input'>
 							{__('Search for a post:', 'postcue-also-read-content-block')}
 						</label>
 						<Autosuggest
@@ -144,8 +144,8 @@ export default function Edit({attributes, setAttributes}) {
 							inputProps={{
 								value,
 								onChange,
-								id: 'postcue-also-read-input',
-								name: 'postcue-also-read-input',
+								id: 'postcue-also-read-content-block-input',
+								name: 'postcue-also-read-content-block-input',
 								placeholder: __('Type to search posts...', 'postcue-also-read-content-block'),
 							}}
 						/>
@@ -153,30 +153,30 @@ export default function Edit({attributes, setAttributes}) {
 				)}
 
 				{/* Display loading message when suggestions are being fetched */}
-				{isLoading && suggestions.length == 0 && showInput && value && <p className='postcue-also-read-loading'>{__('Loading suggestions...', 'postcue-also-read-content-block')}</p>}
+				{isLoading && suggestions.length == 0 && showInput && value && <p className='postcue-also-read-content-block-loading'>{__('Loading suggestions...', 'postcue-also-read-content-block')}</p>}
 
 				{/* Display no suggestions message when there are no suggestions */}
-				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="postcue-also-read-no-suggestions"> {__('No posts found for your search.', 'postcue-also-read-content-block')}</p>}
+				{showNotFoundMsg && !isLoading && suggestions.length == 0 && value && showInput && <p className="postcue-also-read-content-block-no-suggestions"> {__('No posts found for your search.', 'postcue-also-read-content-block')}</p>}
 
 				{/* Render the selected post if available & Show the selected post if it exists */}
 				{attributes.selectedPost?.id && !showInput && (
 					<>
-						<h2
-							class="display-posts-title"
+						<strong
+							class="postcue-also-read-content-block-title"
 							style={{
 								color: postProps.blockTitleTextColor,
 								fontSize: postProps.blockTitleFontSize,
 							}}
 						>
 							{postProps.blockTitle}
-						</h2>
-						<ul class="display-posts-listing">
-							<li class="listing-item" style={{ backgroundColor: postProps.postBgColor }}>
-								<div class="image">
+						</strong>
+						<ul class="postcue-also-read-content-block-post-listing">
+							<li class="postcue-also-read-content-block-listing-item" style={{ backgroundColor: postProps.postBgColor }}>
+								<div class="postcue-also-read-content-block-post-image">
 									<img decoding="async" width="150" height="150" src={postProps.selectedPost.thumbnail} alt="" />
 								</div>
 								<div
-									class="title"
+									class="postcue-also-read-content-block-post-title"
 									style={{
 										color: postProps.postTitleTextColor,
 										fontSize: postProps.postTitleFontSize,

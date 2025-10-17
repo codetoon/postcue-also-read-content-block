@@ -4,7 +4,9 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-postcue-also-read-content-block .react-autosuggest__input {
+.wp-block-create-block-postcue-also-read-content-block-content-block {
+ 
+.react-autosuggest__input {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 10px 12px;
@@ -17,11 +19,11 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-.wp-block-create-block-postcue-also-read-content-block .react-autosuggest__input::placeholder {
+.react-autosuggest__input::placeholder {
   color: #999;
 }
 
-.wp-block-create-block-postcue-also-read-content-block .react-autosuggest__input:focus {
+.react-autosuggest__input:focus {
   border-color: #0077cc;
   box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.2);
   outline: none;
@@ -69,25 +71,26 @@
   max-height: 40vh;
 }
 
-p.postcue-also-read-loading, p.postcue-also-read-no-suggestions{
+p.postcue-also-read-content-block-loading, p.postcue-also-read-content-block-no-suggestions{
   text-align: center !important;
   font-size: 16px;
   color: #666;
   padding: 20px;
 }
 
-.postcue-also-read-edit-button{
+.postcue-also-read-content-block-edit-button{
   display: block;
   width: 100%;
   text-align: center;
   font-size: 16px;
   margin-bottom: 10px;
 }
-.postcue-also-read-label{
+.postcue-also-read-content-block-label{
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
   display: block;
   color: #696969;
   font-weight: bold;
+}
 }
