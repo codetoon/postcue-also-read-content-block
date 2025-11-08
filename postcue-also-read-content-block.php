@@ -54,8 +54,6 @@ function pocualrecb_ajax_post_search()
     $pocualrecb_query = new WP_Query([
         's' => $pocualrecb_term,
         'post_type' => 'post',
-        'orderby' => 'date',
-        'order' => 'DESC',
         'post_status' => 'publish',
         'posts_per_page' => 100,
     ]);
