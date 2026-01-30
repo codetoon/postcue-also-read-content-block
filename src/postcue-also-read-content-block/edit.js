@@ -4,7 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from 'react'; // Import useState for managing state
+import { useState, useEffect } from '@wordpress/element'; // Import useState for managing state
 import Autosuggest from 'react-autosuggest';
 import {
 	BlockControls,
