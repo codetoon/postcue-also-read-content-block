@@ -1,10 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+if (! defined('ABSPATH')) {
+    exit; // Exit if accessed directly
 }
 require_once plugin_dir_path(__DIR__) . './includes/functions.php';
-add_action('admin_menu', function() {
+add_action('admin_menu', function () {
     if (current_user_can('edit_posts')) {
         add_menu_page(
             'PostCue Also Read Content Block Settings',
@@ -13,42 +13,43 @@ add_action('admin_menu', function() {
             'postcue-also-read-content-block-settings',
             'pocualrecb_settings_page',
             plugin_dir_url(__DIR__) . 'images/icon.svg',
-            80     
+            80
         );
     }
 });
 
-function pocualrecb_settings_page() {
+function pocualrecb_settings_page()
+{
     $pocualrecb_input = null;
 
     // Avoid direct $_POST access in conditional
-    if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-        if ( isset( $_POST['pocualrecb_nonce'] ) && check_admin_referer( 'pocualrecb_save_settings', 'pocualrecb_nonce' ) ) {
+    if (! empty($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['pocualrecb_nonce']) && check_admin_referer('pocualrecb_save_settings', 'pocualrecb_nonce')) {
             // Safe to access now
-            $pocualrecb_raw_input = filter_input( INPUT_POST, 'pocualrecb_defaults', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-            
-            if ( is_array( $pocualrecb_raw_input ) ) {
-                $pocualrecb_input = wp_unslash( $pocualrecb_raw_input ); // unescape slashes from POST
+            $pocualrecb_raw_input = filter_input(INPUT_POST, 'pocualrecb_defaults', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+
+            if (is_array($pocualrecb_raw_input)) {
+                $pocualrecb_input = wp_unslash($pocualrecb_raw_input); // unescape slashes from POST
             }
         }
     }
 
-    if ( is_array( $pocualrecb_input ) ) {
+    if (is_array($pocualrecb_input)) {
         // Sanitize each field
         $pocualrecb_sanitized = [
-            'blockTitle' => sanitize_text_field( $pocualrecb_input['blockTitle'] ?? '' ),
-            'blockTitleTextColor' => sanitize_hex_color( $pocualrecb_input['blockTitleTextColor'] ?? '' ),
-            'blockTitleFontSize' => sanitize_text_field( $pocualrecb_input['blockTitleFontSize'] ?? '' ),
-            'postTitleTextColor' => sanitize_hex_color( $pocualrecb_input['postTitleTextColor'] ?? '' ),
-            'postTitleFontSize' => sanitize_text_field( $pocualrecb_input['postTitleFontSize'] ?? '' ),
-            'postBgColor' => sanitize_hex_color( $pocualrecb_input['postBgColor'] ?? '' ),
+            'blockTitle' => sanitize_text_field($pocualrecb_input['blockTitle'] ?? ''),
+            'blockTitleTextColor' => sanitize_hex_color($pocualrecb_input['blockTitleTextColor'] ?? ''),
+            'blockTitleFontSize' => sanitize_text_field($pocualrecb_input['blockTitleFontSize'] ?? ''),
+            'postTitleTextColor' => sanitize_hex_color($pocualrecb_input['postTitleTextColor'] ?? ''),
+            'postTitleFontSize' => sanitize_text_field($pocualrecb_input['postTitleFontSize'] ?? ''),
+            'postBgColor' => sanitize_hex_color($pocualrecb_input['postBgColor'] ?? ''),
         ];
 
-        update_option( 'pocualrecb_defaults', $pocualrecb_sanitized );
+        update_option('pocualrecb_defaults', $pocualrecb_sanitized);
         echo '<div class="postcue-also-read-content-block-updated-message"><p>' . esc_html__('Settings saved.', 'postcue-also-read-content-block') . '</p></div>';
     }
     $pocualrecb_defaults = pocualrecb_get_global_defaults();
-    ?>
+?>
 
 
 
@@ -114,13 +115,14 @@ function pocualrecb_settings_page() {
         </div>
     </div>
 
-    <?php
+<?php
 }
 
-add_action( 'admin_print_styles', 'pocualrecb_admin_inline_css' );
+add_action('admin_print_styles', 'pocualrecb_admin_inline_css');
 
-function pocualrecb_admin_inline_css() {
-    echo'
+function pocualrecb_admin_inline_css()
+{
+    echo '
     <style id="postcue-also-read-content-block-admin-inline-css">
     .postcue-also-read-content-block-wrap{
         .postcue-also-read-content-block-heading{

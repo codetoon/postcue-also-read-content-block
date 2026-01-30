@@ -17,40 +17,40 @@
 	"style": "file:./style-index.css",
 	"attributes": {
 		"selectedPost": {
-		"type": "object",
-		"default": {}
+			"type": "object",
+			"default": {}
 		},
-		"value":{
-			"type":"string",
+		"value": {
+			"type": "string",
 			"default": ""
 		},
-		"showInput":{
-			"type":"boolean",
+		"showInput": {
+			"type": "boolean",
 			"default": true
 		},
-		"editView":{
-			"type":"boolean",
-			"default" : false
-		},
-		"isLoading":{
-			"type" :"boolean",
-			"default" : false
-		},
-		"showNotFoundMsg":{
+		"editView": {
 			"type": "boolean",
 			"default": false
 		},
-		"blockTitle":{
+		"isLoading": {
+			"type": "boolean",
+			"default": false
+		},
+		"showNotFoundMsg": {
+			"type": "boolean",
+			"default": false
+		},
+		"blockTitle": {
 			"type": "string",
 			"default": "Also Read"
 		},
-        "blockTitleTextColor": {
-          "type": "string",
-		  "default": "#696969"
-        },
+		"blockTitleTextColor": {
+			"type": "string",
+			"default": "#696969"
+		},
 		"blockTitleFontSize": {
 			"type": "string",
-			"default": "18px" 
+			"default": "18px"
 		},
 		"postTitleTextColor": {
 			"type": "string",
