@@ -5,6 +5,7 @@
  */
 
 .wp-block-create-block-postcue-also-read-content-block {
+
 	#postcue-also-read-content-block-input {
 		border: 1px solid #ccc;
 		border-radius: 6px;
@@ -20,23 +21,26 @@
 		font-family: "Segoe UI", sans-serif;
 	}
 
+
 	#postcue-also-read-content-block-input::placeholder {
 		color: #999;
 	}
 
+
 	#postcue-also-read-content-block-input:focus {
-		border-color: #0077cc;
+		border-color: #07c;
 		box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.2);
 		outline: none;
 		background-color: #fff;
 	}
+
 
 	.react-autosuggest__suggestions-container {
 		position: absolute;
 		top: 100%;
 		left: 0;
 		right: 0;
-		max-height: 250px;
+		max-height: 40vh;
 		overflow-y: auto;
 		background-color: #fff;
 		border-top: none;
@@ -47,12 +51,15 @@
 		border-radius: 0 0 6px 6px;
 	}
 
+
 	.react-autosuggest__suggestions-list {
 		list-style: none;
 		margin: 0;
-		border-radius: 6px;
 		padding: 0;
+		border-radius: 6px;
 	}
+
+
 	.react-autosuggest__suggestion {
 		padding: 15px 12px;
 		cursor: pointer;
@@ -62,13 +69,11 @@
 		font-weight: 600;
 	}
 
+
 	.react-autosuggest__suggestion--highlighted {
 		background-color: #f0f0f0;
 	}
 
-	.react-autosuggest__suggestions-container {
-		max-height: 40vh;
-	}
 
 	p.postcue-also-read-content-block-loading,
 	p.postcue-also-read-content-block-no-suggestions {
@@ -78,6 +83,7 @@
 		padding: 20px;
 	}
 
+
 	.postcue-also-read-content-block-edit-button {
 		display: block;
 		width: 100%;
@@ -85,12 +91,13 @@
 		font-size: 16px;
 		margin-bottom: 10px;
 	}
+
+
 	.postcue-also-read-content-block-label {
-		font-size: 18px;
-		font-weight: 600;
-		margin-bottom: 10px;
 		display: block;
+		margin-bottom: 10px;
+		font-size: 18px;
+		font-weight: 700;
 		color: #696969;
-		font-weight: bold;
 	}
 }

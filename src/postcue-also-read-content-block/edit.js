@@ -10,6 +10,7 @@ import {
 	BlockControls,
 	InspectorControls,
 	ColorPalette,
+	useBlockProps,
 } from '@wordpress/block-editor';
 import {
 	ToolbarGroup,
@@ -26,7 +27,6 @@ import {
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -115,8 +115,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 
 	// Called when suggestions need to be fetched
-	const onSuggestionsFetchRequested = async ( { value } ) => {
-		if ( ! value ) {
+	const onSuggestionsFetchRequested = async ( { value: searchValue } ) => {
+		if ( ! searchValue ) {
 			setSuggestions( [] );
 			setAttributes( { isLoading: false, showNotFoundMsg: false } );
 			return;
@@ -124,11 +124,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( { isLoading: true, showNotFoundMsg: false } );
 		try {
 			const res = await fetch(
-				`${
-					window.pocualrecb_ajaxurl
-				}?action=pocualrecb_post_search&term=${ encodeURIComponent(
-					value
-				) }&_pocualrecb_nonce=${ encodeURIComponent(
+				`${window.pocualrecb_ajaxurl}?action=pocualrecb_post_search&term=${encodeURIComponent(
+					searchValue
+				)}&_pocualrecb_nonce=${encodeURIComponent(
 					window.pocualrecb_nonce
 				) }`
 			);
@@ -159,7 +157,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	// Function to handle when a suggestion is selected
 	function onSuggestionSelected(
 		event,
-		{ suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
+		{ suggestion }
 	) {
 		setAttributes( { showInput: false } );
 		setAttributes( { editView: true } );
@@ -206,7 +204,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			) }
 
 			{ /* Display loading message when suggestions are being fetched */ }
-			{ isLoading && suggestions.length == 0 && showInput && value && (
+			{ isLoading && suggestions.length === 0 && showInput && value && (
 				<p className="postcue-also-read-content-block-loading">
 					{ __(
 						'Loading suggestions...',
@@ -218,7 +216,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			{ /* Display no suggestions message when there are no suggestions */ }
 			{ showNotFoundMsg &&
 				! isLoading &&
-				suggestions.length == 0 &&
+				suggestions.length === 0 &&
 				value &&
 				showInput && (
 					<p className="postcue-also-read-content-block-no-suggestions">
@@ -234,7 +232,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			{ attributes.selectedPost?.id && ! showInput && (
 				<>
 					<strong
-						class="postcue-also-read-content-block-title"
+						className="postcue-also-read-content-block-title"
 						style={ {
 							color: postProps.blockTitleTextColor,
 							fontSize: postProps.blockTitleFontSize,
@@ -242,12 +240,12 @@ export default function Edit( { attributes, setAttributes } ) {
 					>
 						{ postProps.blockTitle }
 					</strong>
-					<ul class="postcue-also-read-content-block-post-listing">
+					<ul className="postcue-also-read-content-block-post-listing">
 						<li
-							class="postcue-also-read-content-block-listing-item"
+							className="postcue-also-read-content-block-listing-item"
 							style={ { backgroundColor: postProps.postBgColor } }
 						>
-							<div class="postcue-also-read-content-block-post-image">
+							<div className="postcue-also-read-content-block-post-image">
 								<img
 									decoding="async"
 									width="150"
@@ -257,7 +255,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								/>
 							</div>
 							<div
-								class="postcue-also-read-content-block-post-title"
+								className="postcue-also-read-content-block-post-title"
 								style={ {
 									color: postProps.postTitleTextColor,
 									fontSize: postProps.postTitleFontSize,
@@ -289,7 +287,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					</ul>
 				</>
 			) }
-			{ attributes.selectedPost?.id != undefined && (
+			{ attributes.selectedPost?.id !== undefined && (
 				<>
 					<BlockControls>
 						<ToolbarGroup>
