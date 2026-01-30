@@ -38,7 +38,7 @@ $pocualrecb_post_thumbnail = $pocualrecb_selectedPost['thumbnail'] ?? '';
         <li class="postcue-also-read-content-block-listing-item" style="background-color: <?php echo esc_attr($pocualrecb_post_bg_color); ?> !important;">
         <?php if($pocualrecb_post_thumbnail): ?>
             <a class="postcue-also-read-content-block-post-image" target="_blank" href="<?php echo esc_url($pocualrecb_post_link); ?>">
-                    <img width="150" height="150" src="<?php echo esc_url($pocualrecb_post_thumbnail); ?>" alt="<?php echo esc_html($pocualrecb_post_title); ?>" />
+                    <img width="150" height="150" src="<?php echo esc_url($pocualrecb_post_thumbnail); ?>" alt="<?php echo esc_attr($pocualrecb_post_title); ?>" />
             </a>
         <?php endif;?>
         <a class="postcue-also-read-content-block-post-title" target="_blank" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_post_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_post_title); ?></a>
