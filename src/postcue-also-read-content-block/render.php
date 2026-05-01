@@ -23,7 +23,6 @@ $pocualrecb_global_defaults = pocualrecb_get_global_defaults();
 $pocualrecb_source = ! empty($pocualrecb_attributes['allowCustomStyle']) ? $pocualrecb_attributes : $pocualrecb_global_defaults;
 $pocualrecb_template = pocualrecb_sanitize_template($pocualrecb_global_defaults['template'] ?? 'default');
 $pocualrecb_template_class = 'pocualrecb-template-' . sanitize_html_class($pocualrecb_template);
-$pocualrecb_wrapper_attributes = get_block_wrapper_attributes(['class' => $pocualrecb_template_class]);
 
 $pocualrecb_block_title = $pocualrecb_source['blockTitle'] ?? '';
 $pocualrecb_block_title_text_color = $pocualrecb_source['blockTitleTextColor'] ?? '';
@@ -38,7 +37,7 @@ $pocualrecb_post_link = $pocualrecb_selectedPost['link'] ?? '#';
 $pocualrecb_post_thumbnail = $pocualrecb_selectedPost['thumbnail'] ?? '';
 
 ?>
-<div id="postcue-also-read-content-block" <?php echo $pocualrecb_wrapper_attributes; ?>>
+<div id="postcue-also-read-content-block" <?php echo esc_attr(get_block_wrapper_attributes(['class' => $pocualrecb_template_class])); ?>>
     <strong class="postcue-also-read-content-block-title" style="color: <?php echo esc_attr($pocualrecb_block_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_block_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_block_title); ?></strong>
     <ul class="postcue-also-read-content-block-post-listing">
         <li class="postcue-also-read-content-block-listing-item" style="background-color: <?php echo esc_attr($pocualrecb_post_bg_color); ?> !important;">
