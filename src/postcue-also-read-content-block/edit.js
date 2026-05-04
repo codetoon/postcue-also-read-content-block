@@ -63,7 +63,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		'soft-card',
 		'accent-strip',
 		'minimal-outline',
-		'split-highlight',
+		'sleek-card',
 		'compact',
 	];
 	const selectedTemplate = availableTemplates.includes(

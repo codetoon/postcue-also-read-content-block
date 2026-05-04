@@ -16,7 +16,7 @@ if (! function_exists('pocualrecb_get_template_choices')) {
             'soft-card' => __('Soft Card', 'postcue-also-read-content-block'),
             'accent-strip' => __('Accent Strip', 'postcue-also-read-content-block'),
             'minimal-outline' => __('Minimal Outline', 'postcue-also-read-content-block'),
-            'split-highlight' => __('Split Highlight', 'postcue-also-read-content-block'),
+            'sleek-card' => __('Sleek Card', 'postcue-also-read-content-block'),
             'compact' => __('Compact', 'postcue-also-read-content-block'),
         ];
     }

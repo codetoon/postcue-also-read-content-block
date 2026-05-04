@@ -227,16 +227,19 @@ input {
 	text-decoration: underline;
 }
 
-.pocualrecb-template-preview-split-highlight
+.pocualrecb-template-preview-sleek-card
 .pocualrecb-template-preview-item::after {
 	content: "";
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 	bottom: 0;
-	width: 8px;
-	background: rgba(255, 255, 255, 0.3);
+	width: 4px;
+	background: #006671;
 	border-radius: 0 5px 5px 0;
+}
+.pocualrecb-template-preview-sleek-card .pocualrecb-template-preview-item{
+	padding: 12px;
 }
 
 .pocualrecb-template-preview-compact .pocualrecb-template-preview-title {
