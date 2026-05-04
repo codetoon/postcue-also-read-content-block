@@ -187,12 +187,12 @@ function pocualrecb_settings_page()
                 <h2><?php echo esc_html__('Feedback', 'postcue-also-read-content-block'); ?></h2>
                 <p>
                     <a href="https://postcue.regur.net/contact" class="postcue-also-read-content-block-button-secondary" target="_blank" rel="noopener noreferrer">
-                        <?php echo esc_html__('I have an idea', 'postcue-also-read-content-block'); ?>
+                         💡 <?php echo esc_html__('I have an idea', 'postcue-also-read-content-block'); ?>
                     </a>
                 </p>
                 <p>
                     <a href="https://postcue.regur.net/contact" class="postcue-also-read-content-block-button-secondary" target="_blank" rel="noopener noreferrer">
-                        <?php echo esc_html__('I need help', 'postcue-also-read-content-block'); ?>
+                        🛠️ <?php echo esc_html__('I need help', 'postcue-also-read-content-block'); ?>
                     </a>
                 </p>
             </div>
