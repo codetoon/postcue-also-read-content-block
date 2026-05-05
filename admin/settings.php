@@ -3,21 +3,32 @@
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-require_once plugin_dir_path(__DIR__) . './includes/functions.php';
-add_action('admin_menu', function () {
-    if (current_user_can('edit_posts')) {
-        add_menu_page(
-            'PostCue Also Read Content Block Settings',
-            'PostCue Also Read Content Block',
-            'edit_posts',
-            'postcue-also-read-content-block-settings',
-            'pocualrecb_settings_page',
-            plugin_dir_url(__DIR__) . 'images/icon.svg',
-            80
-        );
-    }
-});
 
+require_once plugin_dir_path(__DIR__) . './includes/functions.php';
+
+/**
+ * Register plugin settings page.
+ *
+ * @return void
+ */
+function pocualrecb_add_settings_menu()
+{
+    if (! current_user_can('edit_posts')) {
+        return;
+    }
+
+    add_menu_page(
+        'PostCue Also Read Content Block Settings',
+        'PostCue Also Read Content Block',
+        'edit_posts',
+        'postcue-also-read-content-block-settings',
+        'pocualrecb_settings_page',
+        plugin_dir_url(__DIR__) . 'images/icon.svg',
+        80
+    );
+}
+
+add_action('admin_menu', 'pocualrecb_add_settings_menu');
 function pocualrecb_settings_page()
 {
     $pocualrecb_input = null;
