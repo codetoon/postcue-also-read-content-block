@@ -8,7 +8,8 @@
 .postcue-also-read-content-block-wrap
 .postcue-also-read-content-block-container {
 	display: flex;
-	gap: 30px;
+	row-gap: 30px;
+	column-gap: 72px;
 	align-items: flex-start;
 }
 
@@ -193,7 +194,7 @@ input {
 	padding: 10px;
 	background: #fff;
 	transition: all 0.2s ease;
-	max-width: 420px;
+	max-width: 100%;
 	cursor: pointer;
 }
 
@@ -316,10 +317,12 @@ input {
 		width: 100%;
 	}
 
-	.postcue-also-read-content-block-wrap .postcue-also-read-content-block-main,
+	.postcue-also-read-content-block-wrap .postcue-also-read-content-block-main{
+		width: 98%;
+	}
 	.postcue-also-read-content-block-wrap
 	.postcue-also-read-content-block-sidebar {
-		width: 80%;
+		width: 90%;
 	}
 
 	.postcue-also-read-content-block-wrap
