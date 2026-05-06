@@ -84,15 +84,20 @@ function pocualrecb_settings_page()
     }
 
     if (is_array($pocualrecb_input)) {
-        $pocualrecb_sanitized = [
-            'blockTitle' => sanitize_text_field($pocualrecb_input['blockTitle'] ?? ''),
-            'blockTitleTextColor' => sanitize_hex_color($pocualrecb_input['blockTitleTextColor'] ?? ''),
-            'blockTitleFontSize' => sanitize_text_field($pocualrecb_input['blockTitleFontSize'] ?? ''),
-            'postTitleTextColor' => sanitize_hex_color($pocualrecb_input['postTitleTextColor'] ?? ''),
-            'postTitleFontSize' => sanitize_text_field($pocualrecb_input['postTitleFontSize'] ?? ''),
-            'postBgColor' => sanitize_hex_color($pocualrecb_input['postBgColor'] ?? ''),
-            'template' => pocualrecb_sanitize_template($pocualrecb_input['template'] ?? 'default'),
-        ];
+        $pocualrecb_selected_template = pocualrecb_sanitize_template($pocualrecb_input['template'] ?? 'default');
+        $pocualrecb_template_styles = pocualrecb_get_sanitized_template_styles(
+            $pocualrecb_input['templateStyles'] ?? [],
+            $pocualrecb_input,
+            $pocualrecb_selected_template
+        );
+        $pocualrecb_selected_template_style = $pocualrecb_template_styles[ $pocualrecb_selected_template ] ?? pocualrecb_get_style_field_defaults($pocualrecb_selected_template);
+        $pocualrecb_sanitized = array_merge(
+            $pocualrecb_selected_template_style,
+            [
+                'template' => $pocualrecb_selected_template,
+                'templateStyles' => $pocualrecb_template_styles,
+            ]
+        );
 
         update_option('pocualrecb_defaults', $pocualrecb_sanitized);
         echo '<div class="postcue-also-read-content-block-updated-message"><p>' . esc_html__('Settings saved.', 'postcue-also-read-content-block') . '</p></div>';
@@ -100,6 +105,35 @@ function pocualrecb_settings_page()
 
     $pocualrecb_defaults = pocualrecb_get_global_defaults();
     $pocualrecb_selected_template = $pocualrecb_defaults['template'] ?? 'default';
+    $pocualrecb_template_styles = $pocualrecb_defaults['templateStyles'] ?? [];
+    $pocualrecb_template_styles = is_array($pocualrecb_template_styles) ? $pocualrecb_template_styles : [];
+    $pocualrecb_template_default_styles = pocualrecb_get_template_style_defaults();
+    $pocualrecb_style_fields = [
+        'blockTitle' => [
+            'label' => __('Block Title', 'postcue-also-read-content-block'),
+            'type' => 'text',
+        ],
+        'blockTitleTextColor' => [
+            'label' => __('Block Title Color', 'postcue-also-read-content-block'),
+            'type' => 'color',
+        ],
+        'blockTitleFontSize' => [
+            'label' => __('Block Title Font Size', 'postcue-also-read-content-block'),
+            'type' => 'text',
+        ],
+        'postTitleTextColor' => [
+            'label' => __('Post Title Color', 'postcue-also-read-content-block'),
+            'type' => 'color',
+        ],
+        'postTitleFontSize' => [
+            'label' => __('Post Title Font Size', 'postcue-also-read-content-block'),
+            'type' => 'text',
+        ],
+        'postBgColor' => [
+            'label' => __('Post BG Color', 'postcue-also-read-content-block'),
+            'type' => 'color',
+        ],
+    ];
     ?>
 
     <div class="postcue-also-read-content-block-wrap">
@@ -111,30 +145,6 @@ function pocualrecb_settings_page()
                 <form method="post">
                     <?php wp_nonce_field('pocualrecb_save_settings', 'pocualrecb_nonce'); ?>
                     <table class="postcue-also-read-content-block-form-table">
-                        <tr>
-                            <th><?php echo esc_html__('Block Title', 'postcue-also-read-content-block'); ?></th>
-                            <td><input name="pocualrecb_defaults[blockTitle]" value="<?php echo esc_attr($pocualrecb_defaults['blockTitle']); ?>"></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo esc_html__('Block Title Color', 'postcue-also-read-content-block'); ?></th>
-                            <td><input type="color" name="pocualrecb_defaults[blockTitleTextColor]" value="<?php echo esc_attr($pocualrecb_defaults['blockTitleTextColor']); ?>"></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo esc_html__('Block Title Font Size', 'postcue-also-read-content-block'); ?></th>
-                            <td><input name="pocualrecb_defaults[blockTitleFontSize]" value="<?php echo esc_attr($pocualrecb_defaults['blockTitleFontSize']); ?>"></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo esc_html__('Post Title Color', 'postcue-also-read-content-block'); ?></th>
-                            <td><input type="color" name="pocualrecb_defaults[postTitleTextColor]" value="<?php echo esc_attr($pocualrecb_defaults['postTitleTextColor']); ?>"></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo esc_html__('Post Title Font Size', 'postcue-also-read-content-block'); ?></th>
-                            <td><input name="pocualrecb_defaults[postTitleFontSize]" value="<?php echo esc_attr($pocualrecb_defaults['postTitleFontSize']); ?>"></td>
-                        </tr>
-                        <tr>
-                            <th><?php echo esc_html__('Post BG Color', 'postcue-also-read-content-block'); ?></th>
-                            <td><input type="color" name="pocualrecb_defaults[postBgColor]" value="<?php echo esc_attr($pocualrecb_defaults['postBgColor']); ?>"></td>
-                        </tr>
                         <tr>
                             <th><?php echo esc_html__('Template', 'postcue-also-read-content-block'); ?></th>
                             <td>
@@ -148,23 +158,80 @@ function pocualrecb_settings_page()
                                 <p class="description"><?php echo esc_html__('Changing this template updates all Also Read blocks site-wide.', 'postcue-also-read-content-block'); ?></p>
                             </td>
                         </tr>
+                        <tr>
+                            <th><?php echo esc_html__('Template Styles', 'postcue-also-read-content-block'); ?></th>
+                            <td>
+                                <p class="description"><?php echo esc_html__('Each template has its own style values. Switch the template above to edit that template settings.', 'postcue-also-read-content-block'); ?></p>
+                                <div class="pocualrecb-template-settings-wrap">
+                                    <?php foreach ($pocualrecb_templates as $pocualrecb_template_key => $pocualrecb_template_label) : ?>
+                                        <?php
+                                        $pocualrecb_active_template_panel = $pocualrecb_selected_template === $pocualrecb_template_key ? 'is-active' : '';
+                                        $pocualrecb_template_default_style = $pocualrecb_template_default_styles[ $pocualrecb_template_key ] ?? pocualrecb_get_style_field_defaults($pocualrecb_template_key);
+                                        $pocualrecb_template_style = $pocualrecb_template_styles[ $pocualrecb_template_key ] ?? [];
+                                        $pocualrecb_template_style = pocualrecb_sanitize_style_settings(
+                                            $pocualrecb_template_style,
+                                            $pocualrecb_template_default_style,
+                                            $pocualrecb_template_key
+                                        );
+                                        ?>
+                                        <div class="pocualrecb-template-settings-panel <?php echo esc_attr($pocualrecb_active_template_panel); ?>" data-template="<?php echo esc_attr($pocualrecb_template_key); ?>">
+                                            <strong class="pocualrecb-template-settings-title">
+                                                <?php
+                                                printf(
+                                                    /* translators: %s is template label. */
+                                                    esc_html__('%s style settings', 'postcue-also-read-content-block'),
+                                                    esc_html($pocualrecb_template_label)
+                                                );
+                                                ?>
+                                            </strong>
+                                            <div class="pocualrecb-template-settings-grid">
+                                                <?php foreach ($pocualrecb_style_fields as $pocualrecb_style_field_key => $pocualrecb_style_field_data) : ?>
+                                                    <label class="pocualrecb-template-settings-field">
+                                                        <span><?php echo esc_html($pocualrecb_style_field_data['label']); ?></span>
+                                                        <input
+                                                            class="pocualrecb-template-setting-input"
+                                                            data-field="<?php echo esc_attr($pocualrecb_style_field_key); ?>"
+                                                            data-default-value="<?php echo esc_attr($pocualrecb_template_default_style[ $pocualrecb_style_field_key ] ?? ''); ?>"
+                                                            type="<?php echo esc_attr($pocualrecb_style_field_data['type']); ?>"
+                                                            name="pocualrecb_defaults[templateStyles][<?php echo esc_attr($pocualrecb_template_key); ?>][<?php echo esc_attr($pocualrecb_style_field_key); ?>]"
+                                                            value="<?php echo esc_attr($pocualrecb_template_style[ $pocualrecb_style_field_key ] ?? ''); ?>"
+                                                        >
+                                                    </label>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </td>
+                        </tr>
                     </table>
 
                     <div class="pocualrecb-template-preview-wrap">
                         <h2><?php echo esc_html__('Template Preview', 'postcue-also-read-content-block'); ?></h2>
-                        <p class="description"><?php echo esc_html__('Click the preview card to switch to the next template.', 'postcue-also-read-content-block'); ?></p>
+                        <p class="description"><?php echo esc_html__('Preview updates based on the selected template and style values above. Click a preview card to switch templates.', 'postcue-also-read-content-block'); ?></p>
                         <div class="pocualrecb-template-preview-grid">
                             <?php foreach ($pocualrecb_templates as $pocualrecb_template_key => $pocualrecb_template_label) : ?>
                                 <?php
                                 $pocualrecb_active_template_class = $pocualrecb_selected_template === $pocualrecb_template_key ? 'is-active' : '';
+                                $pocualrecb_template_default_style = $pocualrecb_template_default_styles[ $pocualrecb_template_key ] ?? pocualrecb_get_style_field_defaults($pocualrecb_template_key);
+                                $pocualrecb_template_style = $pocualrecb_template_styles[ $pocualrecb_template_key ] ?? [];
+                                $pocualrecb_template_style = pocualrecb_sanitize_style_settings(
+                                    $pocualrecb_template_style,
+                                    $pocualrecb_template_default_style,
+                                    $pocualrecb_template_key
+                                );
                                 ?>
                                 <div class="pocualrecb-template-preview-card <?php echo esc_attr($pocualrecb_active_template_class); ?> pocualrecb-template-preview-<?php echo esc_attr($pocualrecb_template_key); ?>" data-template="<?php echo esc_attr($pocualrecb_template_key); ?>" role="button" tabindex="0" aria-label="<?php echo esc_attr__('Switch template preview', 'postcue-also-read-content-block'); ?>">
                                     <strong class="pocualrecb-template-preview-name"><?php echo esc_html($pocualrecb_template_label); ?></strong>
                                     <div class="pocualrecb-template-preview-block">
-                                        <div class="pocualrecb-template-preview-title"><?php echo esc_html__('Also Read', 'postcue-also-read-content-block'); ?></div>
-                                        <div class="pocualrecb-template-preview-item">
+                                        <div class="pocualrecb-template-preview-title" style="color: <?php echo esc_attr($pocualrecb_template_style['blockTitleTextColor']); ?>; font-size: <?php echo esc_attr($pocualrecb_template_style['blockTitleFontSize']); ?>;">
+                                            <?php echo esc_html($pocualrecb_template_style['blockTitle']); ?>
+                                        </div>
+                                        <div class="pocualrecb-template-preview-item" style="background-color: <?php echo esc_attr($pocualrecb_template_style['postBgColor']); ?>;">
                                             <div class="pocualrecb-template-preview-image"></div>
-                                            <div class="pocualrecb-template-preview-text"><?php echo esc_html__('Sample post title', 'postcue-also-read-content-block'); ?></div>
+                                            <div class="pocualrecb-template-preview-text" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?>; font-size: <?php echo esc_attr($pocualrecb_template_style['postTitleFontSize']); ?>;">
+                                                <?php echo esc_html__('Sample post title', 'postcue-also-read-content-block'); ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -18,10 +18,14 @@ if (empty($pocualrecb_selectedPost)) {
 }
 
 $pocualrecb_global_defaults = pocualrecb_get_global_defaults();
-
-// Use block attributes if allowCustomStyle is true, else use global defaults.
-$pocualrecb_source = ! empty($pocualrecb_attributes['allowCustomStyle']) ? $pocualrecb_attributes : $pocualrecb_global_defaults;
 $pocualrecb_template = pocualrecb_sanitize_template($pocualrecb_global_defaults['template'] ?? 'default');
+$pocualrecb_global_style_source = pocualrecb_get_styles_for_template($pocualrecb_global_defaults, $pocualrecb_template);
+
+// Use block attributes if allowCustomStyle is true, else use selected template defaults.
+$pocualrecb_source = ! empty($pocualrecb_attributes['allowCustomStyle'])
+    ? pocualrecb_sanitize_style_settings($pocualrecb_attributes, $pocualrecb_global_style_source, $pocualrecb_template)
+    : $pocualrecb_global_style_source;
+
 $pocualrecb_template_class = 'pocualrecb-template-' . sanitize_html_class($pocualrecb_template);
 $pocualrecb_wrapper_attributes = get_block_wrapper_attributes(['class' => $pocualrecb_template_class]);
 

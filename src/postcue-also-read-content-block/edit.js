@@ -58,19 +58,124 @@ export default function Edit( { attributes, setAttributes } ) {
 				: {},
 		[]
 	);
-	const availableTemplates = [
-		'default',
-		'soft-card',
-		'accent-strip',
-		'minimal-outline',
-		'sleek-card',
-		'compact',
-	];
+	const defaultTemplateStyles = useMemo(
+		() => ( {
+			default: {
+				blockTitle: 'Also Read',
+				blockTitleTextColor: '#696969',
+				blockTitleFontSize: '18px',
+				postTitleTextColor: '#ffffff',
+				postTitleFontSize: '18px',
+				postBgColor: '#06b7d3',
+			},
+			'soft-card': {
+				blockTitle: 'Also Read',
+				blockTitleTextColor: '#1f2937',
+				blockTitleFontSize: '20px',
+				postTitleTextColor: '#ffffff',
+				postTitleFontSize: '17px',
+				postBgColor: '#00a7c5',
+			},
+			'accent-strip': {
+				blockTitle: 'Also Read',
+				blockTitleTextColor: '#0f172a',
+				blockTitleFontSize: '16px',
+				postTitleTextColor: '#ffffff',
+				postTitleFontSize: '17px',
+				postBgColor: '#0f8ca7',
+			},
+			'minimal-outline': {
+				blockTitle: 'Also Read',
+				blockTitleTextColor: '#1f2937',
+				blockTitleFontSize: '17px',
+				postTitleTextColor: '#0b6a78',
+				postTitleFontSize: '16px',
+				postBgColor: '#eaf8fb',
+			},
+			'sleek-card': {
+				blockTitle: 'Also Read',
+				blockTitleTextColor: '#173d4f',
+				blockTitleFontSize: '18px',
+				postTitleTextColor: '#ffffff',
+				postTitleFontSize: '18px',
+				postBgColor: '#0588a1',
+			},
+			compact: {
+				blockTitle: 'Also Read',
+				blockTitleTextColor: '#4b5563',
+				blockTitleFontSize: '14px',
+				postTitleTextColor: '#ffffff',
+				postTitleFontSize: '14px',
+				postBgColor: '#0891b2',
+			},
+		} ),
+		[]
+	);
+	const availableTemplates = useMemo(
+		() => Object.keys( defaultTemplateStyles ),
+		[ defaultTemplateStyles ]
+	);
 	const selectedTemplate = availableTemplates.includes(
 		globalDefaults.template
 	)
 		? globalDefaults.template
 		: 'default';
+	const selectedTemplateDefaultStyles = useMemo(
+		() =>
+			defaultTemplateStyles[ selectedTemplate ] ||
+			defaultTemplateStyles.default,
+		[ defaultTemplateStyles, selectedTemplate ]
+	);
+	const selectedTemplateStyles = useMemo( () => {
+		const allTemplateStyles =
+			globalDefaults.templateStyles &&
+			typeof globalDefaults.templateStyles === 'object'
+				? globalDefaults.templateStyles
+				: {};
+		const templateStyle =
+			allTemplateStyles[ selectedTemplate ] &&
+			typeof allTemplateStyles[ selectedTemplate ] === 'object'
+				? allTemplateStyles[ selectedTemplate ]
+				: {};
+
+		return {
+			...selectedTemplateDefaultStyles,
+			...templateStyle,
+		};
+	}, [ globalDefaults, selectedTemplate, selectedTemplateDefaultStyles ] );
+	const globalStyleValues = useMemo(
+		() => ( {
+			blockTitle:
+				selectedTemplateStyles.blockTitle ||
+				globalDefaults.blockTitle ||
+				selectedTemplateDefaultStyles.blockTitle,
+			blockTitleTextColor:
+				selectedTemplateStyles.blockTitleTextColor ||
+				globalDefaults.blockTitleTextColor ||
+				selectedTemplateDefaultStyles.blockTitleTextColor,
+			blockTitleFontSize:
+				selectedTemplateStyles.blockTitleFontSize ||
+				globalDefaults.blockTitleFontSize ||
+				selectedTemplateDefaultStyles.blockTitleFontSize,
+			postTitleTextColor:
+				selectedTemplateStyles.postTitleTextColor ||
+				globalDefaults.postTitleTextColor ||
+				selectedTemplateDefaultStyles.postTitleTextColor,
+			postTitleFontSize:
+				selectedTemplateStyles.postTitleFontSize ||
+				globalDefaults.postTitleFontSize ||
+				selectedTemplateDefaultStyles.postTitleFontSize,
+			postBgColor:
+				selectedTemplateStyles.postBgColor ||
+				globalDefaults.postBgColor ||
+				selectedTemplateDefaultStyles.postBgColor,
+		} ),
+		[
+			globalDefaults,
+			selectedTemplateDefaultStyles,
+			selectedTemplateStyles,
+		]
+	);
 	const blockProps = useBlockProps( {
 		className: `pocualrecb-template-${ selectedTemplate }`,
 	} );
@@ -86,45 +191,45 @@ export default function Edit( { attributes, setAttributes } ) {
 
 		if ( ! attributes.allowCustomStyle ) {
 			setAttributes( {
-				blockTitle: globalDefaults.blockTitle || attributes.blockTitle,
+				blockTitle:
+					globalStyleValues.blockTitle || attributes.blockTitle,
 				blockTitleTextColor:
-					globalDefaults.blockTitleTextColor ||
+					globalStyleValues.blockTitleTextColor ||
 					attributes.blockTitleTextColor,
 				blockTitleFontSize:
-					globalDefaults.blockTitleFontSize ||
+					globalStyleValues.blockTitleFontSize ||
 					attributes.blockTitleFontSize,
 				postTitleTextColor:
-					globalDefaults.postTitleTextColor ||
+					globalStyleValues.postTitleTextColor ||
 					attributes.postTitleTextColor,
 				postTitleFontSize:
-					globalDefaults.postTitleFontSize ||
+					globalStyleValues.postTitleFontSize ||
 					attributes.postTitleFontSize,
-				postBgColor:
-					globalDefaults.postBgColor || attributes.postBgColor,
+				postBgColor: globalStyleValues.postBgColor || attributes.postBgColor,
 			} );
 		}
 
 		didInitGlobalDefaults.current = true;
-	}, [ attributes, globalDefaults, setAttributes ] );
+	}, [ attributes, globalStyleValues, setAttributes ] );
 
 	// Compute final style values based on allowCustomStyle
 	const blockTitle = ! attributes.allowCustomStyle
-		? globalDefaults.blockTitle
+		? globalStyleValues.blockTitle
 		: attributes.blockTitle;
 	const blockTitleTextColor = ! attributes.allowCustomStyle
-		? globalDefaults.blockTitleTextColor
+		? globalStyleValues.blockTitleTextColor
 		: attributes.blockTitleTextColor;
 	const blockTitleFontSize = ! attributes.allowCustomStyle
-		? globalDefaults.blockTitleFontSize
+		? globalStyleValues.blockTitleFontSize
 		: attributes.blockTitleFontSize;
 	const postTitleTextColor = ! attributes.allowCustomStyle
-		? globalDefaults.postTitleTextColor
+		? globalStyleValues.postTitleTextColor
 		: attributes.postTitleTextColor;
 	const postTitleFontSize = ! attributes.allowCustomStyle
-		? globalDefaults.postTitleFontSize
+		? globalStyleValues.postTitleFontSize
 		: attributes.postTitleFontSize;
 	const postBgColor = ! attributes.allowCustomStyle
-		? globalDefaults.postBgColor
+		? globalStyleValues.postBgColor
 		: attributes.postBgColor;
 
 	const postProps = {
