@@ -205,7 +205,8 @@ export default function Edit( { attributes, setAttributes } ) {
 				postTitleFontSize:
 					globalStyleValues.postTitleFontSize ||
 					attributes.postTitleFontSize,
-				postBgColor: globalStyleValues.postBgColor || attributes.postBgColor,
+				postBgColor:
+					globalStyleValues.postBgColor || attributes.postBgColor,
 			} );
 		}
 

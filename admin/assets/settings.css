@@ -287,7 +287,8 @@ input {
 	background: #006671;
 	border-radius: 0 5px 5px 0;
 }
-.pocualrecb-template-preview-sleek-card .pocualrecb-template-preview-item{
+
+.pocualrecb-template-preview-sleek-card .pocualrecb-template-preview-item {
 	padding: 12px;
 }
 
@@ -317,9 +318,10 @@ input {
 		width: 100%;
 	}
 
-	.postcue-also-read-content-block-wrap .postcue-also-read-content-block-main{
+	.postcue-also-read-content-block-wrap .postcue-also-read-content-block-main {
 		width: 98%;
 	}
+
 	.postcue-also-read-content-block-wrap
 	.postcue-also-read-content-block-sidebar {
 		width: 90%;
