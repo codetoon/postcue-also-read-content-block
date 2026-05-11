@@ -4,7 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect, useMemo, useRef } from '@wordpress/element'; // Import useState for managing state
+import { useState, useEffect, useMemo, useRef } from '@wordpress/element';
 import Autosuggest from 'react-autosuggest';
 import {
 	BlockControls,
@@ -21,36 +21,81 @@ import {
 	ToggleControl,
 } from '@wordpress/components';
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './editor.scss';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
+const TEMPLATE_STYLE_FALLBACKS = {
+	default: {
+		blockTitle: 'Also Read',
+		blockTitleTextColor: '#696969',
+		blockTitleFontSize: '18px',
+		postTitleTextColor: '#ffffff',
+		postTitleFontSize: '18px',
+		postBgColor: '#06b7d3',
+	},
+	'soft-card': {
+		blockTitle: 'Also Read',
+		blockTitleTextColor: '#1f2937',
+		blockTitleFontSize: '20px',
+		postTitleTextColor: '#ffffff',
+		postTitleFontSize: '17px',
+		postBgColor: '#00a7c5',
+	},
+	'accent-strip': {
+		blockTitle: 'Also Read',
+		blockTitleTextColor: '#0f172a',
+		blockTitleFontSize: '16px',
+		postTitleTextColor: '#ffffff',
+		postTitleFontSize: '17px',
+		postBgColor: '#0f8ca7',
+	},
+	'minimal-outline': {
+		blockTitle: 'Also Read',
+		blockTitleTextColor: '#1f2937',
+		blockTitleFontSize: '17px',
+		postTitleTextColor: '#0b6a78',
+		postTitleFontSize: '16px',
+		postBgColor: '#eaf8fb',
+	},
+	'sleek-card': {
+		blockTitle: 'Also Read',
+		blockTitleTextColor: '#173d4f',
+		blockTitleFontSize: '18px',
+		postTitleTextColor: '#000000',
+		postTitleFontSize: '18px',
+		postBgColor: '#ffffff',
+	},
+	compact: {
+		blockTitle: 'Also Read',
+		blockTitleTextColor: '#4b5563',
+		blockTitleFontSize: '14px',
+		postTitleTextColor: '#ffffff',
+		postTitleFontSize: '14px',
+		postBgColor: '#0891b2',
+	},
+};
+
+function ExternalArrowIcon() {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			fill="currentColor"
+			width="20"
+			height="20"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path>
+		</svg>
+	);
+}
 
 export default function Edit( { attributes, setAttributes } ) {
 	const { value, showInput, isLoading, showNotFoundMsg, editView } =
 		attributes;
-	const [ suggestions, setSuggestions ] = useState( [] ); // State to hold the suggestions
+	const [ suggestions, setSuggestions ] = useState( [] );
 	const didInitGlobalDefaults = useRef( false );
 
-	// Get global defaults from window.postcuealsoreadDefaults (set in PHP)
 	const globalDefaults = useMemo(
 		() =>
 			typeof window !== 'undefined' && window.pocualrecb_defaults
@@ -58,80 +103,36 @@ export default function Edit( { attributes, setAttributes } ) {
 				: {},
 		[]
 	);
-	const defaultTemplateStyles = useMemo(
-		() => ( {
-			default: {
-				blockTitle: 'Also Read',
-				blockTitleTextColor: '#696969',
-				blockTitleFontSize: '18px',
-				postTitleTextColor: '#ffffff',
-				postTitleFontSize: '18px',
-				postBgColor: '#06b7d3',
-			},
-			'soft-card': {
-				blockTitle: 'Also Read',
-				blockTitleTextColor: '#1f2937',
-				blockTitleFontSize: '20px',
-				postTitleTextColor: '#ffffff',
-				postTitleFontSize: '17px',
-				postBgColor: '#00a7c5',
-			},
-			'accent-strip': {
-				blockTitle: 'Also Read',
-				blockTitleTextColor: '#0f172a',
-				blockTitleFontSize: '16px',
-				postTitleTextColor: '#ffffff',
-				postTitleFontSize: '17px',
-				postBgColor: '#0f8ca7',
-			},
-			'minimal-outline': {
-				blockTitle: 'Also Read',
-				blockTitleTextColor: '#1f2937',
-				blockTitleFontSize: '17px',
-				postTitleTextColor: '#0b6a78',
-				postTitleFontSize: '16px',
-				postBgColor: '#eaf8fb',
-			},
-			'sleek-card': {
-				blockTitle: 'Also Read',
-				blockTitleTextColor: '#173d4f',
-				blockTitleFontSize: '18px',
-				postTitleTextColor: '#ffffff',
-				postTitleFontSize: '18px',
-				postBgColor: '#0588a1',
-			},
-			compact: {
-				blockTitle: 'Also Read',
-				blockTitleTextColor: '#4b5563',
-				blockTitleFontSize: '14px',
-				postTitleTextColor: '#ffffff',
-				postTitleFontSize: '14px',
-				postBgColor: '#0891b2',
-			},
-		} ),
-		[]
-	);
-	const availableTemplates = useMemo(
-		() => Object.keys( defaultTemplateStyles ),
-		[ defaultTemplateStyles ]
-	);
+
+	const availableTemplates = useMemo( () => {
+		const templateStyles = globalDefaults.templateStyles;
+		if ( templateStyles && typeof templateStyles === 'object' ) {
+			const templateKeys = Object.keys( templateStyles );
+			if ( templateKeys.length ) {
+				return templateKeys;
+			}
+		}
+
+		return Object.keys( TEMPLATE_STYLE_FALLBACKS );
+	}, [ globalDefaults ] );
+
 	const selectedTemplate = availableTemplates.includes(
 		globalDefaults.template
 	)
 		? globalDefaults.template
 		: 'default';
-	const selectedTemplateDefaultStyles = useMemo(
-		() =>
-			defaultTemplateStyles[ selectedTemplate ] ||
-			defaultTemplateStyles.default,
-		[ defaultTemplateStyles, selectedTemplate ]
-	);
+
+	const selectedTemplateDefaultStyles =
+		TEMPLATE_STYLE_FALLBACKS[ selectedTemplate ] ||
+		TEMPLATE_STYLE_FALLBACKS.default;
+
 	const selectedTemplateStyles = useMemo( () => {
 		const allTemplateStyles =
 			globalDefaults.templateStyles &&
 			typeof globalDefaults.templateStyles === 'object'
 				? globalDefaults.templateStyles
 				: {};
+
 		const templateStyle =
 			allTemplateStyles[ selectedTemplate ] &&
 			typeof allTemplateStyles[ selectedTemplate ] === 'object'
@@ -143,6 +144,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			...templateStyle,
 		};
 	}, [ globalDefaults, selectedTemplate, selectedTemplateDefaultStyles ] );
+
 	const globalStyleValues = useMemo(
 		() => ( {
 			blockTitle:
@@ -176,6 +178,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			selectedTemplateStyles,
 		]
 	);
+
 	const blockProps = useBlockProps( {
 		className: `pocualrecb-template-${ selectedTemplate }`,
 	} );
@@ -242,6 +245,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		postBgColor,
 		selectedPost: attributes.selectedPost,
 	};
+
 	const setSelectedPost = ( post ) => {
 		setAttributes( {
 			selectedPost: {
@@ -264,7 +268,9 @@ export default function Edit( { attributes, setAttributes } ) {
 			setAttributes( { isLoading: false, showNotFoundMsg: false } );
 			return;
 		}
+
 		setAttributes( { isLoading: true, showNotFoundMsg: false } );
+
 		try {
 			const res = await fetch(
 				`${
@@ -300,14 +306,352 @@ export default function Edit( { attributes, setAttributes } ) {
 	);
 	// Function to handle when a suggestion is selected
 	function onSuggestionSelected( event, { suggestion } ) {
-		setAttributes( { showInput: false } );
-		setAttributes( { editView: true } );
+		setAttributes( { showInput: false, editView: true } );
 		setSelectedPost( suggestion );
 	}
 
+	const renderTemplateImage = () => {
+		if ( postProps.selectedPost?.thumbnail ) {
+			return (
+				<a
+					className="postcue-also-read-content-block-post-image"
+					target="_blank"
+					rel="noopener noreferrer"
+					href={ postProps.selectedPost.link }
+				>
+					<img
+						decoding="async"
+						width="150"
+						height="150"
+						src={ postProps.selectedPost.thumbnail }
+						alt={ postProps.selectedPost.title || '' }
+					/>
+				</a>
+			);
+		}
+
+		return (
+			<span
+				className="postcue-also-read-content-block-post-image pocualrecb-image-placeholder"
+				aria-hidden="true"
+			></span>
+		);
+	};
+
+	const renderTemplatePost = () => {
+		if ( ! postProps.selectedPost?.id ) {
+			return null;
+		}
+
+		if ( selectedTemplate === 'default' ) {
+			return (
+				<>
+					<strong
+						className="postcue-also-read-content-block-title"
+						style={ {
+							color: postProps.blockTitleTextColor,
+							fontSize: postProps.blockTitleFontSize,
+						} }
+					>
+						{ postProps.blockTitle }
+					</strong>
+					<ul className="postcue-also-read-content-block-post-listing">
+						<li
+							className="postcue-also-read-content-block-listing-item"
+							style={ { backgroundColor: postProps.postBgColor } }
+						>
+							{ postProps.selectedPost?.thumbnail && (
+								<div className="postcue-also-read-content-block-post-image">
+									<img
+										decoding="async"
+										width="150"
+										height="150"
+										src={ postProps.selectedPost.thumbnail }
+										alt=""
+									/>
+								</div>
+							) }
+							<div
+								className="postcue-also-read-content-block-post-title"
+								style={ {
+									color: postProps.postTitleTextColor,
+									fontSize: postProps.postTitleFontSize,
+								} }
+							>
+								<span
+									dangerouslySetInnerHTML={ {
+										__html: postProps.selectedPost.title,
+									} }
+								></span>
+								<a
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ postProps.selectedPost.link }
+								>
+									<ExternalArrowIcon />
+								</a>
+							</div>
+						</li>
+					</ul>
+				</>
+			);
+		}
+
+		if ( selectedTemplate === 'soft-card' ) {
+			return (
+				<>
+					<strong
+						className="postcue-also-read-content-block-title"
+						style={ {
+							color: postProps.blockTitleTextColor,
+							fontSize: postProps.blockTitleFontSize,
+						} }
+					>
+						{ postProps.blockTitle }
+					</strong>
+					<ul className="postcue-also-read-content-block-post-listing">
+						<li
+							className="postcue-also-read-content-block-listing-item pocualrecb-template-layout-soft-card"
+							style={ { backgroundColor: postProps.postBgColor } }
+						>
+							{ renderTemplateImage() }
+							<div className="pocualrecb-template-content">
+								<a
+									className="postcue-also-read-content-block-post-title"
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ postProps.selectedPost.link }
+									style={ {
+										color: postProps.postTitleTextColor,
+										fontSize: postProps.postTitleFontSize,
+									} }
+								>
+									{ postProps.selectedPost.title }
+								</a>
+								<a
+									className="pocualrecb-template-action"
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ postProps.selectedPost.link }
+									style={ {
+										color: postProps.postTitleTextColor,
+									} }
+								>
+									{ __(
+										'Read post',
+										'postcue-also-read-content-block'
+									) }
+								</a>
+							</div>
+						</li>
+					</ul>
+				</>
+			);
+		}
+
+		if ( selectedTemplate === 'accent-strip' ) {
+			return (
+				<>
+					<strong
+						className="postcue-also-read-content-block-title"
+						style={ {
+							color: postProps.blockTitleTextColor,
+							fontSize: postProps.blockTitleFontSize,
+						} }
+					>
+						{ postProps.blockTitle }
+					</strong>
+					<ul className="postcue-also-read-content-block-post-listing">
+						<li
+							className="postcue-also-read-content-block-listing-item pocualrecb-template-layout-accent-strip"
+							style={ { backgroundColor: postProps.postBgColor } }
+						>
+							{ renderTemplateImage() }
+							<a
+								className="postcue-also-read-content-block-post-title"
+								target="_blank"
+								rel="noopener noreferrer"
+								href={ postProps.selectedPost.link }
+								style={ {
+									color: postProps.postTitleTextColor,
+									fontSize: postProps.postTitleFontSize,
+								} }
+							>
+								{ postProps.selectedPost.title }
+							</a>
+							<a
+								className="pocualrecb-template-arrow-link"
+								target="_blank"
+								rel="noopener noreferrer"
+								href={ postProps.selectedPost.link }
+								style={ {
+									color: postProps.postTitleTextColor,
+								} }
+							>
+								<ExternalArrowIcon />
+							</a>
+						</li>
+					</ul>
+				</>
+			);
+		}
+
+		if ( selectedTemplate === 'minimal-outline' ) {
+			return (
+				<>
+					<strong
+						className="postcue-also-read-content-block-title"
+						style={ {
+							color: postProps.blockTitleTextColor,
+							fontSize: postProps.blockTitleFontSize,
+						} }
+					>
+						{ postProps.blockTitle }
+					</strong>
+					<ul className="postcue-also-read-content-block-post-listing">
+						<li
+							className="postcue-also-read-content-block-listing-item pocualrecb-template-layout-minimal-outline"
+							style={ { backgroundColor: postProps.postBgColor } }
+						>
+							<div className="pocualrecb-template-content">
+								<a
+									className="postcue-also-read-content-block-post-title"
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ postProps.selectedPost.link }
+									style={ {
+										color: postProps.postTitleTextColor,
+										fontSize: postProps.postTitleFontSize,
+									} }
+								>
+									{ postProps.selectedPost.title }
+								</a>
+								<a
+									className="pocualrecb-template-action"
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ postProps.selectedPost.link }
+									style={ {
+										color: postProps.postTitleTextColor,
+									} }
+								>
+									{ __(
+										'Open article',
+										'postcue-also-read-content-block'
+									) }
+								</a>
+							</div>
+							{ renderTemplateImage() }
+						</li>
+					</ul>
+				</>
+			);
+		}
+
+		if ( selectedTemplate === 'sleek-card' ) {
+			return (
+				<>
+					<strong
+						className="postcue-also-read-content-block-title"
+						style={ {
+							color: postProps.blockTitleTextColor,
+							fontSize: postProps.blockTitleFontSize,
+						} }
+					>
+						{ postProps.blockTitle }
+					</strong>
+					<ul className="postcue-also-read-content-block-post-listing">
+						<li
+							className="postcue-also-read-content-block-listing-item pocualrecb-template-layout-sleek-card"
+							style={ { backgroundColor: postProps.postBgColor } }
+						>
+							{ renderTemplateImage() }
+							<div className="pocualrecb-template-content">
+								<span className="pocualrecb-template-pill">
+									{ postProps.blockTitle }
+								</span>
+								<a
+									className="postcue-also-read-content-block-post-title"
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ postProps.selectedPost.link }
+									style={ {
+										color: postProps.postTitleTextColor,
+										fontSize: postProps.postTitleFontSize,
+									} }
+								>
+									{ postProps.selectedPost.title }
+								</a>
+								<a
+									className="pocualrecb-template-action"
+									target="_blank"
+									rel="noopener noreferrer"
+									href={ postProps.selectedPost.link }
+									style={ {
+										color: postProps.postTitleTextColor,
+									} }
+								>
+									<ExternalArrowIcon />
+									<span>
+										{ __(
+											'Continue reading',
+											'postcue-also-read-content-block'
+										) }
+									</span>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</>
+			);
+		}
+
+		return (
+			<>
+				<strong
+					className="postcue-also-read-content-block-title"
+					style={ {
+						color: postProps.blockTitleTextColor,
+						fontSize: postProps.blockTitleFontSize,
+					} }
+				>
+					{ postProps.blockTitle }
+				</strong>
+				<ul className="postcue-also-read-content-block-post-listing">
+					<li
+						className="postcue-also-read-content-block-listing-item pocualrecb-template-layout-compact"
+						style={ { backgroundColor: postProps.postBgColor } }
+					>
+						{ renderTemplateImage() }
+						<a
+							className="postcue-also-read-content-block-post-title"
+							target="_blank"
+							rel="noopener noreferrer"
+							href={ postProps.selectedPost.link }
+							style={ {
+								color: postProps.postTitleTextColor,
+								fontSize: postProps.postTitleFontSize,
+							} }
+						>
+							{ postProps.selectedPost.title }
+						</a>
+						<a
+							className="pocualrecb-template-arrow-link"
+							target="_blank"
+							rel="noopener noreferrer"
+							href={ postProps.selectedPost.link }
+							style={ { color: postProps.postTitleTextColor } }
+						>
+							<ExternalArrowIcon />
+						</a>
+					</li>
+				</ul>
+			</>
+		);
+	};
+
 	return (
 		<div { ...blockProps } id="postcue-also-read-content-block">
-			{ /* Show the input field only when showInput is true */ }
 			{ showInput && (
 				<>
 					<label
@@ -361,7 +705,6 @@ export default function Edit( { attributes, setAttributes } ) {
 				value &&
 				showInput && (
 					<p className="postcue-also-read-content-block-no-suggestions">
-						{ ' ' }
 						{ __(
 							'No posts found for your search.',
 							'postcue-also-read-content-block'
@@ -369,76 +712,20 @@ export default function Edit( { attributes, setAttributes } ) {
 					</p>
 				) }
 
-			{ /* Render the selected post if available & Show the selected post if it exists */ }
-			{ attributes.selectedPost?.id && ! showInput && (
-				<>
-					<strong
-						className="postcue-also-read-content-block-title"
-						style={ {
-							color: postProps.blockTitleTextColor,
-							fontSize: postProps.blockTitleFontSize,
-						} }
-					>
-						{ postProps.blockTitle }
-					</strong>
-					<ul className="postcue-also-read-content-block-post-listing">
-						<li
-							className="postcue-also-read-content-block-listing-item"
-							style={ { backgroundColor: postProps.postBgColor } }
-						>
-							<div className="postcue-also-read-content-block-post-image">
-								<img
-									decoding="async"
-									width="150"
-									height="150"
-									src={ postProps.selectedPost.thumbnail }
-									alt=""
-								/>
-							</div>
-							<div
-								className="postcue-also-read-content-block-post-title"
-								style={ {
-									color: postProps.postTitleTextColor,
-									fontSize: postProps.postTitleFontSize,
-								} }
-							>
-								<span
-									dangerouslySetInnerHTML={ {
-										__html: postProps.selectedPost.title,
-									} }
-								></span>
-								<a
-									target="_blank"
-									rel="noopener noreferrer"
-									href={ postProps.selectedPost.link }
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 24 24"
-										fill="white"
-										width="28"
-										height="28"
-										aria-hidden="true"
-										focusable="false"
-									>
-										<path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path>
-									</svg>
-								</a>
-							</div>
-						</li>
-					</ul>
-				</>
-			) }
+			{ ! showInput && renderTemplatePost() }
+
 			{ attributes.selectedPost?.id !== undefined && (
 				<>
 					<BlockControls>
 						<ToolbarGroup>
 							{ editView ? (
 								<ToolbarButton
-									onClick={ () => {
-										setAttributes( { showInput: true } );
-										setAttributes( { editView: false } );
-									} }
+									onClick={ () =>
+										setAttributes( {
+											showInput: true,
+											editView: false,
+										} )
+									}
 								>
 									{ __(
 										'Edit',
@@ -447,10 +734,12 @@ export default function Edit( { attributes, setAttributes } ) {
 								</ToolbarButton>
 							) : (
 								<ToolbarButton
-									onClick={ () => {
-										setAttributes( { showInput: false } );
-										setAttributes( { editView: true } );
-									} }
+									onClick={ () =>
+										setAttributes( {
+											showInput: false,
+											editView: true,
+										} )
+									}
 								>
 									{ __(
 										'Cancel',

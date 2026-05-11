@@ -99,6 +99,37 @@ if (! function_exists('pocualrecb_get_template_style_defaults')) {
     }
 }
 
+if (! function_exists('pocualrecb_sanitize_font_size')) {
+    /**
+     * Sanitizes font-size values for inline style usage.
+     *
+     * Accepts integer/decimal values with supported CSS units.
+     * Unit-less numeric values are converted to pixel values.
+     *
+     * @param mixed  $pocualrecb_value         Raw value.
+     * @param string $pocualrecb_fallback_size Fallback size if value is invalid.
+     * @return string
+     */
+    function pocualrecb_sanitize_font_size($pocualrecb_value, $pocualrecb_fallback_size = '16px')
+    {
+        $pocualrecb_value = trim((string) $pocualrecb_value);
+
+        if ('' === $pocualrecb_value) {
+            return (string) $pocualrecb_fallback_size;
+        }
+
+        if (preg_match('/^\d+(?:\.\d+)?$/', $pocualrecb_value)) {
+            return $pocualrecb_value . 'px';
+        }
+
+        if (preg_match('/^\d+(?:\.\d+)?(?:px|em|rem|%)$/', $pocualrecb_value)) {
+            return $pocualrecb_value;
+        }
+
+        return (string) $pocualrecb_fallback_size;
+    }
+}
+
 if (! function_exists('pocualrecb_get_style_field_defaults')) {
     /**
      * Returns default style values for a single template.
@@ -221,6 +252,22 @@ if (! function_exists('pocualrecb_sanitize_style_settings')) {
             return (string) $pocualrecb_default_value;
         };
 
+        $pocualrecb_resolve_font_size = static function ($pocualrecb_value, $pocualrecb_fallback_value, $pocualrecb_default_value) {
+            $pocualrecb_sanitized = pocualrecb_sanitize_font_size($pocualrecb_value, '');
+
+            if ('' !== $pocualrecb_sanitized) {
+                return $pocualrecb_sanitized;
+            }
+
+            $pocualrecb_sanitized_fallback = pocualrecb_sanitize_font_size($pocualrecb_fallback_value, '');
+
+            if ('' !== $pocualrecb_sanitized_fallback) {
+                return $pocualrecb_sanitized_fallback;
+            }
+
+            return pocualrecb_sanitize_font_size($pocualrecb_default_value, '16px');
+        };
+
         return [
             'blockTitle' => $pocualrecb_resolve_text(
                 $pocualrecb_raw['blockTitle'] ?? '',
@@ -232,7 +279,7 @@ if (! function_exists('pocualrecb_sanitize_style_settings')) {
                 $pocualrecb_fallback['blockTitleTextColor'] ?? '',
                 $pocualrecb_style_defaults['blockTitleTextColor']
             ),
-            'blockTitleFontSize' => $pocualrecb_resolve_text(
+            'blockTitleFontSize' => $pocualrecb_resolve_font_size(
                 $pocualrecb_raw['blockTitleFontSize'] ?? '',
                 $pocualrecb_fallback['blockTitleFontSize'] ?? '',
                 $pocualrecb_style_defaults['blockTitleFontSize']
@@ -242,7 +289,7 @@ if (! function_exists('pocualrecb_sanitize_style_settings')) {
                 $pocualrecb_fallback['postTitleTextColor'] ?? '',
                 $pocualrecb_style_defaults['postTitleTextColor']
             ),
-            'postTitleFontSize' => $pocualrecb_resolve_text(
+            'postTitleFontSize' => $pocualrecb_resolve_font_size(
                 $pocualrecb_raw['postTitleFontSize'] ?? '',
                 $pocualrecb_fallback['postTitleFontSize'] ?? '',
                 $pocualrecb_style_defaults['postTitleFontSize']

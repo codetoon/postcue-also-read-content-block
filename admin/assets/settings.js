@@ -57,50 +57,55 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			return;
 		}
 
-		const previewTitle = templateCard.querySelector(
-			'.pocualrecb-template-preview-title'
+		const blockTitleValue =
+			getTemplateFieldValue( templatePanel, 'blockTitle' ) || 'Also Read';
+		const blockTitleTextColor = getTemplateFieldValue(
+			templatePanel,
+			'blockTitleTextColor'
 		);
-		const previewItem = templateCard.querySelector(
-			'.pocualrecb-template-preview-item'
+		const blockTitleFontSize = getTemplateFieldValue(
+			templatePanel,
+			'blockTitleFontSize'
 		);
-		const previewText = templateCard.querySelector(
-			'.pocualrecb-template-preview-text'
+		const postTitleTextColor = getTemplateFieldValue(
+			templatePanel,
+			'postTitleTextColor'
+		);
+		const postTitleFontSize = getTemplateFieldValue(
+			templatePanel,
+			'postTitleFontSize'
+		);
+		const postBgColor = getTemplateFieldValue(
+			templatePanel,
+			'postBgColor'
 		);
 
-		if ( previewTitle ) {
-			const titleValue = getTemplateFieldValue(
-				templatePanel,
-				'blockTitle'
-			);
+		templateCard
+			.querySelectorAll( '[data-preview-role="block-title"]' )
+			.forEach( ( previewTitle ) => {
+				previewTitle.textContent = blockTitleValue;
+				previewTitle.style.color = blockTitleTextColor;
+				previewTitle.style.fontSize = blockTitleFontSize;
+			} );
 
-			previewTitle.textContent = titleValue || 'Also Read';
-			previewTitle.style.color = getTemplateFieldValue(
-				templatePanel,
-				'blockTitleTextColor'
-			);
-			previewTitle.style.fontSize = getTemplateFieldValue(
-				templatePanel,
-				'blockTitleFontSize'
-			);
-		}
+		templateCard
+			.querySelectorAll( '[data-preview-role="post-item"]' )
+			.forEach( ( previewItem ) => {
+				previewItem.style.backgroundColor = postBgColor;
+			} );
 
-		if ( previewItem ) {
-			previewItem.style.backgroundColor = getTemplateFieldValue(
-				templatePanel,
-				'postBgColor'
-			);
-		}
+		templateCard
+			.querySelectorAll( '[data-preview-role="post-title"]' )
+			.forEach( ( previewText ) => {
+				previewText.style.color = postTitleTextColor;
+				previewText.style.fontSize = postTitleFontSize;
+			} );
 
-		if ( previewText ) {
-			previewText.style.color = getTemplateFieldValue(
-				templatePanel,
-				'postTitleTextColor'
-			);
-			previewText.style.fontSize = getTemplateFieldValue(
-				templatePanel,
-				'postTitleFontSize'
-			);
-		}
+		templateCard
+			.querySelectorAll( '.pocualrecb-template-preview-pill' )
+			.forEach( ( pill ) => {
+				pill.textContent = blockTitleValue;
+			} );
 	};
 
 	const setActiveTemplate = ( activeTemplate ) => {
