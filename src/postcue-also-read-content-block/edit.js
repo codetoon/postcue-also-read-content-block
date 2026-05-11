@@ -4,7 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element'; // Import useState for managing state
+import { useState, useEffect, useMemo, useRef } from '@wordpress/element'; // Import useState for managing state
 import Autosuggest from 'react-autosuggest';
 import {
 	BlockControls,
@@ -50,25 +50,44 @@ export default function Edit( { attributes, setAttributes } ) {
 		attributes;
 	const [ suggestions, setSuggestions ] = useState( [] ); // State to hold the suggestions
 
-	// Get global defaults from window.postcuealsoreadDefaults (set in PHP)
-	const globalDefaults =
-		typeof window !== 'undefined' && window.pocualrecb_defaults
-			? window.pocualrecb_defaults
-			: {};
+	const didInitGlobalDefaults = useRef( false );
 
-	// Only initialize local styles once, when custom style is disabled
+	// Get global defaults from window.postcuealsoreadDefaults (set in PHP)
+	const globalDefaults = useMemo(
+		() =>
+			typeof window !== 'undefined' && window.pocualrecb_defaults
+				? window.pocualrecb_defaults
+				: {},
+		[]
+	);
+
 	useEffect( () => {
+		if ( didInitGlobalDefaults.current ) {
+			return;
+		}
+
 		if ( ! attributes.allowCustomStyle ) {
 			setAttributes( {
-				blockTitle: globalDefaults.blockTitle,
-				blockTitleTextColor: globalDefaults.blockTitleTextColor,
-				blockTitleFontSize: globalDefaults.blockTitleFontSize,
-				postTitleTextColor: globalDefaults.postTitleTextColor,
-				postTitleFontSize: globalDefaults.postTitleFontSize,
-				postBgColor: globalDefaults.postBgColor,
+				blockTitle: globalDefaults.blockTitle || attributes.blockTitle,
+				blockTitleTextColor:
+					globalDefaults.blockTitleTextColor ||
+					attributes.blockTitleTextColor,
+				blockTitleFontSize:
+					globalDefaults.blockTitleFontSize ||
+					attributes.blockTitleFontSize,
+				postTitleTextColor:
+					globalDefaults.postTitleTextColor ||
+					attributes.postTitleTextColor,
+				postTitleFontSize:
+					globalDefaults.postTitleFontSize ||
+					attributes.postTitleFontSize,
+				postBgColor:
+					globalDefaults.postBgColor || attributes.postBgColor,
 			} );
 		}
-	}, [ globalDefaults ] );
+
+		didInitGlobalDefaults.current = true;
+	}, [ attributes, globalDefaults, setAttributes ] );
 
 	// Compute final style values based on allowCustomStyle
 	const blockTitle = ! attributes.allowCustomStyle
@@ -124,9 +143,11 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( { isLoading: true, showNotFoundMsg: false } );
 		try {
 			const res = await fetch(
-				`${window.pocualrecb_ajaxurl}?action=pocualrecb_post_search&term=${encodeURIComponent(
+				`${
+					window.pocualrecb_ajaxurl
+				}?action=pocualrecb_post_search&term=${ encodeURIComponent(
 					searchValue
-				)}&_pocualrecb_nonce=${encodeURIComponent(
+				) }&_pocualrecb_nonce=${ encodeURIComponent(
 					window.pocualrecb_nonce
 				) }`
 			);
@@ -137,7 +158,6 @@ export default function Edit( { attributes, setAttributes } ) {
 				showNotFoundMsg: Array.isArray( data ) && data.length === 0,
 			} );
 		} catch ( error ) {
-			console.error( 'Suggestion fetch error:', error );
 			setSuggestions( [] );
 			setAttributes( { isLoading: false, showNotFoundMsg: true } );
 		}
@@ -155,10 +175,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		<span dangerouslySetInnerHTML={ { __html: suggestion.title } }></span>
 	);
 	// Function to handle when a suggestion is selected
-	function onSuggestionSelected(
-		event,
-		{ suggestion }
-	) {
+	function onSuggestionSelected( event, { suggestion } ) {
 		setAttributes( { showInput: false } );
 		setAttributes( { editView: true } );
 		setSelectedPost( suggestion );
@@ -195,7 +212,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							id: 'postcue-also-read-content-block-input',
 							name: 'postcue-also-read-content-block-input',
 							placeholder: __(
-								'Type to search posts...',
+								'Type to search posts…',
 								'postcue-also-read-content-block'
 							),
 						} }
@@ -207,7 +224,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			{ isLoading && suggestions.length === 0 && showInput && value && (
 				<p className="postcue-also-read-content-block-loading">
 					{ __(
-						'Loading suggestions...',
+						'Loading suggestions…',
 						'postcue-also-read-content-block'
 					) }
 				</p>
@@ -269,6 +286,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								<a
 									target="_blank"
 									href={ postProps.selectedPost.link }
+									rel="noreferrer"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

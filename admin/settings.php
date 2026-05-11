@@ -3,21 +3,32 @@
 if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-require_once plugin_dir_path(__DIR__) . './includes/functions.php';
-add_action('admin_menu', function () {
-    if (current_user_can('edit_posts')) {
-        add_menu_page(
-            'PostCue Also Read Content Block Settings',
-            'PostCue Also Read Content Block',
-            'edit_posts',
-            'postcue-also-read-content-block-settings',
-            'pocualrecb_settings_page',
-            plugin_dir_url(__DIR__) . 'images/icon.svg',
-            80
-        );
-    }
-});
 
+require_once plugin_dir_path(__DIR__) . './includes/functions.php';
+
+/**
+ * Register plugin settings page.
+ *
+ * @return void
+ */
+function pocualrecb_add_settings_menu()
+{
+    if (! current_user_can('edit_posts')) {
+        return;
+    }
+
+    add_menu_page(
+        'PostCue Also Read Content Block Settings',
+        'PostCue Also Read Content Block',
+        'edit_posts',
+        'postcue-also-read-content-block-settings',
+        'pocualrecb_settings_page',
+        plugin_dir_url(__DIR__) . 'images/icon.svg',
+        80
+    );
+}
+
+add_action('admin_menu', 'pocualrecb_add_settings_menu');
 function pocualrecb_settings_page()
 {
     $pocualrecb_input = null;
@@ -118,138 +129,18 @@ function pocualrecb_settings_page()
 <?php
 }
 
-add_action('admin_print_styles', 'pocualrecb_admin_inline_css');
+add_action('admin_enqueue_scripts', 'pocualrecb_enqueue_admin_styles');
 
-function pocualrecb_admin_inline_css()
+function pocualrecb_enqueue_admin_styles($pocualrecb_hook_suffix)
 {
-    echo '
-    <style id="postcue-also-read-content-block-admin-inline-css">
-    .postcue-also-read-content-block-wrap{
-        .postcue-also-read-content-block-heading{
-            line-height:1.2;
-            margin-bottom:10px !important;
-            font-size:26px !important;
-            color:#23282d !important;
-        }
-        .postcue-also-read-content-block-container {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-        }
-        .postcue-also-read-content-block-main {
-            width: 35%;
-        }
-        .postcue-also-read-content-block-sidebar {
-            width: 20%;
-            background: #fff;
-            border: 1px solid #ccd0d4;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .postcue-also-read-content-block-sidebar h2 {
-            font-size: 16px;
-            margin-top: 0;
-        }
-        .postcue-also-read-content-block-sidebar a.button {
-            text-align: center;
-        }
-        p.postcue-also-read-content-block-paragraph{
-            width:30%;
-        }
-        .postcue-also-read-content-block-container .postcue-also-read-content-block-button-primary{
-            margin-top:12px !important;
-                display: inline-block;
-                text-decoration: none;
-                font-size: 13px;
-                line-height: 2.15384615;
-                min-height: 30px;
-                margin: 0;
-                padding: 0 10px;
-                cursor: pointer;
-                border-width: 1px;
-                border-style: solid;
-                -webkit-appearance: none;
-                border-radius: 3px;
-                white-space: nowrap;
-                box-sizing: border-box;
-                text-align: center;
-                background: #2271b1;
-                border-color: #2271b1;
-                color: #fff;
-                text-decoration: none;
-                text-shadow: none;
-        }
-        .postcue-also-read-content-block-form-table {
-            border-collapse: collapse;
-            margin-top: .5em;
-            width: 100%;
-            clear: both;
-            font-size: 14px;
-        }  
-        .postcue-also-read-content-block-form-table th {
-            vertical-align: top;
-            text-align: left;
-            padding: 20px 10px 20px 0;
-            width: 200px;
-            line-height: 1.3;
-            color: #1d2327;
-            text-shadow: none;
-            font-size: 14px;
-            font-weight: 600;
-        } 
-        .postcue-also-read-content-block-form-table td {
-            margin-bottom: 9px;
-            padding: 15px 10px;
-            line-height: 1.3;
-            vertical-align: middle;
-        }
-        .postcue-also-read-content-block-form-table input{
-            font-size: 14px;
-        }
-        .postcue-also-read-content-block-button-secondary{
-            color: #2271b1;
-            border-color: #2271b1;
-            background: #f6f7f7;
-            vertical-align: top;
-            display: inline-block;
-            text-decoration: none;
-            font-size: 13px;
-            line-height: 2.15384615;
-            min-height: 30px;
-            margin: 0;
-            padding: 0 10px;
-            cursor: pointer;
-            border-width: 1px;
-            border-style: solid;
-            -webkit-appearance: none;
-            border-radius: 3px;
-            white-space: nowrap;
-            box-sizing: border-box;
-        }
-    }
-    .postcue-also-read-content-block-updated-message{
-        background: #fff;
-        border: 1px solid #c3c4c7;
-        border-left-width: 4px;
-        box-shadow: 0 1px 1px rgba(0,0,0,.04);
-        margin: 5px 2px 2px;
-        padding: 1px 12px;
-        border-left-color: #00a32a;
+    if ('toplevel_page_postcue-also-read-content-block-settings' !== $pocualrecb_hook_suffix) {
+        return;
     }
 
-    @media (max-width: 800px) {
-    .postcue-also-read-content-block-wrap{
-            .postcue-also-read-content-block-container {
-                flex-direction: column;
-                width: 100%;
-            }
-            .postcue-also-read-content-block-main, .postcue-also-read-content-block-sidebar {
-                width: 80%;
-            }
-            p.postcue-also-read-content-block-paragraph{
-                width:100%;
-            }
-        }
-    }
-    </style>';
+    $pocualrecb_style_file = 'admin/settings.css';
+    $pocualrecb_style_path = plugin_dir_path(__DIR__) . $pocualrecb_style_file;
+    $pocualrecb_style_url  = plugin_dir_url(__DIR__) . $pocualrecb_style_file;
+    $pocualrecb_version    = file_exists($pocualrecb_style_path) ? (string) filemtime($pocualrecb_style_path) : '1.0.0';
+
+    wp_enqueue_style('pocualrecb-admin-settings', $pocualrecb_style_url, [], $pocualrecb_version);
 }
