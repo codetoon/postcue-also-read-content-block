@@ -219,7 +219,7 @@ input {
 	color: #696969;
 	font-size: 13px;
 	font-weight: 700;
-	margin-bottom: 6px;
+	margin-bottom: 12px;
 }
 
 .pocualrecb-template-preview-item {
@@ -357,7 +357,7 @@ input {
 
 .pocualrecb-template-preview-compact .pocualrecb-template-preview-title {
 	font-size: 12px;
-	margin-bottom: 4px;
+	margin-bottom: 12px;
 }
 
 .pocualrecb-template-preview-compact .pocualrecb-template-preview-item-compact {
