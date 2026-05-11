@@ -90,10 +90,10 @@ if (! function_exists('pocualrecb_get_template_style_defaults')) {
             'compact' => [
                 'blockTitle' => 'Best Read',
                 'blockTitleTextColor' => '#4b5563',
-                'blockTitleFontSize' => '16px',
+                'blockTitleFontSize' => '18px',
                 'postTitleTextColor' => '#ffffff',
-                'postTitleFontSize' => '16px',
-                'postBgColor' => '#005239',
+                'postTitleFontSize' => '18px',
+                'postBgColor' => '#0c3153',
             ],
         ];
     }

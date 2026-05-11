@@ -80,8 +80,8 @@ function ExternalArrowIcon() {
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24"
 			fill="currentColor"
-			width="20"
-			height="20"
+			width="28"
+			height="28"
 			aria-hidden="true"
 			focusable="false"
 		>
@@ -343,60 +343,6 @@ export default function Edit( { attributes, setAttributes } ) {
 			return null;
 		}
 
-		if ( selectedTemplate === 'default' ) {
-			return (
-				<>
-					<strong
-						className="postcue-also-read-content-block-title"
-						style={ {
-							color: postProps.blockTitleTextColor,
-							fontSize: postProps.blockTitleFontSize,
-						} }
-					>
-						{ postProps.blockTitle }
-					</strong>
-					<ul className="postcue-also-read-content-block-post-listing">
-						<li
-							className="postcue-also-read-content-block-listing-item"
-							style={ { backgroundColor: postProps.postBgColor } }
-						>
-							{ postProps.selectedPost?.thumbnail && (
-								<div className="postcue-also-read-content-block-post-image">
-									<img
-										decoding="async"
-										width="150"
-										height="150"
-										src={ postProps.selectedPost.thumbnail }
-										alt=""
-									/>
-								</div>
-							) }
-							<div
-								className="postcue-also-read-content-block-post-title"
-								style={ {
-									color: postProps.postTitleTextColor,
-									fontSize: postProps.postTitleFontSize,
-								} }
-							>
-								<span
-									dangerouslySetInnerHTML={ {
-										__html: postProps.selectedPost.title,
-									} }
-								></span>
-								<a
-									target="_blank"
-									rel="noopener noreferrer"
-									href={ postProps.selectedPost.link }
-								>
-									<ExternalArrowIcon />
-								</a>
-							</div>
-						</li>
-					</ul>
-				</>
-			);
-		}
-
 		if ( selectedTemplate === 'soft-card' ) {
 			return (
 				<>
@@ -438,9 +384,10 @@ export default function Edit( { attributes, setAttributes } ) {
 									} }
 								>
 									{ __(
-										'Read post',
+										'Read post →',
 										'postcue-also-read-content-block'
 									) }
+									
 								</a>
 							</div>
 						</li>
@@ -591,15 +538,57 @@ export default function Edit( { attributes, setAttributes } ) {
 										color: postProps.postTitleTextColor,
 									} }
 								>
-									<ExternalArrowIcon />
 									<span>
 										{ __(
 											'Continue reading',
 											'postcue-also-read-content-block'
 										) }
 									</span>
+									<ExternalArrowIcon />
 								</a>
 							</div>
+						</li>
+					</ul>
+				</>
+			);
+		}
+
+		if ( selectedTemplate === 'compact' ) {
+			return (
+				<>
+					<strong
+						className="postcue-also-read-content-block-title"
+						style={ {
+							color: postProps.blockTitleTextColor,
+							fontSize: postProps.blockTitleFontSize,
+						} }
+					>
+						{ postProps.blockTitle }
+					</strong>
+					<ul className="postcue-also-read-content-block-post-listing">
+						<li
+							className="postcue-also-read-content-block-listing-item pocualrecb-template-layout-compact"
+							style={ { backgroundColor: postProps.postBgColor } }
+						>
+							{ renderTemplateImage() }
+							<a
+								className="postcue-also-read-content-block-post-title"
+								target="_blank"
+								rel="noopener noreferrer"
+								href={ postProps.selectedPost.link }
+								style={ {
+									color: postProps.postTitleTextColor,
+									fontSize: postProps.postTitleFontSize,
+								} }
+							>
+								{ postProps.selectedPost.title }
+								<div className='pocualrecb-template-action'>
+									{ __(
+										'Read More →',
+										'postcue-also-read-content-block'
+									) }
+								</div>
+							</a>
 						</li>
 					</ul>
 				</>
@@ -619,35 +608,48 @@ export default function Edit( { attributes, setAttributes } ) {
 				</strong>
 				<ul className="postcue-also-read-content-block-post-listing">
 					<li
-						className="postcue-also-read-content-block-listing-item pocualrecb-template-layout-compact"
+						className="postcue-also-read-content-block-listing-item"
 						style={ { backgroundColor: postProps.postBgColor } }
 					>
-						{ renderTemplateImage() }
-						<a
+						{ postProps.selectedPost?.thumbnail && (
+							<div className="postcue-also-read-content-block-post-image">
+								<img
+									decoding="async"
+									width="150"
+									height="150"
+									src={ postProps.selectedPost.thumbnail }
+									alt=""
+								/>
+							</div>
+						) }
+						<div
 							className="postcue-also-read-content-block-post-title"
-							target="_blank"
-							rel="noopener noreferrer"
-							href={ postProps.selectedPost.link }
 							style={ {
 								color: postProps.postTitleTextColor,
 								fontSize: postProps.postTitleFontSize,
 							} }
 						>
-							{ postProps.selectedPost.title }
-						</a>
-						<a
-							className="pocualrecb-template-arrow-link"
-							target="_blank"
-							rel="noopener noreferrer"
-							href={ postProps.selectedPost.link }
-							style={ { color: postProps.postTitleTextColor } }
-						>
-							<ExternalArrowIcon />
-						</a>
+							<span
+								dangerouslySetInnerHTML={ {
+									__html: postProps.selectedPost.title,
+								} }
+							></span>
+							<a
+								target="_blank"
+								rel="noopener noreferrer"
+								href={ postProps.selectedPost.link }
+								style={ {
+									color: postProps.postTitleTextColor,
+								} }
+							>
+								<ExternalArrowIcon />
+							</a>
+						</div>
 					</li>
 				</ul>
 			</>
 		);
+
 	};
 
 	return (

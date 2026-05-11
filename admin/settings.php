@@ -234,7 +234,7 @@ function pocualrecb_settings_page()
                                                     <div class="pocualrecb-template-preview-post-title" data-preview-role="post-title" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?>; font-size: <?php echo esc_attr($pocualrecb_template_style['postTitleFontSize']); ?>;">
                                                         <?php echo esc_html__('Sample post title', 'postcue-also-read-content-block'); ?>
                                                     </div>
-                                                    <div class="pocualrecb-template-preview-action"><?php echo esc_html__('Read post', 'postcue-also-read-content-block'); ?></div>
+                                                    <div class="pocualrecb-template-preview-action" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?> !important;"><?php echo esc_html__('Read post →', 'postcue-also-read-content-block'); ?></div>
                                                 </div>
                                             </div>
                                         <?php elseif ('accent-strip' === $pocualrecb_template_key) : ?>
@@ -243,7 +243,7 @@ function pocualrecb_settings_page()
                                                 <div class="pocualrecb-template-preview-post-title" data-preview-role="post-title" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?>; font-size: <?php echo esc_attr($pocualrecb_template_style['postTitleFontSize']); ?>;">
                                                     <?php echo esc_html__('Sample post title', 'postcue-also-read-content-block'); ?>
                                                 </div>
-                                                <div class="pocualrecb-template-preview-arrow" data-preview-role="post-arrow">&rarr;</div>
+                                                <div class="pocualrecb-template-preview-arrow" data-preview-role="post-arrow" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?> !important;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="20" height="20" aria-hidden="true" focusable="false">><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg></div>
                                             </div>
                                         <?php elseif ('minimal-outline' === $pocualrecb_template_key) : ?>
                                             <div class="pocualrecb-template-preview-item pocualrecb-template-preview-item-minimal-outline" data-preview-role="post-item" style="background-color: <?php echo esc_attr($pocualrecb_template_style['postBgColor']); ?>;">
@@ -251,7 +251,7 @@ function pocualrecb_settings_page()
                                                     <div class="pocualrecb-template-preview-post-title" data-preview-role="post-title" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?>; font-size: <?php echo esc_attr($pocualrecb_template_style['postTitleFontSize']); ?>;">
                                                         <?php echo esc_html__('Sample post title', 'postcue-also-read-content-block'); ?>
                                                     </div>
-                                                    <div class="pocualrecb-template-preview-action"><?php echo esc_html__('Open article', 'postcue-also-read-content-block'); ?></div>
+                                                    <div class="pocualrecb-template-preview-action" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?> !important;"><?php echo esc_html__('Open article', 'postcue-also-read-content-block'); ?></div>
                                                 </div>
                                                 <div class="pocualrecb-template-preview-image" data-preview-role="post-image"></div>
                                             </div>
@@ -263,16 +263,16 @@ function pocualrecb_settings_page()
                                                     <div class="pocualrecb-template-preview-post-title" data-preview-role="post-title" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?>; font-size: <?php echo esc_attr($pocualrecb_template_style['postTitleFontSize']); ?>;">
                                                         <?php echo esc_html__('Sample post title', 'postcue-also-read-content-block'); ?>
                                                     </div>
-                                                    <div class="pocualrecb-template-preview-action"><span>&rarr;</span><span><?php echo esc_html__('Continue reading', 'postcue-also-read-content-block'); ?></span></div>
+                                                    <div class="pocualrecb-template-preview-action" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?> !important;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="20" height="20" aria-hidden="true" focusable="false">><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg> <?php echo esc_html__('Continue reading', 'postcue-also-read-content-block'); ?></div>
                                                 </div>
                                             </div>
                                         <?php elseif ('compact' === $pocualrecb_template_key) : ?>
                                             <div class="pocualrecb-template-preview-item pocualrecb-template-preview-item-compact" data-preview-role="post-item" style="background-color: <?php echo esc_attr($pocualrecb_template_style['postBgColor']); ?>;">
                                                 <div class="pocualrecb-template-preview-image" data-preview-role="post-image"></div>
                                                 <div class="pocualrecb-template-preview-post-title" data-preview-role="post-title" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?>; font-size: <?php echo esc_attr($pocualrecb_template_style['postTitleFontSize']); ?>;">
-                                                    <?php echo esc_html__('Sample post title', 'postcue-also-read-content-block'); ?>
+                                                    <?php echo esc_html__('This is a sample post title', 'postcue-also-read-content-block'); ?>
+                                                    <div class="pocualrecb-template-preview-action" style="color: <?php echo esc_attr($pocualrecb_template_style['postTitleTextColor']); ?> !important;"><?php echo esc_html__('Read More →', 'postcue-also-read-content-block'); ?></div>
                                                 </div>
-                                                <div class="pocualrecb-template-preview-arrow" data-preview-role="post-arrow">&rarr;</div>
                                             </div>
                                         <?php else : ?>
                                             <div class="pocualrecb-template-preview-item" data-preview-role="post-item" style="background-color: <?php echo esc_attr($pocualrecb_template_style['postBgColor']); ?>;">

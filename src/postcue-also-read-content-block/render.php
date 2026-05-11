@@ -56,27 +56,18 @@ $pocualrecb_image_markup = static function ($pocualrecb_thumbnail, $pocualrecb_l
     return trim((string) ob_get_clean());
 };
 
-$pocualrecb_arrow_markup = '<span class="pocualrecb-template-arrow" aria-hidden="true">&rarr;</span>';
+$pocualrecb_arrow_markup = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000" width="28" height="28" aria-hidden="true" focusable="false">><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg>';
 
 ?>
 <div id="postcue-also-read-content-block" <?php echo $pocualrecb_wrapper_attributes; ?>>
     <strong class="postcue-also-read-content-block-title" style="color: <?php echo esc_attr($pocualrecb_block_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_block_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_block_title); ?></strong>
     <ul class="postcue-also-read-content-block-post-listing">
-        <?php if ('default' === $pocualrecb_template) : ?>
-            <li class="postcue-also-read-content-block-listing-item" style="background-color: <?php echo esc_attr($pocualrecb_post_bg_color); ?> !important;">
-                <?php if ($pocualrecb_has_thumbnail) : ?>
-                    <a class="postcue-also-read-content-block-post-image" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>">
-                        <img width="150" height="150" src="<?php echo esc_url($pocualrecb_post_thumbnail); ?>" alt="<?php echo esc_attr($pocualrecb_post_title); ?>" />
-                    </a>
-                <?php endif; ?>
-                <a class="postcue-also-read-content-block-post-title" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_post_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_post_title); ?></a>
-            </li>
-        <?php elseif ('soft-card' === $pocualrecb_template) : ?>
+        <?php if ('soft-card' === $pocualrecb_template) : ?>
             <li class="postcue-also-read-content-block-listing-item pocualrecb-template-layout-soft-card" style="background-color: <?php echo esc_attr($pocualrecb_post_bg_color); ?> !important;">
                 <?php echo $pocualrecb_image_markup($pocualrecb_post_thumbnail, $pocualrecb_post_link, $pocualrecb_post_title); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <div class="pocualrecb-template-content">
                     <a class="postcue-also-read-content-block-post-title" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_post_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_post_title); ?></a>
-                    <a class="pocualrecb-template-action" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important;"><?php echo esc_html__('Read post', 'postcue-also-read-content-block'); ?></a>
+                    <a class="pocualrecb-template-action" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important;"><?php echo esc_html__('Read post →', 'postcue-also-read-content-block'); ?></a>
                 </div>
             </li>
         <?php elseif ('accent-strip' === $pocualrecb_template) : ?>
@@ -102,18 +93,24 @@ $pocualrecb_arrow_markup = '<span class="pocualrecb-template-arrow" aria-hidden=
                     <span class="pocualrecb-template-pill"><?php echo esc_html($pocualrecb_block_title); ?></span>
                     <a class="postcue-also-read-content-block-post-title" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_post_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_post_title); ?></a>
                     <a class="pocualrecb-template-action" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important;">
-                        <?php echo $pocualrecb_arrow_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                         <span><?php echo esc_html__('Continue reading', 'postcue-also-read-content-block'); ?></span>
+                        <?php echo $pocualrecb_arrow_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </a>
                 </div>
             </li>
-        <?php else : ?>
-            <li class="postcue-also-read-content-block-listing-item pocualrecb-template-layout-compact" style="background-color: <?php echo esc_attr($pocualrecb_post_bg_color); ?> !important;">
+        <?php elseif ('compact' === $pocualrecb_template) : ?>
+             <li class="postcue-also-read-content-block-listing-item pocualrecb-template-layout-compact" style="background-color: <?php echo esc_attr($pocualrecb_post_bg_color); ?> !important;">
                 <?php echo $pocualrecb_image_markup($pocualrecb_post_thumbnail, $pocualrecb_post_link, $pocualrecb_post_title); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                <a class="postcue-also-read-content-block-post-title" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_post_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_post_title); ?> <div class='pocualrecb-template-action'><?php echo esc_html__('Read More →', 'postcue-also-read-content-block'); ?></div></a>
+            </li>
+        <?php else : ?>
+            <li class="postcue-also-read-content-block-listing-item" style="background-color: <?php echo esc_attr($pocualrecb_post_bg_color); ?> !important;">
+                <?php if ($pocualrecb_has_thumbnail) : ?>
+                    <a class="postcue-also-read-content-block-post-image" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>">
+                        <img width="150" height="150" src="<?php echo esc_url($pocualrecb_post_thumbnail); ?>" alt="<?php echo esc_attr($pocualrecb_post_title); ?>" />
+                    </a>
+                <?php endif; ?>
                 <a class="postcue-also-read-content-block-post-title" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important; font-size: <?php echo esc_attr($pocualrecb_post_title_font_size); ?> !important;"><?php echo esc_html($pocualrecb_post_title); ?></a>
-                <a class="pocualrecb-template-arrow-link" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($pocualrecb_post_link); ?>" style="color: <?php echo esc_attr($pocualrecb_post_title_text_color); ?> !important;">
-                    <?php echo $pocualrecb_arrow_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                </a>
             </li>
         <?php endif; ?>
     </ul>
