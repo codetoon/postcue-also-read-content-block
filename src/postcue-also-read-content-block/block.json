@@ -5,7 +5,7 @@
 	"version": "1.0.0",
 	"title": "PostCue Also Read Content Block",
 	"category": "widgets",
-	"icon": "smiley",
+	"icon": "block-default",
 	"description": "Add 'Also Read' blocks to your posts for engaging and visually appealing interlinked content that keeps readers exploring and improves SEO.",
 	"example": {},
 	"supports": {
